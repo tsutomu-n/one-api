@@ -33,18 +33,18 @@ function renderStatus(status, model_limits_enabled = false) {
   switch (status) {
     case 1:
       if (model_limits_enabled) {
-        return <Tag color="green" size="large">已启用：限制模型</Tag>;
+        return <Tag color="green" size="large">有効済み：限制モデル</Tag>;
       } else {
-        return <Tag color="green" size="large">已启用</Tag>;
+        return <Tag color="green" size="large">有効済み</Tag>;
       }
     case 2:
-      return <Tag color="red" size="large"> 已禁用 </Tag>;
+      return <Tag color="red" size="large"> 無効済み </Tag>;
     case 3:
-      return <Tag color="yellow" size="large"> 已过期 </Tag>;
+      return <Tag color="yellow" size="large"> 期限切れ </Tag>;
     case 4:
-      return <Tag color="grey" size="large"> 已耗尽 </Tag>;
+      return <Tag color="grey" size="large"> 使い果たしました </Tag>;
     default:
-      return <Tag color="black" size="large"> 未知状态 </Tag>;
+      return <Tag color="black" size="large"> 不明な状態 </Tag>;
   }
 }
 
@@ -72,11 +72,11 @@ const TokensTable = () => {
 
   const columns = [
     {
-      title: '名称',
+      title: '名前',
       dataIndex: 'name'
     },
     {
-      title: '状态',
+      title: '状態',
       dataIndex: 'status',
       key: 'status',
       render: (text, record, index) => {
@@ -88,7 +88,7 @@ const TokensTable = () => {
       }
     },
     {
-      title: '已用额度',
+      title: '使用済み割り当て',
       dataIndex: 'used_quota',
       render: (text, record, index) => {
         return (
@@ -99,19 +99,19 @@ const TokensTable = () => {
       }
     },
     {
-      title: '剩余额度',
+      title: '残り割り当て',
       dataIndex: 'remain_quota',
       render: (text, record, index) => {
         return (
           <div>
-            {record.unlimited_quota ? <Tag size={'large'} color={'white'}>无限制</Tag> :
+            {record.unlimited_quota ? <Tag size={'large'} color={'white'}>無制限</Tag> :
               <Tag size={'large'} color={'light-blue'}>{renderQuota(parseInt(text))}</Tag>}
           </div>
         );
       }
     },
     {
-      title: '创建时间',
+      title: '作成時間',
       dataIndex: 'created_time',
       render: (text, record, index) => {
         return (
@@ -122,12 +122,12 @@ const TokensTable = () => {
       }
     },
     {
-      title: '过期时间',
+      title: '有効期限',
       dataIndex: 'expired_time',
       render: (text, record, index) => {
         return (
           <div>
-            {record.expired_time === -1 ? '永不过期' : renderTimestamp(text)}
+            {record.expired_time === -1 ? '無期限' : renderTimestamp(text)}
           </div>
         );
       }
@@ -150,11 +150,11 @@ const TokensTable = () => {
                   onClick={async (text) => {
                     await copyText('sk-' + record.key);
                   }}
-          >复制</Button>
+          >コピー</Button>
           <SplitButtonGroup style={{ marginRight: 1 }} aria-label="项目操作按钮组">
             <Button theme="light" style={{ color: 'rgba(var(--semi-teal-7), 1)' }} onClick={() => {
               onOpenLink('next', record.key);
-            }}>聊天</Button>
+            }}>チャット</Button>
             <Dropdown trigger="click" position="bottomRight" menu={
               [
                 {
@@ -198,7 +198,7 @@ const TokensTable = () => {
             </Dropdown>
           </SplitButtonGroup>
           <Popconfirm
-            title="确定是否要删除此令牌？"
+            title="确定是否要削除此APIキー？"
             content="此修改将不可逆"
             okType={'danger'}
             position={'left'}
@@ -210,7 +210,7 @@ const TokensTable = () => {
               );
             }}
           >
-            <Button theme="light" type="danger" style={{ marginRight: 1 }}>删除</Button>
+            <Button theme="light" type="danger" style={{ marginRight: 1 }}>削除</Button>
           </Popconfirm>
           {
             record.status === 1 ?
@@ -222,7 +222,7 @@ const TokensTable = () => {
                     record
                   );
                 }
-              }>禁用</Button> :
+              }>無効化</Button> :
               <Button theme="light" type="secondary" style={{ marginRight: 1 }} onClick={
                 async () => {
                   manageToken(
@@ -231,14 +231,14 @@ const TokensTable = () => {
                     record
                   );
                 }
-              }>启用</Button>
+              }>有効化</Button>
           }
           <Button theme="light" type="tertiary" style={{ marginRight: 1 }} onClick={
             () => {
               setEditingToken(record);
               setShowEdit(true);
             }
-          }>编辑</Button>
+          }>編集</Button>
         </div>
       )
     }
@@ -349,19 +349,19 @@ const TokensTable = () => {
         url = `sk-${key}`;
     }
     // if (await copy(url)) {
-    //     showSuccess('已复制到剪贴板！');
+    //     showSuccess('クリップボードにコピーしました！');
     // } else {
-    //     showWarning('无法复制到剪贴板，请手动复制，已将令牌填入搜索框。');
+    //     showWarning('クリップボードにコピーできません。手動でコピーしてください。トークンは検索ボックスに入力済みです。');
     //     setSearchKeyword(url);
     // }
   };
 
   const copyText = async (text) => {
     if (await copy(text)) {
-      showSuccess('已复制到剪贴板！');
+      showSuccess('クリップボードにコピーしました！');
     } else {
       // setSearchKeyword(text);
-      Modal.error({ title: '无法复制到剪贴板，请手动复制', content: text });
+      Modal.error({ title: 'クリップボードにコピーできません，手動でコピーしてください', content: text });
     }
   };
 
@@ -399,7 +399,7 @@ const TokensTable = () => {
         break;
       default:
         if (!chatLink) {
-          showError('管理员未设置聊天链接');
+          showError('管理者未設定チャット链接');
           return;
         }
         url = defaultUrl;
@@ -447,7 +447,7 @@ const TokensTable = () => {
     }
     const { success, message } = res.data;
     if (success) {
-      showSuccess('操作成功完成！');
+      showSuccess('操作が正常に完了しました！');
       let token = res.data.data;
       let newTokens = [...tokens];
       // let realIdx = (activePage - 1) * ITEMS_PER_PAGE + idx;
@@ -547,11 +547,11 @@ const TokensTable = () => {
   const renderSelectedOption = (orderBy) => {
     switch (orderBy) {
       case 'remain_quota':
-        return '按剩余额度排序';
+        return '按残り割り当て排序';
       case 'used_quota':
-        return '按已用额度排序';
+        return '按使用済み割り当て排序';
       default:
-        return '默认排序';
+        return 'デフォルト排序';
     }
   };
 
@@ -562,7 +562,7 @@ const TokensTable = () => {
         <Form.Input
           field="keyword"
           label="搜索关键字"
-          placeholder="令牌名称"
+          placeholder="APIキー名"
           value={searchKeyword}
           loading={searching}
           onChange={handleKeywordChange}
@@ -570,13 +570,13 @@ const TokensTable = () => {
         {/* <Form.Input
           field="token"
           label="Key"
-          placeholder="密钥"
+          placeholder="キー"
           value={searchToken}
           loading={searching}
           onChange={handleSearchTokenChange}
         /> */}
-        <Button label="查询" type="primary" htmlType="submit" className="btn-margin-right"
-                onClick={searchTokens} style={{ marginRight: 8 }}>查询</Button>
+        <Button label="検索" type="primary" htmlType="submit" className="btn-margin-right"
+                onClick={searchTokens} style={{ marginRight: 8 }}>検索</Button>
       </Form>
 
       <Table style={{ marginTop: 20 }} columns={columns} dataSource={pageData} pagination={{
@@ -600,11 +600,11 @@ const TokensTable = () => {
           });
           setShowEdit(true);
         }
-      }>添加令牌</Button>
-      <Button label="复制所选令牌" type="warning" onClick={
+      }>添加APIキー</Button>
+      <Button label="コピー所选APIキー" type="warning" onClick={
         async () => {
           if (selectedKeys.length === 0) {
-            showError('请至少选择一个令牌！');
+            showError('请至少选择一个APIキー！');
             return;
           }
           let keys = '';
@@ -613,7 +613,7 @@ const TokensTable = () => {
           }
           await copyText(keys);
         }
-      }>复制所选令牌到剪贴板</Button>
+      }>コピー所选APIキー到剪贴板</Button>
       <Dropdown
         trigger="click"
         position="bottomLeft"
@@ -621,9 +621,9 @@ const TokensTable = () => {
         onVisibleChange={(visible) => setDropdownVisible(visible)}
         render={
           <Dropdown.Menu>
-            <Dropdown.Item onClick={() => handleOrderByChange('', { value: '' })}>默认排序</Dropdown.Item>
-            <Dropdown.Item onClick={() => handleOrderByChange('', { value: 'remain_quota' })}>按剩余额度排序</Dropdown.Item>
-            <Dropdown.Item onClick={() => handleOrderByChange('', { value: 'used_quota' })}>按已用额度排序</Dropdown.Item>
+            <Dropdown.Item onClick={() => handleOrderByChange('', { value: '' })}>デフォルト排序</Dropdown.Item>
+            <Dropdown.Item onClick={() => handleOrderByChange('', { value: 'remain_quota' })}>按残り割り当て排序</Dropdown.Item>
+            <Dropdown.Item onClick={() => handleOrderByChange('', { value: 'used_quota' })}>按使用済み割り当て排序</Dropdown.Item>
           </Dropdown.Menu>
         }
       >

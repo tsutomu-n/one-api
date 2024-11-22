@@ -35,7 +35,7 @@ type OidcUser struct {
 
 func getOidcUserInfoByCode(code string) (*OidcUser, error) {
 	if code == "" {
-		return nil, errors.New("无效的参数")
+		return nil, errors.New("無効なパラメーター")
 	}
 	values := map[string]string{
 		"client_id":     config.OidcClientId,
@@ -60,7 +60,7 @@ func getOidcUserInfoByCode(code string) (*OidcUser, error) {
 	res, err := client.Do(req)
 	if err != nil {
 		logger.SysLog(err.Error())
-		return nil, errors.New("无法连接至 OIDC 服务器，请稍后重试！")
+		return nil, errors.New("なし法连接至 OIDC 服务器，请稍后重试！")
 	}
 	defer res.Body.Close()
 	var oidcResponse OidcResponse
@@ -76,7 +76,7 @@ func getOidcUserInfoByCode(code string) (*OidcUser, error) {
 	res2, err := client.Do(req)
 	if err != nil {
 		logger.SysLog(err.Error())
-		return nil, errors.New("无法连接至 OIDC 服务器，请稍后重试！")
+		return nil, errors.New("なし法连接至 OIDC 服务器，请稍后重试！")
 	}
 	var oidcUser OidcUser
 	err = json.NewDecoder(res2.Body).Decode(&oidcUser)
@@ -104,7 +104,7 @@ func OidcAuth(c *gin.Context) {
 	if !config.OidcEnabled {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": "管理员未开启通过 OIDC 登录以及注册",
+			"message": "管理者未开启通过 OIDC ログイン以及登録",
 		})
 		return
 	}
@@ -153,7 +153,7 @@ func OidcAuth(c *gin.Context) {
 		} else {
 			c.JSON(http.StatusOK, gin.H{
 				"success": false,
-				"message": "管理员关闭了新用户注册",
+				"message": "管理者が新規ユーザー登録を無効化しました",
 			})
 			return
 		}
@@ -161,7 +161,7 @@ func OidcAuth(c *gin.Context) {
 
 	if user.Status != model.UserStatusEnabled {
 		c.JSON(http.StatusOK, gin.H{
-			"message": "用户已被封禁",
+			"message": "ユーザーはブロックされています",
 			"success": false,
 		})
 		return
@@ -173,7 +173,7 @@ func OidcBind(c *gin.Context) {
 	if !config.OidcEnabled {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": "管理员未开启通过 OIDC 登录以及注册",
+			"message": "管理者未开启通过 OIDC ログイン以及登録",
 		})
 		return
 	}
@@ -192,7 +192,7 @@ func OidcBind(c *gin.Context) {
 	if model.IsOidcIdAlreadyTaken(user.OidcId) {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": "该 OIDC 账户已被绑定",
+			"message": "该 OIDC 账户已被紐付ける",
 		})
 		return
 	}

@@ -22,7 +22,7 @@ const TopUp = () => {
 
     const topUp = async () => {
         if (redemptionCode === '') {
-            showInfo('请输入兑换码！')
+            showInfo('请入力交換コード！')
             return;
         }
         setIsSubmitting(true);
@@ -32,8 +32,8 @@ const TopUp = () => {
             });
             const {success, message, data} = res.data;
             if (success) {
-                showSuccess('兑换成功！');
-                Modal.success({title: '兑换成功！', content: '成功兑换额度：' + renderQuota(data), centered: true});
+                showSuccess('交換成功！');
+                Modal.success({title: '交換成功！', content: '成功交換割り当て：' + renderQuota(data), centered: true});
                 setUserQuota((quota) => {
                     return quota + data;
                 });
@@ -50,7 +50,7 @@ const TopUp = () => {
 
     const openTopUpLink = () => {
         if (!topUpLink) {
-            showError('超级管理员未设置充值链接！');
+            showError('スーパー管理者がチャージリンクを設定していません！');
             return;
         }
         window.open(topUpLink, '_blank');
@@ -58,14 +58,14 @@ const TopUp = () => {
 
     const preTopUp = async (payment) => {
         if (!enableOnlineTopUp) {
-            showError('管理员未开启在线充值！');
+            showError('管理者未开启在线チャージ！');
             return;
         }
         if (amount === 0) {
             await getAmount();
         }
         if (topUpCount < minTopUp) {
-            showInfo('充值数量不能小于' + minTopUp);
+            showInfo('チャージ数量不能小于' + minTopUp);
             return;
         }
         setPayWay(payment)
@@ -77,7 +77,7 @@ const TopUp = () => {
             await getAmount();
         }
         if (topUpCount < minTopUp) {
-            showInfo('充值数量不能小于' + minTopUp);
+            showInfo('チャージ数量不能小于' + minTopUp);
             return;
         }
         setOpen(false);
@@ -194,11 +194,11 @@ const TopUp = () => {
         <div>
             <Layout>
                 <Layout.Header>
-                    <h3>充值额度</h3>
+                    <h3>チャージ割り当て</h3>
                 </Layout.Header>
                 <Layout.Content>
                     <Modal
-                        title="确定要充值吗"
+                        title="确定要チャージ吗"
                         visible={open}
                         onOk={onlineTopUp}
                         onCancel={handleCancel}
@@ -206,24 +206,24 @@ const TopUp = () => {
                         size={'small'}
                         centered={true}
                     >
-                        <p>充值数量：{topUpCount}$</p>
+                        <p>チャージ数量：{topUpCount}$</p>
                         <p>实付金额：{renderAmount()}</p>
-                        <p>是否确认充值？</p>
+                        <p>是否确认チャージ？</p>
                     </Modal>
                     <div style={{marginTop: 20, display: 'flex', justifyContent: 'center'}}>
                         <Card
                             style={{width: '500px', padding: '20px'}}
                         >
-                            <Title level={3} style={{textAlign: 'center'}}>余额 {renderQuota(userQuota)}</Title>
+                            <Title level={3} style={{textAlign: 'center'}}>残高 {renderQuota(userQuota)}</Title>
                             <div style={{marginTop: 20}}>
                                 <Divider>
-                                    兑换余额
+                                    交換残高
                                 </Divider>
                                 <Form>
                                     <Form.Input
                                         field={'redemptionCode'}
-                                        label={'兑换码'}
-                                        placeholder='兑换码'
+                                        label={'交換コード'}
+                                        placeholder='交換コード'
                                         name='redemptionCode'
                                         value={redemptionCode}
                                         onChange={(value) => {
@@ -234,26 +234,26 @@ const TopUp = () => {
                                         {
                                             topUpLink ?
                                                 <Button type={'primary'} theme={'solid'} onClick={openTopUpLink}>
-                                                    获取兑换码
+                                                    交換コードを取得
                                                 </Button> : null
                                         }
                                         <Button type={"warning"} theme={'solid'} onClick={topUp}
                                                 disabled={isSubmitting}>
-                                            {isSubmitting ? '兑换中...' : '兑换'}
+                                            {isSubmitting ? '交換中...' : '交換'}
                                         </Button>
                                     </Space>
                                 </Form>
                             </div>
                             {/* <div style={{marginTop: 20}}>
                                 <Divider>
-                                    在线充值
+                                    在线チャージ
                                 </Divider>
                                 <Form>
                                     <Form.Input
                                         disabled={!enableOnlineTopUp}
                                         field={'redemptionCount'}
                                         label={'实付金额：' + renderAmount()}
-                                        placeholder={'充值数量，最低' + minTopUp + '$'}
+                                        placeholder={'チャージ数量，最低' + minTopUp + '$'}
                                         name='redemptionCount'
                                         type={'number'}
                                         value={topUpCount}
@@ -298,7 +298,7 @@ const TopUp = () => {
                             {/*            async () => {*/}
                             {/*                window.location.href = '/topup/history'*/}
                             {/*            }*/}
-                            {/*        }>充值记录</Link>*/}
+                            {/*        }>チャージ记录</Link>*/}
                             {/*    </Text>*/}
                             {/*</div>*/}
                         </Card>

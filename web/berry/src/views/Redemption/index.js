@@ -96,7 +96,7 @@ export default function Redemption() {
     }
     const { success, message } = res.data;
     if (success) {
-      showSuccess('操作成功完成！');
+      showSuccess('操作が正常に完了しました！');
       if (action === 'delete') {
         await loadRedemptions(0);
       }
@@ -107,7 +107,7 @@ export default function Redemption() {
     return res.data;
   };
 
-  // 处理刷新
+  // 处理更新
   const handleRefresh = async () => {
     await loadRedemptions(0);
     setActivePage(0);
@@ -142,15 +142,15 @@ export default function Redemption() {
   return (
     <>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2.5}>
-        <Typography variant="h4">兑换</Typography>
+        <Typography variant="h4">交換</Typography>
 
         <Button variant="contained" color="primary" startIcon={<IconPlus />} onClick={() => handleOpenModal(0)}>
-          新建兑换码
+          新建交換コード
         </Button>
       </Stack>
       <Card>
         <Box component="form" onSubmit={searchRedemptions} noValidate sx={{marginTop: 2}}>
-          <TableToolBar filterName={searchKeyword} handleFilterName={handleSearchKeyword} placeholder={'搜索兑换码的ID和名称...'} />
+          <TableToolBar filterName={searchKeyword} handleFilterName={handleSearchKeyword} placeholder={'搜索交換コード的ID和名前...'} />
         </Box>
         <Toolbar
           sx={{
@@ -164,7 +164,7 @@ export default function Redemption() {
           <Container>
             <ButtonGroup variant="outlined" aria-label="outlined small primary button group" sx={{marginBottom: 2}}>
               <Button onClick={handleRefresh} startIcon={<IconRefresh width={'18px'} />}>
-                刷新
+                更新
               </Button>
             </ButtonGroup>
           </Container>

@@ -37,7 +37,7 @@ const Home = () => {
       localStorage.setItem('home_page_content', content);
     } else {
       showError(message);
-      setHomePageContent('加载首页内容失败...');
+      setHomePageContent('ホームページコンテンツの読み込みに失敗しました...');
     }
     setHomePageContentLoaded(true);
   };
@@ -59,19 +59,19 @@ const Home = () => {
             <Card
               bordered={false}
               headerLine={false}
-              title='系统状况'
+              title='システムの状態'
               bodyStyle={{ padding: '10px 20px' }}
             >
               <Row gutter={16}>
                 <Col span={12}>
                   <Card
-                    title='系统信息'
+                    title='システム情報'
                     headerExtraContent={<span
-                      style={{ fontSize: '12px', color: 'var(--semi-color-text-1)' }}>系统信息总览</span>}>
-                    <p>名称：{statusState?.status?.system_name}</p>
-                    <p>版本：{statusState?.status?.version ? statusState?.status?.version : 'unknown'}</p>
+                      style={{ fontSize: '12px', color: 'var(--semi-color-text-1)' }}>システム情報概要</span>}>
+                    <p>名前：{statusState?.status?.system_name}</p>
+                    <p>バージョン：{statusState?.status?.version ? statusState?.status?.version : 'unknown'}</p>
                     <p>
-                      源码：
+                      ソースコード：
                       <a
                         href='https://github.com/songquanpeng/one-api'
                         target='_blank' rel='noreferrer'
@@ -79,34 +79,34 @@ const Home = () => {
                         https://github.com/songquanpeng/one-api
                       </a>
                     </p>
-                    <p>启动时间：{getStartTimeString()}</p>
+                    <p>起動時間：{getStartTimeString()}</p>
                   </Card>
                 </Col>
                 <Col span={12}>
                   <Card
-                    title='系统配置'
+                    title='システム設定'
                     headerExtraContent={<span
-                      style={{ fontSize: '12px', color: 'var(--semi-color-text-1)' }}>系统配置总览</span>}>
+                      style={{ fontSize: '12px', color: 'var(--semi-color-text-1)' }}>システム設定概要</span>}>
                     <p>
-                      邮箱验证：
-                      {statusState?.status?.email_verification === true ? '已启用' : '未启用'}
+                      メール認証：
+                      {statusState?.status?.email_verification === true ? '有効済み' : '無効'}
                     </p>
                     <p>
-                      GitHub 身份验证：
-                      {statusState?.status?.github_oauth === true ? '已启用' : '未启用'}
+                      GitHub認証：
+                      {statusState?.status?.github_oauth === true ? '有効済み' : '無効'}
                     </p>
                     <p>
-                      微信身份验证：
-                      {statusState?.status?.wechat_login === true ? '已启用' : '未启用'}
+                      WeChat認証：
+                      {statusState?.status?.wechat_login === true ? '有効済み' : '無効'}
                     </p>
                     <p>
-                      Turnstile 用户校验：
-                      {statusState?.status?.turnstile_check === true ? '已启用' : '未启用'}
+                      Turnstileユーザー検証：
+                      {statusState?.status?.turnstile_check === true ? '有効済み' : '無効'}
                     </p>
                     {/*<p>*/}
                     {/*  Telegram 身份验证：*/}
                     {/*  {statusState?.status?.telegram_oauth === true*/}
-                    {/*    ? '已启用' : '未启用'}*/}
+                    {/*    ? '有効済み' : '無効'}*/}
                     {/*</p>*/}
                   </Card>
                 </Col>

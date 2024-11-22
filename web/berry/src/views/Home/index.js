@@ -36,7 +36,7 @@ const Home = () => {
       localStorage.setItem('home_page_content', content);
     } else {
       showError(message);
-      setHomePageContent('加载首页内容失败...');
+      setHomePageContent('ホームページコンテンツの読み込みに失敗しました...');
     }
     setHomePageContentLoaded(true);
   };

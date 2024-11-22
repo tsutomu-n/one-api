@@ -66,9 +66,9 @@ const Setting = () => {
           <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
               <Tabs value={value} onChange={handleChange} variant="scrollable" scrollButtons="auto">
-                <Tab label="运营设置" {...a11yProps(0)} icon={<IconActivity />} iconPosition="start" />
-                <Tab label="系统设置" {...a11yProps(1)} icon={<IconSettings />} iconPosition="start" />
-                <Tab label="其他设置" {...a11yProps(2)} icon={<IconSettings2 />} iconPosition="start" />
+                <Tab label="運用設定" {...a11yProps(0)} icon={<IconActivity />} iconPosition="start" />
+                <Tab label="システム設定" {...a11yProps(1)} icon={<IconSettings />} iconPosition="start" />
+                <Tab label="その他の設定" {...a11yProps(2)} icon={<IconSettings2 />} iconPosition="start" />
               </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>

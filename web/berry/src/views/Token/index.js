@@ -106,7 +106,7 @@ export default function Token() {
     }
     const { success, message } = res.data;
     if (success) {
-      showSuccess('操作成功完成！');
+      showSuccess('操作が正常に完了しました！');
       if (action === 'delete') {
         await handleRefresh();
       }
@@ -117,7 +117,7 @@ export default function Token() {
     return res.data;
   };
 
-  // 处理刷新
+  // 处理更新
   const handleRefresh = async () => {
     await loadTokens(activePage);
   };
@@ -142,7 +142,7 @@ export default function Token() {
   return (
     <>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2.5}>
-        <Typography variant="h4">令牌</Typography>
+        <Typography variant="h4">APIキー</Typography>
         <Button
           variant="contained"
           color="primary"
@@ -151,17 +151,17 @@ export default function Token() {
           }}
           startIcon={<IconPlus />}
         >
-          新建令牌
+          新建APIキー
         </Button>
       </Stack>
       <Stack mb={2}>
         <Alert severity="info">
-          将 OpenAI API 基础地址 https://api.openai.com 替换为 <b>{siteInfo.server_address}</b>，复制下面的密钥即可使用
+          将 OpenAI API 基础地址 https://api.openai.com 替换为 <b>{siteInfo.server_address}</b>，コピー下面的キー即可使用
         </Alert>
       </Stack>
       <Card>
         <Box component="form" onSubmit={searchTokens} noValidate sx={{marginTop: 2}}>
-          <TableToolBar filterName={searchKeyword} handleFilterName={handleSearchKeyword} placeholder={'搜索令牌的名称...'} />
+          <TableToolBar filterName={searchKeyword} handleFilterName={handleSearchKeyword} placeholder={'搜索APIキー的名前...'} />
         </Box>
         <Toolbar
           sx={{
@@ -175,7 +175,7 @@ export default function Token() {
           <Container>
             <ButtonGroup variant="outlined" aria-label="outlined small primary button group" sx={{marginBottom: 2}}>
               <Button onClick={handleRefresh} startIcon={<IconRefresh width={'18px'} />}>
-                刷新
+                更新
               </Button>
             </ButtonGroup>
           </Container>

@@ -43,13 +43,13 @@ const Footer = () => {
             >
               {systemName} {process.env.REACT_APP_VERSION}{' '}
             </a>
-            由{' '}
+            によって構築{' '}
             <a href='https://github.com/songquanpeng' target='_blank'>
               JustSong
             </a>{' '}
-            构建，源代码遵循{' '}
+            、ソースコードは{' '}に準拠しています。
             <a href='https://opensource.org/licenses/mit-license.php'>
-              MIT 协议
+              MITライセンス
             </a>
           </div>
         )}

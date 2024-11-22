@@ -92,7 +92,7 @@ func Relay(c *gin.Context) {
 	}
 	if bizErr != nil {
 		if bizErr.StatusCode == http.StatusTooManyRequests {
-			bizErr.Error.Message = "当前分组上游负载已饱和，请稍后再试"
+			bizErr.Error.Message = "現在のグループのアップストリーム負荷が飽和状態です。後ほど再試行してください。"
 		}
 
 		// BUG: bizErr is in race condition

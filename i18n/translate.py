@@ -2,26 +2,23 @@ import argparse
 import json
 import os
 
+
 def list_file_paths(path):
     file_paths = []
     for root, dirs, files in os.walk(path):
-        if "node_modules" in dirs:
-            dirs.remove("node_modules")
-        if "build" in dirs:
-            dirs.remove("build")
-        if "i18n" in dirs:
-            dirs.remove("i18n")
+        # 除外ディレクトリを追加
+        exclude_dirs = {"node_modules", "build", "i18n", ".git"}
+        dirs[:] = [d for d in dirs if d not in exclude_dirs]
+
+        # ファイルフィルタ
         for file in files:
             file_path = os.path.join(root, file)
-            if file_path.endswith("png") or file_path.endswith("ico") or file_path.endswith("db") or file_path.endswith("exe"):
-                continue
-            file_paths.append(file_path)
-
-        for dir in dirs:
-            dir_path = os.path.join(root, dir)
-            file_paths += list_file_paths(dir_path)
+            # テキストファイルのみを対象にする
+            if file_path.endswith((".txt", ".md", ".html", ".js", ".ts", ".json", ".go")):
+                file_paths.append(file_path)
 
     return file_paths
+
 
 
 def replace_keys_in_repository(repo_path, json_file_path):

@@ -14,7 +14,7 @@ import { stringToColor } from '../helpers/render';
 // HeaderBar Buttons
 let headerButtons = [
   {
-    text: '关于',
+    text: 'バージョン情報',
     itemKey: 'about',
     to: '/about',
     icon: <IconHelpCircle />
@@ -23,7 +23,7 @@ let headerButtons = [
 
 if (localStorage.getItem('chat_link')) {
   headerButtons.splice(1, 0, {
-    name: '聊天',
+    name: 'チャット',
     to: '/chat',
     icon: 'comments'
   });
@@ -45,7 +45,7 @@ const HeaderBar = () => {
   async function logout() {
     setShowSidebar(false);
     await API.get('/api/user/logout');
-    showSuccess('注销成功!');
+    showSuccess('ログアウトに成功しました！');
     userDispatch({ type: 'logout' });
     localStorage.removeItem('user');
     navigate('/login');
@@ -144,8 +144,8 @@ const HeaderBar = () => {
                   </>
                   :
                   <>
-                    <Nav.Item itemKey={'login'} text={'登录'} icon={<IconKey />} />
-                    <Nav.Item itemKey={'register'} text={'注册'} icon={<IconUser />} />
+                    <Nav.Item itemKey={'login'} text={'ログイン'} icon={<IconKey />} />
+                    <Nav.Item itemKey={'register'} text={'登録'} icon={<IconUser />} />
                   </>
                 }
               </>

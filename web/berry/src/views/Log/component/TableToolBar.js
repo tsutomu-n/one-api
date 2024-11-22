@@ -39,17 +39,17 @@ export default function TableToolBar({
         paddingBottom={"0px"}
       >
         <FormControl>
-          <InputLabel htmlFor="channel-token_name-label">令牌名称</InputLabel>
+          <InputLabel htmlFor="channel-token_name-label">APIキー名</InputLabel>
           <OutlinedInput
             id="token_name"
             name="token_name"
             sx={{
               minWidth: "100%",
             }}
-            label="令牌名称"
+            label="APIキー名"
             value={filterName.token_name}
             onChange={handleFilterName}
-            placeholder="令牌名称"
+            placeholder="APIキー名"
             startAdornment={
               <InputAdornment position="start">
                 <IconKey stroke={1.5} size="20px" color={grey500} />
@@ -58,17 +58,17 @@ export default function TableToolBar({
           />
         </FormControl>
         <FormControl>
-          <InputLabel htmlFor="channel-model_name-label">模型名称</InputLabel>
+          <InputLabel htmlFor="channel-model_name-label">モデル名</InputLabel>
           <OutlinedInput
             id="model_name"
             name="model_name"
             sx={{
               minWidth: "100%",
             }}
-            label="模型名称"
+            label="モデル名"
             value={filterName.model_name}
             onChange={handleFilterName}
-            placeholder="模型名称"
+            placeholder="モデル名"
             startAdornment={
               <InputAdornment position="start">
                 <IconBrandGithubCopilot
@@ -87,7 +87,7 @@ export default function TableToolBar({
             adapterLocale={"zh-cn"}
           >
             <DateTimePicker
-              label="起始时间"
+              label="開始時間"
               ampm={false}
               name="start_timestamp"
               value={
@@ -121,7 +121,7 @@ export default function TableToolBar({
             adapterLocale={"zh-cn"}
           >
             <DateTimePicker
-              label="结束时间"
+              label="終了時間"
               name="end_timestamp"
               ampm={false}
               value={
@@ -157,17 +157,17 @@ export default function TableToolBar({
       >
         {userIsAdmin && (
           <FormControl>
-            <InputLabel htmlFor="channel-channel-label">渠道ID</InputLabel>
+            <InputLabel htmlFor="channel-channel-label">チャネルID</InputLabel>
             <OutlinedInput
               id="channel"
               name="channel"
               sx={{
                 minWidth: "100%",
               }}
-              label="渠道ID"
+              label="チャネルID"
               value={filterName.channel}
               onChange={handleFilterName}
-              placeholder="渠道ID"
+              placeholder="チャネルID"
               startAdornment={
                 <InputAdornment position="start">
                   <IconSitemap stroke={1.5} size="20px" color={grey500} />
@@ -179,17 +179,17 @@ export default function TableToolBar({
 
         {userIsAdmin && (
           <FormControl>
-            <InputLabel htmlFor="channel-username-label">用户名称</InputLabel>
+            <InputLabel htmlFor="channel-username-label">ユーザー名</InputLabel>
             <OutlinedInput
               id="username"
               name="username"
               sx={{
                 minWidth: "100%",
               }}
-              label="用户名称"
+              label="ユーザー名"
               value={filterName.username}
               onChange={handleFilterName}
-              placeholder="用户名称"
+              placeholder="ユーザー名"
               startAdornment={
                 <InputAdornment position="start">
                   <IconUser stroke={1.5} size="20px" color={grey500} />
@@ -200,10 +200,10 @@ export default function TableToolBar({
         )}
 
         <FormControl sx={{ minWidth: "22%" }}>
-          <InputLabel htmlFor="channel-type-label">类型</InputLabel>
+          <InputLabel htmlFor="channel-type-label">タイプ</InputLabel>
           <Select
             id="channel-type-label"
-            label="类型"
+            label="タイプ"
             value={filterName.type}
             name="type"
             onChange={handleFilterName}

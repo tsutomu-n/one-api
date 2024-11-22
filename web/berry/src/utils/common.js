@@ -31,21 +31,21 @@ export function showError(error) {
     if (error.name === 'AxiosError') {
       switch (error.response.status) {
         case 429:
-          enqueueSnackbar('错误：请求次数过多，请稍后再试！', getSnackbarOptions('ERROR'));
+          enqueueSnackbar('エラー：リクエストが多すぎます。後ほど再試行してください！', getSnackbarOptions('ERROR'));
           break;
         case 500:
-          enqueueSnackbar('错误：服务器内部错误，请联系管理员！', getSnackbarOptions('ERROR'));
+          enqueueSnackbar('エラー：サーバー内部エラーです。管理者にお問い合わせください！', getSnackbarOptions('ERROR'));
           break;
         case 405:
-          enqueueSnackbar('本站仅作演示之用，无服务端！', getSnackbarOptions('INFO'));
+          enqueueSnackbar('このサイトはデモ用であり、サーバーはありません！', getSnackbarOptions('INFO'));
           break;
         default:
-          enqueueSnackbar('错误：' + error.message, getSnackbarOptions('ERROR'));
+          enqueueSnackbar('エラー：' + error.message, getSnackbarOptions('ERROR'));
       }
       return;
     }
   } else {
-    enqueueSnackbar('错误：' + error, getSnackbarOptions('ERROR'));
+    enqueueSnackbar('エラー：' + error, getSnackbarOptions('ERROR'));
   }
 }
 
@@ -187,7 +187,7 @@ export function renderQuotaWithPrompt(quota, digits) {
   let displayInCurrency = localStorage.getItem('display_in_currency');
   displayInCurrency = displayInCurrency === 'true';
   if (displayInCurrency) {
-    return `（等价金额：${renderQuota(quota, digits)}）`;
+    return `（同等額：${renderQuota(quota, digits)}）`;
   }
   return '';
 }
@@ -239,9 +239,9 @@ export function copy(text, name = '') {
   try {
     navigator.clipboard.writeText(text);
   } catch (error) {
-    text = `复制${name}失败，请手动复制：<br /><br />${text}`;
+    text = `コピー${name}失败，手動でコピーしてください：<br /><br />${text}`;
     enqueueSnackbar(<SnackbarHTMLContent htmlContent={text} />, getSnackbarOptions('COPY'));
     return;
   }
-  showSuccess(`复制${name}成功！`);
+  showSuccess(`コピー${name}成功！`);
 }

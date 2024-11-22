@@ -19,11 +19,11 @@ function renderStatus(status) {
     case 1:
       return <Label basic color='green'>未使用</Label>;
     case 2:
-      return <Label basic color='red'> 已禁用 </Label>;
+      return <Label basic color='red'> 無効済み </Label>;
     case 3:
-      return <Label basic color='grey'> 已使用 </Label>;
+      return <Label basic color='grey'> 使用済み </Label>;
     default:
-      return <Label basic color='black'> 未知状态 </Label>;
+      return <Label basic color='black'> 不明な状態 </Label>;
   }
 }
 
@@ -87,7 +87,7 @@ const RedemptionsTable = () => {
     }
     const { success, message } = res.data;
     if (success) {
-      showSuccess('操作成功完成！');
+      showSuccess('操作が正常に完了しました！');
       let redemption = res.data.data;
       let newRedemptions = [...redemptions];
       let realIdx = (activePage - 1) * ITEMS_PER_PAGE + idx;
@@ -152,7 +152,7 @@ const RedemptionsTable = () => {
           icon='search'
           fluid
           iconPosition='left'
-          placeholder='搜索兑换码的 ID 和名称 ...'
+          placeholder='交換コードのIDと名前を検索 ...'
           value={searchKeyword}
           loading={searching}
           onChange={handleKeywordChange}
@@ -176,7 +176,7 @@ const RedemptionsTable = () => {
                 sortRedemption('name');
               }}
             >
-              名称
+              名前
             </Table.HeaderCell>
             <Table.HeaderCell
               style={{ cursor: 'pointer' }}
@@ -184,7 +184,7 @@ const RedemptionsTable = () => {
                 sortRedemption('status');
               }}
             >
-              状态
+              状態
             </Table.HeaderCell>
             <Table.HeaderCell
               style={{ cursor: 'pointer' }}
@@ -192,7 +192,7 @@ const RedemptionsTable = () => {
                 sortRedemption('quota');
               }}
             >
-              额度
+              割り当て
             </Table.HeaderCell>
             <Table.HeaderCell
               style={{ cursor: 'pointer' }}
@@ -200,7 +200,7 @@ const RedemptionsTable = () => {
                 sortRedemption('created_time');
               }}
             >
-              创建时间
+              作成時間
             </Table.HeaderCell>
             <Table.HeaderCell
               style={{ cursor: 'pointer' }}
@@ -208,7 +208,7 @@ const RedemptionsTable = () => {
                 sortRedemption('redeemed_time');
               }}
             >
-              兑换时间
+              交換時間
             </Table.HeaderCell>
             <Table.HeaderCell>操作</Table.HeaderCell>
           </Table.Row>
@@ -225,11 +225,11 @@ const RedemptionsTable = () => {
               return (
                 <Table.Row key={redemption.id}>
                   <Table.Cell>{redemption.id}</Table.Cell>
-                  <Table.Cell>{redemption.name ? redemption.name : '无'}</Table.Cell>
+                  <Table.Cell>{redemption.name ? redemption.name : 'なし'}</Table.Cell>
                   <Table.Cell>{renderStatus(redemption.status)}</Table.Cell>
                   <Table.Cell>{renderQuota(redemption.quota)}</Table.Cell>
                   <Table.Cell>{renderTimestamp(redemption.created_time)}</Table.Cell>
-                  <Table.Cell>{redemption.redeemed_time ? renderTimestamp(redemption.redeemed_time) : "尚未兑换"} </Table.Cell>
+                  <Table.Cell>{redemption.redeemed_time ? renderTimestamp(redemption.redeemed_time) : "未交換"} </Table.Cell>
                   <Table.Cell>
                     <div>
                       <Button
@@ -237,19 +237,19 @@ const RedemptionsTable = () => {
                         positive
                         onClick={async () => {
                           if (await copy(redemption.key)) {
-                            showSuccess('已复制到剪贴板！');
+                            showSuccess('クリップボードにコピーしました！');
                           } else {
-                            showWarning('无法复制到剪贴板，请手动复制，已将兑换码填入搜索框。')
+                            showWarning('クリップボードにコピーできません，手動でコピーしてください，交換コードを検索ボックスに入力しました。')
                             setSearchKeyword(redemption.key);
                           }
                         }}
                       >
-                        复制
+                        コピー
                       </Button>
                       <Popup
                         trigger={
                           <Button size='small' negative>
-                            删除
+                            削除
                           </Button>
                         }
                         on='click'
@@ -262,7 +262,7 @@ const RedemptionsTable = () => {
                             manageRedemption(redemption.id, 'delete', idx);
                           }}
                         >
-                          确认删除
+                          削除の確認
                         </Button>
                       </Popup>
                       <Button
@@ -276,14 +276,14 @@ const RedemptionsTable = () => {
                           );
                         }}
                       >
-                        {redemption.status === 1 ? '禁用' : '启用'}
+                        {redemption.status === 1 ? '無効化' : '有効化'}
                       </Button>
                       <Button
                         size={'small'}
                         as={Link}
                         to={'/redemption/edit/' + redemption.id}
                       >
-                        编辑
+                        編集
                       </Button>
                     </div>
                   </Table.Cell>
@@ -296,7 +296,7 @@ const RedemptionsTable = () => {
           <Table.Row>
             <Table.HeaderCell colSpan='8'>
               <Button size='small' as={Link} to='/redemption/add' loading={loading}>
-                添加新的兑换码
+                新しい交換コードを追加
               </Button>
               <Pagination
                 floated='right'

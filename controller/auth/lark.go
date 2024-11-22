@@ -27,7 +27,7 @@ type LarkUser struct {
 
 func getLarkUserInfoByCode(code string) (*LarkUser, error) {
 	if code == "" {
-		return nil, errors.New("无效的参数")
+		return nil, errors.New("無効なパラメーター")
 	}
 	values := map[string]string{
 		"client_id":     config.LarkClientId,
@@ -52,7 +52,7 @@ func getLarkUserInfoByCode(code string) (*LarkUser, error) {
 	res, err := client.Do(req)
 	if err != nil {
 		logger.SysLog(err.Error())
-		return nil, errors.New("无法连接至飞书服务器，请稍后重试！")
+		return nil, errors.New("なし法连接至飞书服务器，请稍后重试！")
 	}
 	defer res.Body.Close()
 	var oAuthResponse LarkOAuthResponse
@@ -68,7 +68,7 @@ func getLarkUserInfoByCode(code string) (*LarkUser, error) {
 	res2, err := client.Do(req)
 	if err != nil {
 		logger.SysLog(err.Error())
-		return nil, errors.New("无法连接至飞书服务器，请稍后重试！")
+		return nil, errors.New("なし法连接至飞书服务器，请稍后重试！")
 	}
 	var larkUser LarkUser
 	err = json.NewDecoder(res2.Body).Decode(&larkUser)
@@ -135,7 +135,7 @@ func LarkOAuth(c *gin.Context) {
 		} else {
 			c.JSON(http.StatusOK, gin.H{
 				"success": false,
-				"message": "管理员关闭了新用户注册",
+				"message": "管理者が新規ユーザー登録を無効化しました",
 			})
 			return
 		}
@@ -143,7 +143,7 @@ func LarkOAuth(c *gin.Context) {
 
 	if user.Status != model.UserStatusEnabled {
 		c.JSON(http.StatusOK, gin.H{
-			"message": "用户已被封禁",
+			"message": "ユーザーはブロックされています",
 			"success": false,
 		})
 		return
@@ -167,7 +167,7 @@ func LarkBind(c *gin.Context) {
 	if model.IsLarkIdAlreadyTaken(user.LarkId) {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": "该飞书账户已被绑定",
+			"message": "该飞书账户已被紐付ける",
 		})
 		return
 	}

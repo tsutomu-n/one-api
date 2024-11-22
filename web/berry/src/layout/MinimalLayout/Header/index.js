@@ -72,10 +72,10 @@ const Header = () => {
         ) : (
           <>
             <Button component={Link} variant="text" to="/" color={pathname === '/' ? 'primary' : 'inherit'}>
-              首页
+              ホーム
             </Button>
             <Button component={Link} variant="text" to="/about" color={pathname === '/about' ? 'primary' : 'inherit'}>
-              关于
+              バージョン情報
             </Button>
             <ThemeButton />
             {account.user ? (
@@ -87,7 +87,7 @@ const Header = () => {
               </>
             ) : (
               <Button component={Link} variant="contained" to="/login" color="primary">
-                登录
+                ログイン
               </Button>
             )}
           </>
@@ -131,11 +131,11 @@ const Header = () => {
                     onClick={handleCloseMenu}
                   >
                     <ListItemButton component={Link} variant="text" to="/">
-                      <ListItemText primary={<Typography variant="body2">首页</Typography>} />
+                      <ListItemText primary={<Typography variant="body2">ホーム</Typography>} />
                     </ListItemButton>
 
                     <ListItemButton component={Link} variant="text" to="/about">
-                      <ListItemText primary={<Typography variant="body2">关于</Typography>} />
+                      <ListItemText primary={<Typography variant="body2">バージョン情報</Typography>} />
                     </ListItemButton>
                     <Divider />
                     {account.user ? (
@@ -144,7 +144,7 @@ const Header = () => {
                       </ListItemButton>
                     ) : (
                       <ListItemButton component={Link} variant="contained" to="/login" color="primary">
-                        登录
+                        ログイン
                       </ListItemButton>
                     )}
                   </List>

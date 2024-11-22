@@ -21,7 +21,7 @@ const useLogin = () => {
       }
       return { success, message };
     } catch (err) {
-      // 请求失败，设置错误信息
+      // 请求失败，設定错误信息
       return { success: false, message: '' };
     }
   };
@@ -32,18 +32,18 @@ const useLogin = () => {
       const { success, message, data } = res.data;
       if (success) {
         if (message === 'bind') {
-          showSuccess('绑定成功！');
+          showSuccess('紐付けに成功しました！');
           navigate('/panel');
         } else {
           dispatch({ type: LOGIN, payload: data });
           localStorage.setItem('user', JSON.stringify(data));
-          showSuccess('登录成功！');
+          showSuccess('ログインに成功しました！');
           navigate('/panel');
         }
       }
       return { success, message };
     } catch (err) {
-      // 请求失败，设置错误信息
+      // 请求失败，設定错误信息
       return { success: false, message: '' };
     }
   };
@@ -54,18 +54,18 @@ const useLogin = () => {
       const { success, message, data } = res.data;
       if (success) {
         if (message === 'bind') {
-          showSuccess('绑定成功！');
+          showSuccess('紐付けに成功しました！');
           navigate('/panel');
         } else {
           dispatch({ type: LOGIN, payload: data });
           localStorage.setItem('user', JSON.stringify(data));
-          showSuccess('登录成功！');
+          showSuccess('ログインに成功しました！');
           navigate('/panel');
         }
       }
       return { success, message };
     } catch (err) {
-      // 请求失败，设置错误信息
+      // 请求失败，設定错误信息
       return { success: false, message: '' };
     }
   };
@@ -76,18 +76,18 @@ const useLogin = () => {
       const { success, message, data } = res.data;
       if (success) {
         if (message === 'bind') {
-          showSuccess('绑定成功！');
+          showSuccess('紐付けに成功しました！');
           navigate('/panel');
         } else {
           dispatch({ type: LOGIN, payload: data });
           localStorage.setItem('user', JSON.stringify(data));
-          showSuccess('登录成功！');
+          showSuccess('ログインに成功しました！');
           navigate('/panel');
         }
       }
       return { success, message };
     } catch (err) {
-      // 请求失败，设置错误信息
+      // 请求失败，設定错误信息
       return { success: false, message: '' };
     }
   }
@@ -99,12 +99,12 @@ const useLogin = () => {
       if (success) {
         dispatch({ type: LOGIN, payload: data });
         localStorage.setItem('user', JSON.stringify(data));
-        showSuccess('登录成功！');
+        showSuccess('ログインに成功しました！');
         navigate('/panel');
       }
       return { success, message };
     } catch (err) {
-      // 请求失败，设置错误信息
+      // 请求失败，設定错误信息
       return { success: false, message: '' };
     }
   };

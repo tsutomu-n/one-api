@@ -88,21 +88,21 @@ func AddRedemption(c *gin.Context) {
 	if len(redemption.Name) == 0 || len(redemption.Name) > 20 {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": "兑换码名称长度必须在1-20之间",
+			"message": "交換コード名は1〜20文字である必要があります",
 		})
 		return
 	}
 	if redemption.Count <= 0 {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": "兑换码个数必须大于0",
+			"message": "交換コードの数は0より大きい必要があります",
 		})
 		return
 	}
 	if redemption.Count > 100 {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": "一次兑换码批量生成的个数不能大于 100",
+			"message": "一度にバッチ生成できる交換コードの数は100以下である必要があります",
 		})
 		return
 	}

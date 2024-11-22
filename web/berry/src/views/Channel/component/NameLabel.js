@@ -28,7 +28,7 @@ const NameLabel = ({ name, models }) => {
                   variant="ghost"
                   key={index}
                   onClick={() => {
-                    copy(item, '模型名称');
+                    copy(item, 'モデル名');
                   }}
                 >
                   {item}

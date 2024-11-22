@@ -65,7 +65,7 @@ const PersonalSetting = () => {
       setSystemToken(data);
       setAffLink(""); 
       await copy(data);
-      showSuccess(`令牌已重置并已复制到剪贴板`);
+      showSuccess(`トークンがリセットされ、クリップボードにコピーされました`);
     } else {
       showError(message);
     }
@@ -79,7 +79,7 @@ const PersonalSetting = () => {
       setAffLink(link);
       setSystemToken("");
       await copy(link);
-      showSuccess(`邀请链接已复制到剪切板`);
+      showSuccess(`招待リンクがクリップボードにコピーされました`);
     } else {
       showError(message);
     }
@@ -88,18 +88,18 @@ const PersonalSetting = () => {
   const handleAffLinkClick = async (e) => {
     e.target.select();
     await copy(e.target.value);
-    showSuccess(`邀请链接已复制到剪切板`);
+    showSuccess(`招待リンクがクリップボードにコピーされました`);
   };
 
   const handleSystemTokenClick = async (e) => {
     e.target.select();
     await copy(e.target.value);
-    showSuccess(`系统令牌已复制到剪切板`);
+    showSuccess(`系统APIキー已コピー到剪切板`);
   };
 
   const deleteAccount = async () => {
     if (inputs.self_account_deletion_confirmation !== userState.user.username) {
-      showError('请输入你的账户名以确认删除！');
+      showError('请アカウント名を入力してください以削除の確認！');
       return;
     }
 
@@ -107,7 +107,7 @@ const PersonalSetting = () => {
     const { success, message } = res.data;
 
     if (success) {
-      showSuccess('账户已删除！');
+      showSuccess('账户已削除！');
       await API.get('/api/user/logout');
       userDispatch({ type: 'logout' });
       localStorage.removeItem('user');
@@ -124,7 +124,7 @@ const PersonalSetting = () => {
     );
     const { success, message } = res.data;
     if (success) {
-      showSuccess('微信账户绑定成功！');
+      showSuccess('WeChatアカウントの紐付けに成功しました！');
       setShowWeChatBindModal(false);
     } else {
       showError(message);
@@ -135,7 +135,7 @@ const PersonalSetting = () => {
     setDisableButton(true);
     if (inputs.email === '') return;
     if (turnstileEnabled && turnstileToken === '') {
-      showInfo('请稍后几秒重试，Turnstile 正在检查用户环境！');
+      showInfo('数秒後にもう一度お試しください。Turnstileがユーザー環境を確認しています！');
       return;
     }
     setLoading(true);
@@ -144,7 +144,7 @@ const PersonalSetting = () => {
     );
     const { success, message } = res.data;
     if (success) {
-      showSuccess('验证码发送成功，请检查邮箱！');
+      showSuccess('確認コードの送信に成功しました，メールをご確認ください！');
     } else {
       showError(message);
     }
@@ -159,7 +159,7 @@ const PersonalSetting = () => {
     );
     const { success, message } = res.data;
     if (success) {
-      showSuccess('邮箱账户绑定成功！');
+      showSuccess('メールアカウントの紐付けに成功しました！');
       setShowEmailBindModal(false);
     } else {
       showError(message);
@@ -169,18 +169,18 @@ const PersonalSetting = () => {
 
   return (
     <div style={{ lineHeight: '40px' }}>
-      <Header as='h3'>通用设置</Header>
+      <Header as='h3'>一般設定</Header>
       <Message>
-        注意，此处生成的令牌用于系统管理，而非用于请求 OpenAI 相关的服务，请知悉。
+        注意：ここで生成されたトークンはシステム管理に使用されます，OpenAI関連サービスのリクエストには使用されません，ご承知おきください。
       </Message>
       <Button as={Link} to={`/user/edit/`}>
-        更新个人信息
+        個人情報を更新
       </Button>
-      <Button onClick={generateAccessToken}>生成系统访问令牌</Button>
-      <Button onClick={getAffLink}>复制邀请链接</Button>
+      <Button onClick={generateAccessToken}>システムアクセストークンを生成</Button>
+      <Button onClick={getAffLink}>招待リンクをコピー</Button>
       <Button onClick={() => {
         setShowAccountDeleteModal(true);
-      }}>删除个人账户</Button>
+      }}>削除个人账户</Button>
       
       {systemToken && (
         <Form.Input 
@@ -201,7 +201,7 @@ const PersonalSetting = () => {
         />
       )}
       <Divider />
-      <Header as='h3'>账号绑定</Header>
+      <Header as='h3'>アカウント紐付け</Header>
       {
         status.wechat_login && (
           <Button
@@ -209,7 +209,7 @@ const PersonalSetting = () => {
               setShowWeChatBindModal(true);
             }}
           >
-            绑定微信账号
+            WeChatアカウントを紐付ける
           </Button>
         )
       }
@@ -224,19 +224,19 @@ const PersonalSetting = () => {
             <Image src={status.wechat_qrcode} fluid />
             <div style={{ textAlign: 'center' }}>
               <p>
-                微信扫码关注公众号，输入「验证码」获取验证码（三分钟内有效）
+                WeChatのQRコードをスキャンして公式アカウントをフォローし、「確認コード」と入力して確認コードを取得します（3分間有効）
               </p>
             </div>
             <Form size='large'>
               <Form.Input
                 fluid
-                placeholder='验证码'
+                placeholder='確認コード'
                 name='wechat_verification_code'
                 value={inputs.wechat_verification_code}
                 onChange={handleInputChange}
               />
               <Button color='' fluid size='large' onClick={bindWeChat}>
-                绑定
+                紐付ける
               </Button>
             </Form>
           </Modal.Description>
@@ -244,12 +244,12 @@ const PersonalSetting = () => {
       </Modal>
       {
         status.github_oauth && (
-          <Button onClick={()=>{onGitHubOAuthClicked(status.github_client_id)}}>绑定 GitHub 账号</Button>
+          <Button onClick={()=>{onGitHubOAuthClicked(status.github_client_id)}}>GitHubアカウントを紐付ける</Button>
         )
       }
       {
         status.lark_client_id && (
-          <Button onClick={()=>{onLarkOAuthClicked(status.lark_client_id)}}>绑定飞书账号</Button>
+          <Button onClick={()=>{onLarkOAuthClicked(status.lark_client_id)}}>紐付ける飞书账号</Button>
         )
       }
       <Button
@@ -257,7 +257,7 @@ const PersonalSetting = () => {
           setShowEmailBindModal(true);
         }}
       >
-        绑定邮箱地址
+        メールアドレスを紐付ける
       </Button>
       <Modal
         onClose={() => setShowEmailBindModal(false)}
@@ -266,25 +266,25 @@ const PersonalSetting = () => {
         size={'tiny'}
         style={{ maxWidth: '450px' }}
       >
-        <Modal.Header>绑定邮箱地址</Modal.Header>
+        <Modal.Header>メールアドレスを紐付ける</Modal.Header>
         <Modal.Content>
           <Modal.Description>
             <Form size='large'>
               <Form.Input
                 fluid
-                placeholder='输入邮箱地址'
+                placeholder='メールアドレスを入力'
                 onChange={handleInputChange}
                 name='email'
                 type='email'
                 action={
                   <Button onClick={sendVerificationCode} disabled={disableButton || loading}>
-                    {disableButton ? `重新发送(${countdown})` : '获取验证码'}
+                    {disableButton ? `重新发送(${countdown})` : '確認コードを取得'}
                   </Button>
                 }
               />
               <Form.Input
                 fluid
-                placeholder='验证码'
+                placeholder='確認コード'
                 name='email_verification_code'
                 value={inputs.email_verification_code}
                 onChange={handleInputChange}
@@ -307,7 +307,7 @@ const PersonalSetting = () => {
                 onClick={bindEmail}
                 loading={loading}
               >
-                确认绑定
+                紐付けの確認
               </Button>
               <div style={{ width: '1rem' }}></div> 
               <Button
@@ -315,7 +315,7 @@ const PersonalSetting = () => {
                 size='large'
                 onClick={() => setShowEmailBindModal(false)}
               >
-                取消
+                キャンセル
               </Button>
               </div>
             </Form>
@@ -329,14 +329,14 @@ const PersonalSetting = () => {
         size={'tiny'}
         style={{ maxWidth: '450px' }}
       >
-        <Modal.Header>危险操作</Modal.Header>
+        <Modal.Header>危険な操作</Modal.Header>
         <Modal.Content>
-        <Message>您正在删除自己的帐户，将清空所有数据且不可恢复</Message>
+        <Message>アカウントを削除しようとしています。すべてのデータが消滅し、復元できません。</Message>
           <Modal.Description>
             <Form size='large'>
               <Form.Input
                 fluid
-                placeholder={`输入你的账户名 ${userState?.user?.username} 以确认删除`}
+                placeholder={`アカウント名を入力してください ${userState?.user?.username} 以削除の確認`}
                 name='self_account_deletion_confirmation'
                 value={inputs.self_account_deletion_confirmation}
                 onChange={handleInputChange}
@@ -359,7 +359,7 @@ const PersonalSetting = () => {
                   onClick={deleteAccount}
                   loading={loading}
                 >
-                  确认删除
+                  削除の確認
                 </Button>
                 <div style={{ width: '1rem' }}></div>
                 <Button
@@ -367,7 +367,7 @@ const PersonalSetting = () => {
                   size='large'
                   onClick={() => setShowAccountDeleteModal(false)}
                 >
-                  取消
+                  キャンセル
                 </Button>
               </div>
             </Form>

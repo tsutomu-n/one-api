@@ -37,7 +37,7 @@ const Home = () => {
       localStorage.setItem('home_page_content', content);
     } else {
       showError(message);
-      setHomePageContent('加载首页内容失败...');
+      setHomePageContent('ホームページコンテンツの読み込みに失敗しました...');
     }
     setHomePageContentLoaded(true);
   };
@@ -56,18 +56,18 @@ const Home = () => {
       {
         homePageContentLoaded && homePageContent === '' ? <>
           <Segment>
-            <Header as='h3'>系统状况</Header>
+            <Header as='h3'>システムの状態</Header>
             <Grid columns={2} stackable>
               <Grid.Column>
                 <Card fluid>
                   <Card.Content>
-                    <Card.Header>系统信息</Card.Header>
-                    <Card.Meta>系统信息总览</Card.Meta>
+                    <Card.Header>システム情報</Card.Header>
+                    <Card.Meta>システム情報概要</Card.Meta>
                     <Card.Description>
-                      <p>名称：{statusState?.status?.system_name}</p>
-                      <p>版本：{statusState?.status?.version ? statusState?.status?.version : "unknown"}</p>
+                      <p>名前：{statusState?.status?.system_name}</p>
+                      <p>バージョン：{statusState?.status?.version ? statusState?.status?.version : "unknown"}</p>
                       <p>
-                        源码：
+                        ソースコード：
                         <a
                           href='https://github.com/songquanpeng/one-api'
                           target='_blank'
@@ -75,7 +75,7 @@ const Home = () => {
                           https://github.com/songquanpeng/one-api
                         </a>
                       </p>
-                      <p>启动时间：{getStartTimeString()}</p>
+                      <p>起動時間：{getStartTimeString()}</p>
                     </Card.Description>
                   </Card.Content>
                 </Card>
@@ -83,32 +83,32 @@ const Home = () => {
               <Grid.Column>
                 <Card fluid>
                   <Card.Content>
-                    <Card.Header>系统配置</Card.Header>
-                    <Card.Meta>系统配置总览</Card.Meta>
+                    <Card.Header>システム設定</Card.Header>
+                    <Card.Meta>システム設定概要</Card.Meta>
                     <Card.Description>
                       <p>
-                        邮箱验证：
+                        メール認証：
                         {statusState?.status?.email_verification === true
-                          ? '已启用'
-                          : '未启用'}
+                          ? '有効済み'
+                          : '無効'}
                       </p>
                       <p>
-                        GitHub 身份验证：
+                        GitHub認証：
                         {statusState?.status?.github_oauth === true
-                          ? '已启用'
-                          : '未启用'}
+                          ? '有効済み'
+                          : '無効'}
                       </p>
                       <p>
-                        微信身份验证：
+                        WeChat認証：
                         {statusState?.status?.wechat_login === true
-                          ? '已启用'
-                          : '未启用'}
+                          ? '有効済み'
+                          : '無効'}
                       </p>
                       <p>
-                        Turnstile 用户校验：
+                        Turnstileユーザー検証：
                         {statusState?.status?.turnstile_check === true
-                          ? '已启用'
-                          : '未启用'}
+                          ? '有効済み'
+                          : '無効'}
                       </p>
                     </Card.Description>
                   </Card.Content>

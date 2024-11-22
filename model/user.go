@@ -85,7 +85,7 @@ func SearchUsers(keyword string) (users []*User, err error) {
 
 func GetUserById(id int, selectAll bool) (*User, error) {
 	if id == 0 {
-		return nil, errors.New("id 为空！")
+		return nil, errors.New("IDが空です！")
 	}
 	user := User{Id: id}
 	var err error = nil
@@ -99,7 +99,7 @@ func GetUserById(id int, selectAll bool) (*User, error) {
 
 func GetUserIdByAffCode(affCode string) (int, error) {
 	if affCode == "" {
-		return 0, errors.New("affCode 为空！")
+		return 0, errors.New("招待コードが空です！")
 	}
 	var user User
 	err := DB.Select("id").First(&user, "aff_code = ?", affCode).Error
@@ -108,7 +108,7 @@ func GetUserIdByAffCode(affCode string) (int, error) {
 
 func DeleteUserById(id int) (err error) {
 	if id == 0 {
-		return errors.New("id 为空！")
+		return errors.New("IDが空です！")
 	}
 	user := User{Id: id}
 	return user.Delete()
@@ -130,16 +130,16 @@ func (user *User) Insert(inviterId int) error {
 		return result.Error
 	}
 	if config.QuotaForNewUser > 0 {
-		RecordLog(user.Id, LogTypeSystem, fmt.Sprintf("新用户注册赠送 %s", common.LogQuota(config.QuotaForNewUser)))
+		RecordLog(user.Id, LogTypeSystem, fmt.Sprintf("新規ユーザー登録で %s をプレゼント", common.LogQuota(config.QuotaForNewUser)))
 	}
 	if inviterId != 0 {
 		if config.QuotaForInvitee > 0 {
 			_ = IncreaseUserQuota(user.Id, config.QuotaForInvitee)
-			RecordLog(user.Id, LogTypeSystem, fmt.Sprintf("使用邀请码赠送 %s", common.LogQuota(config.QuotaForInvitee)))
+			RecordLog(user.Id, LogTypeSystem, fmt.Sprintf("招待コードを使用して %s をプレゼント", common.LogQuota(config.QuotaForInvitee)))
 		}
 		if config.QuotaForInviter > 0 {
 			_ = IncreaseUserQuota(inviterId, config.QuotaForInviter)
-			RecordLog(inviterId, LogTypeSystem, fmt.Sprintf("邀请用户赠送 %s", common.LogQuota(config.QuotaForInviter)))
+			RecordLog(inviterId, LogTypeSystem, fmt.Sprintf("ユーザーを招待して %s をプレゼント", common.LogQuota(config.QuotaForInviter)))
 		}
 	}
 	// create default token
@@ -180,7 +180,7 @@ func (user *User) Update(updatePassword bool) error {
 
 func (user *User) Delete() error {
 	if user.Id == 0 {
-		return errors.New("id 为空！")
+		return errors.New("IDが空です！")
 	}
 	blacklist.BanUser(user.Id)
 	user.Username = fmt.Sprintf("deleted_%s", random.GetUUID())
@@ -196,7 +196,7 @@ func (user *User) ValidateAndFill() (err error) {
 	// it won’t be used to build query conditions
 	password := user.Password
 	if user.Username == "" || password == "" {
-		return errors.New("用户名或密码为空")
+		return errors.New("ユーザー名またはパスワードが空です")
 	}
 	err = DB.Where("username = ?", user.Username).First(user).Error
 	if err != nil {
@@ -204,19 +204,19 @@ func (user *User) ValidateAndFill() (err error) {
 		// consider this case: a malicious user set his username as other's email
 		err := DB.Where("email = ?", user.Username).First(user).Error
 		if err != nil {
-			return errors.New("用户名或密码错误，或用户已被封禁")
+			return errors.New("ユーザー名またはパスワードが間違っているか、ユーザーがブロックされています")
 		}
 	}
 	okay := common.ValidatePasswordAndHash(password, user.Password)
 	if !okay || user.Status != UserStatusEnabled {
-		return errors.New("用户名或密码错误，或用户已被封禁")
+		return errors.New("ユーザー名またはパスワードが間違っているか、ユーザーがブロックされています")
 	}
 	return nil
 }
 
 func (user *User) FillUserById() error {
 	if user.Id == 0 {
-		return errors.New("id 为空！")
+		return errors.New("IDが空です！")
 	}
 	DB.Where(User{Id: user.Id}).First(user)
 	return nil
@@ -224,7 +224,7 @@ func (user *User) FillUserById() error {
 
 func (user *User) FillUserByEmail() error {
 	if user.Email == "" {
-		return errors.New("email 为空！")
+		return errors.New("メールアドレスが空です！")
 	}
 	DB.Where(User{Email: user.Email}).First(user)
 	return nil
@@ -232,7 +232,7 @@ func (user *User) FillUserByEmail() error {
 
 func (user *User) FillUserByGitHubId() error {
 	if user.GitHubId == "" {
-		return errors.New("GitHub id 为空！")
+		return errors.New("GitHub IDが空です！")
 	}
 	DB.Where(User{GitHubId: user.GitHubId}).First(user)
 	return nil
@@ -240,7 +240,7 @@ func (user *User) FillUserByGitHubId() error {
 
 func (user *User) FillUserByLarkId() error {
 	if user.LarkId == "" {
-		return errors.New("lark id 为空！")
+		return errors.New("lark IDが空です！")
 	}
 	DB.Where(User{LarkId: user.LarkId}).First(user)
 	return nil
@@ -248,7 +248,7 @@ func (user *User) FillUserByLarkId() error {
 
 func (user *User) FillUserByOidcId() error {
 	if user.OidcId == "" {
-		return errors.New("oidc id 为空！")
+		return errors.New("oidc IDが空です！")
 	}
 	DB.Where(User{OidcId: user.OidcId}).First(user)
 	return nil
@@ -256,7 +256,7 @@ func (user *User) FillUserByOidcId() error {
 
 func (user *User) FillUserByWeChatId() error {
 	if user.WeChatId == "" {
-		return errors.New("WeChat id 为空！")
+		return errors.New("WeChat IDが空です！")
 	}
 	DB.Where(User{WeChatId: user.WeChatId}).First(user)
 	return nil
@@ -264,7 +264,7 @@ func (user *User) FillUserByWeChatId() error {
 
 func (user *User) FillUserByUsername() error {
 	if user.Username == "" {
-		return errors.New("username 为空！")
+		return errors.New("ユーザー名が空です！")
 	}
 	DB.Where(User{Username: user.Username}).First(user)
 	return nil
@@ -296,7 +296,7 @@ func IsUsernameAlreadyTaken(username string) bool {
 
 func ResetUserPasswordByEmail(email string, password string) error {
 	if email == "" || password == "" {
-		return errors.New("邮箱地址或密码为空！")
+		return errors.New("メールアドレスまたはパスワードが空です！")
 	}
 	hashedPassword, err := common.Password2Hash(password)
 	if err != nil {
@@ -370,7 +370,7 @@ func GetUserGroup(id int) (group string, err error) {
 
 func IncreaseUserQuota(id int, quota int64) (err error) {
 	if quota < 0 {
-		return errors.New("quota 不能为负数！")
+		return errors.New("割り当ては負の数であってはなりません！")
 	}
 	if config.BatchUpdateEnabled {
 		addNewRecord(BatchUpdateTypeUserQuota, id, quota)
@@ -386,7 +386,7 @@ func increaseUserQuota(id int, quota int64) (err error) {
 
 func DecreaseUserQuota(id int, quota int64) (err error) {
 	if quota < 0 {
-		return errors.New("quota 不能为负数！")
+		return errors.New("割り当ては負の数であってはなりません！")
 	}
 	if config.BatchUpdateEnabled {
 		addNewRecord(BatchUpdateTypeUserQuota, id, -quota)

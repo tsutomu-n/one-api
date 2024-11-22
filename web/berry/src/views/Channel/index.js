@@ -113,7 +113,7 @@ export default function ChannelPage() {
     }
     const { success, message } = res.data;
     if (success) {
-      showSuccess('操作成功完成！');
+      showSuccess('操作が正常に完了しました！');
       if (action === 'delete') {
         await handleRefresh();
       }
@@ -124,41 +124,41 @@ export default function ChannelPage() {
     return res.data;
   };
 
-  // 处理刷新
+  // 处理更新
   const handleRefresh = async () => {
     await loadChannels(activePage);
   };
 
-  // 处理测试所有启用渠道
+  // 处理テスト所有有効化チャネル
   const testAllChannels = async () => {
     const res = await API.get(`/api/channel/test`);
     const { success, message } = res.data;
     if (success) {
-      showInfo('已成功开始测试所有渠道，请刷新页面查看结果。');
+      showInfo('すべてのチャネルのテストが正常に開始されました。ページを更新して結果を確認してください。');
     } else {
       showError(message);
     }
   };
 
-  // 处理删除所有禁用渠道
+  // 处理削除所有無効化チャネル
   const deleteAllDisabledChannels = async () => {
     const res = await API.delete(`/api/channel/disabled`);
     const { success, message, data } = res.data;
     if (success) {
-      showSuccess(`已删除所有禁用渠道，共计 ${data} 个`);
+      showSuccess(`已削除所有無効化チャネル，共计 ${data} 个`);
       await handleRefresh();
     } else {
       showError(message);
     }
   };
 
-  // 处理更新所有启用渠道余额
+  // 处理更新所有有効化チャネル残高
   const updateAllChannelsBalance = async () => {
     setSearching(true);
     const res = await API.get(`/api/channel/update_balance`);
     const { success, message } = res.data;
     if (success) {
-      showInfo('已更新完毕所有已启用渠道余额！');
+      showInfo('すべての有効なチャネルの残高が更新されました！');
     } else {
       showError(message);
     }
@@ -194,14 +194,14 @@ export default function ChannelPage() {
   return (
     <>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2.5}>
-        <Typography variant="h4">渠道</Typography>
+        <Typography variant="h4">チャネル</Typography>
         <Button variant="contained" color="primary" startIcon={<IconPlus />} onClick={() => handleOpenModal(0)}>
-          新建渠道
+          新建チャネル
         </Button>
       </Stack>
       <Card>
         <Box component="form" onSubmit={searchChannels} noValidate sx={{ marginTop: 2 }}>
-          <TableToolBar filterName={searchKeyword} handleFilterName={handleSearchKeyword} placeholder={'搜索渠道的 ID，名称和密钥 ...'} />
+          <TableToolBar filterName={searchKeyword} handleFilterName={handleSearchKeyword} placeholder={'チャネルのID、名前、キーを検索...'} />
         </Box>
         <Toolbar
           sx={{
@@ -216,16 +216,16 @@ export default function ChannelPage() {
             {matchUpMd ? (
               <ButtonGroup variant="outlined" aria-label="outlined small primary button group" sx={{ marginBottom: 2 }}>
                 <Button onClick={handleRefresh} startIcon={<IconRefresh width={'18px'} />}>
-                  刷新
+                  更新
                 </Button>
                 <Button onClick={testAllChannels} startIcon={<IconBrandSpeedtest width={'18px'} />}>
-                  测试启用渠道
+                  テスト有効化チャネル
                 </Button>
                 {/*<Button onClick={updateAllChannelsBalance} startIcon={<IconCoinYuan width={'18px'} />}>*/}
-                {/*  更新启用余额*/}
+                {/*  更新有効化残高*/}
                 {/*</Button>*/}
                 <Button onClick={deleteAllDisabledChannels} startIcon={<IconHttpDelete width={'18px'} />}>
-                  删除禁用渠道
+                  削除無効化チャネル
                 </Button>
               </ButtonGroup>
             ) : (

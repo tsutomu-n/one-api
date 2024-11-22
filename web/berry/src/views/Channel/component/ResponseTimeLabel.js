@@ -6,7 +6,7 @@ import { timestamp2string } from 'utils/common';
 const ResponseTimeLabel = ({ test_time, response_time, handle_action }) => {
   let color = 'default';
   let time = response_time / 1000;
-  time = time.toFixed(2) + ' 秒';
+  time = time.toFixed(2) + '秒';
 
   if (response_time === 0) {
     color = 'default';
@@ -23,13 +23,13 @@ const ResponseTimeLabel = ({ test_time, response_time, handle_action }) => {
     <>
       点击测速
       <br />
-      {test_time != 0 ? '上次测速时间：' + timestamp2string(test_time) : '未测试'}
+      {test_time != 0 ? '上次测速時間：' + timestamp2string(test_time) : '未テスト'}
     </>
   );
 
   return (
     <Tooltip title={title} placement="top" onClick={handle_action}>
-      <Label color={color}> {response_time == 0 ? '未测试' : time} </Label>
+      <Label color={color}> {response_time == 0 ? '未テスト' : time} </Label>
     </Tooltip>
   );
 };

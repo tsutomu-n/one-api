@@ -26,13 +26,13 @@ import { useTheme } from '@mui/material/styles';
 function renderRole(role) {
   switch (role) {
     case 1:
-      return <Label color="default">普通用户</Label>;
+      return <Label color="default">一般ユーザー</Label>;
     case 10:
-      return <Label color="orange">管理员</Label>;
+      return <Label color="orange">管理者</Label>;
     case 100:
-      return <Label color="success">超级管理员</Label>;
+      return <Label color="success">スーパー管理者</Label>;
     default:
-      return <Label color="error">未知身份</Label>;
+      return <Label color="error">不明なID</Label>;
   }
 }
 
@@ -85,19 +85,19 @@ export default function UsersTableRow({ item, manageUser, handleOpenModal, setMo
 
         <TableCell>
           <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="center">
-            <Tooltip title={'剩余额度'} placement="top">
+            <Tooltip title={'残り割り当て'} placement="top">
               <Label color={'primary'} variant="outlined">
                 {' '}
                 {renderQuota(item.quota)}{' '}
               </Label>
             </Tooltip>
-            <Tooltip title={'已用额度'} placement="top">
+            <Tooltip title={'使用済み割り当て'} placement="top">
               <Label color={'primary'} variant="outlined">
                 {' '}
                 {renderQuota(item.used_quota)}{' '}
               </Label>
             </Tooltip>
-            <Tooltip title={'请求次数'} placement="top">
+            <Tooltip title={'リクエスト回数'} placement="top">
               <Label color={'primary'} variant="outlined">
                 {' '}
                 {renderNumber(item.request_count)}{' '}
@@ -108,13 +108,13 @@ export default function UsersTableRow({ item, manageUser, handleOpenModal, setMo
         <TableCell>{renderRole(item.role)}</TableCell>
         <TableCell>
           <Stack direction="row" spacing={0.5} alignItems="center" justifyContent="center">
-            <Tooltip title={item.wechat_id ? item.wechat_id : '未绑定'} placement="top">
+            <Tooltip title={item.wechat_id ? item.wechat_id : '未紐付ける'} placement="top">
               <IconBrandWechat color={item.wechat_id ? theme.palette.success.dark : theme.palette.grey[400]} />
             </Tooltip>
-            <Tooltip title={item.github_id ? item.github_id : '未绑定'} placement="top">
+            <Tooltip title={item.github_id ? item.github_id : '未紐付ける'} placement="top">
               <IconBrandGithub color={item.github_id ? theme.palette.grey[900] : theme.palette.grey[400]} />
             </Tooltip>
-            <Tooltip title={item.email ? item.email : '未绑定'} placement="top">
+            <Tooltip title={item.email ? item.email : '未紐付ける'} placement="top">
               <IconMail color={item.email ? theme.palette.grey[900] : theme.palette.grey[400]} />
             </Tooltip>
           </Stack>
@@ -149,7 +149,7 @@ export default function UsersTableRow({ item, manageUser, handleOpenModal, setMo
             }}
           >
             <IconUser style={{ marginRight: '16px' }} />
-            {item.role === 1 ? '设为管理员' : '取消管理员'}
+            {item.role === 1 ? '设为管理者' : 'キャンセル管理者'}
           </MenuItem>
         )}
 
@@ -161,23 +161,23 @@ export default function UsersTableRow({ item, manageUser, handleOpenModal, setMo
           }}
         >
           <IconEdit style={{ marginRight: '16px' }} />
-          编辑
+          編集
         </MenuItem>
         <MenuItem onClick={handleDeleteOpen} sx={{ color: 'error.main' }}>
           <IconTrash style={{ marginRight: '16px' }} />
-          删除
+          削除
         </MenuItem>
       </Popover>
 
       <Dialog open={openDelete} onClose={handleDeleteClose}>
-        <DialogTitle>删除用户</DialogTitle>
+        <DialogTitle>ユーザーを削除</DialogTitle>
         <DialogContent>
-          <DialogContentText>是否删除用户 {item.name}？</DialogContentText>
+          <DialogContentText>是否ユーザーを削除 {item.name}？</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleDeleteClose}>关闭</Button>
+          <Button onClick={handleDeleteClose}>閉じる</Button>
           <Button onClick={handleDelete} sx={{ color: 'error.main' }} autoFocus>
-            删除
+            削除
           </Button>
         </DialogActions>
       </Dialog>

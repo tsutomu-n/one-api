@@ -24,7 +24,7 @@ type LoginRequest struct {
 func Login(c *gin.Context) {
 	if !config.PasswordLoginEnabled {
 		c.JSON(http.StatusOK, gin.H{
-			"message": "管理员关闭了密码登录",
+			"message": "管理者がパスワードログインを無効にしました",
 			"success": false,
 		})
 		return
@@ -33,7 +33,7 @@ func Login(c *gin.Context) {
 	err := json.NewDecoder(c.Request.Body).Decode(&loginRequest)
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
-			"message": "无效的参数",
+			"message": "無効なパラメーター",
 			"success": false,
 		})
 		return
@@ -42,7 +42,7 @@ func Login(c *gin.Context) {
 	password := loginRequest.Password
 	if username == "" || password == "" {
 		c.JSON(http.StatusOK, gin.H{
-			"message": "无效的参数",
+			"message": "無効なパラメーター",
 			"success": false,
 		})
 		return
@@ -72,7 +72,7 @@ func SetupLogin(user *model.User, c *gin.Context) {
 	err := session.Save()
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
-			"message": "无法保存会话信息，请重试",
+			"message": "セッション情報を保存できません。再試行してください。",
 			"success": false,
 		})
 		return
@@ -111,14 +111,14 @@ func Logout(c *gin.Context) {
 func Register(c *gin.Context) {
 	if !config.RegisterEnabled {
 		c.JSON(http.StatusOK, gin.H{
-			"message": "管理员关闭了新用户注册",
+			"message": "管理者が新規ユーザー登録を無効化しました",
 			"success": false,
 		})
 		return
 	}
 	if !config.PasswordRegisterEnabled {
 		c.JSON(http.StatusOK, gin.H{
-			"message": "管理员关闭了通过密码进行注册，请使用第三方账户验证的形式进行注册",
+			"message": "管理者がパスワードによる登録を無効にしました。サードパーティアカウント検証を使用して登録してください。",
 			"success": false,
 		})
 		return
@@ -128,14 +128,14 @@ func Register(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": "无效的参数",
+			"message": "無効なパラメーター",
 		})
 		return
 	}
 	if err := common.Validate.Struct(&user); err != nil {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": "输入不合法 " + err.Error(),
+			"message": "入力が無効です" + err.Error(),
 		})
 		return
 	}
@@ -143,14 +143,14 @@ func Register(c *gin.Context) {
 		if user.Email == "" || user.VerificationCode == "" {
 			c.JSON(http.StatusOK, gin.H{
 				"success": false,
-				"message": "管理员开启了邮箱验证，请输入邮箱地址和验证码",
+				"message": "管理者がメール検証を有効にしています。メールアドレスと確認コードを入力してください。",
 			})
 			return
 		}
 		if !common.VerifyCodeWithKey(user.Email, user.VerificationCode, common.EmailVerificationPurpose) {
 			c.JSON(http.StatusOK, gin.H{
 				"success": false,
-				"message": "验证码错误或已过期",
+				"message": "確認コードが間違っているか、期限切れです",
 			})
 			return
 		}
@@ -244,7 +244,7 @@ func GetUser(c *gin.Context) {
 	if myRole <= user.Role && myRole != model.RoleRootUser {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": "无权获取同级或更高等级用户的信息",
+			"message": "同レベルまたは上位レベルのユーザーの情報を取得する権限がありません",
 		})
 		return
 	}
@@ -266,7 +266,7 @@ func GetUserDashboard(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": "无法获取统计信息",
+			"message": "なし法获取統計情報",
 			"data":    nil,
 		})
 		return
@@ -294,7 +294,7 @@ func GenerateAccessToken(c *gin.Context) {
 	if model.DB.Where("access_token = ?", user.AccessToken).First(user).RowsAffected != 0 {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": "请重试，系统生成的 UUID 竟然重复了！",
+			"message": "再試行してください。システムで生成されたUUIDが重複しました！",
 		})
 		return
 	}
@@ -367,7 +367,7 @@ func UpdateUser(c *gin.Context) {
 	if err != nil || updatedUser.Id == 0 {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": "无效的参数",
+			"message": "無効なパラメーター",
 		})
 		return
 	}
@@ -377,7 +377,7 @@ func UpdateUser(c *gin.Context) {
 	if err := common.Validate.Struct(&updatedUser); err != nil {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": "输入不合法 " + err.Error(),
+			"message": "入力が無効です" + err.Error(),
 		})
 		return
 	}
@@ -393,14 +393,14 @@ func UpdateUser(c *gin.Context) {
 	if myRole <= originUser.Role && myRole != model.RoleRootUser {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": "无权更新同权限等级或更高权限等级的用户信息",
+			"message": "同レベルまたは上位レベルのユーザーの情報を更新する権限がありません",
 		})
 		return
 	}
 	if myRole <= updatedUser.Role && myRole != model.RoleRootUser {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": "无权将其他用户权限等级提升到大于等于自己的权限等级",
+			"message": "なし权将其他ユーザー权限等级昇格到大于等于自己的权限等级",
 		})
 		return
 	}
@@ -416,7 +416,7 @@ func UpdateUser(c *gin.Context) {
 		return
 	}
 	if originUser.Quota != updatedUser.Quota {
-		model.RecordLog(originUser.Id, model.LogTypeManage, fmt.Sprintf("管理员将用户额度从 %s修改为 %s", common.LogQuota(originUser.Quota), common.LogQuota(updatedUser.Quota)))
+		model.RecordLog(originUser.Id, model.LogTypeManage, fmt.Sprintf("管理者がユーザー割り当てを %s から %s に変更しました", common.LogQuota(originUser.Quota), common.LogQuota(updatedUser.Quota)))
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"success": true,
@@ -431,7 +431,7 @@ func UpdateSelf(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": "无效的参数",
+			"message": "無効なパラメーター",
 		})
 		return
 	}
@@ -441,7 +441,7 @@ func UpdateSelf(c *gin.Context) {
 	if err := common.Validate.Struct(&user); err != nil {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": "输入不合法 " + err.Error(),
+			"message": "入力が無効です" + err.Error(),
 		})
 		return
 	}
@@ -493,7 +493,7 @@ func DeleteUser(c *gin.Context) {
 	if myRole <= originUser.Role {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": "无权删除同权限等级或更高权限等级的用户",
+			"message": "同レベルまたは上位レベルのユーザーを削除する権限がありません",
 		})
 		return
 	}
@@ -514,7 +514,7 @@ func DeleteSelf(c *gin.Context) {
 	if user.Role == model.RoleRootUser {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": "不能删除超级管理员账户",
+			"message": "不能削除スーパー管理者账户",
 		})
 		return
 	}
@@ -540,14 +540,14 @@ func CreateUser(c *gin.Context) {
 	if err != nil || user.Username == "" || user.Password == "" {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": "无效的参数",
+			"message": "無効なパラメーター",
 		})
 		return
 	}
 	if err := common.Validate.Struct(&user); err != nil {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": "输入不合法 " + err.Error(),
+			"message": "入力が無効です" + err.Error(),
 		})
 		return
 	}
@@ -558,7 +558,7 @@ func CreateUser(c *gin.Context) {
 	if user.Role >= myRole {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": "无法创建权限大于等于自己的用户",
+			"message": "自分自身以上の権限を持つユーザーを作成できません",
 		})
 		return
 	}
@@ -596,7 +596,7 @@ func ManageUser(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": "无效的参数",
+			"message": "無効なパラメーター",
 		})
 		return
 	}
@@ -608,7 +608,7 @@ func ManageUser(c *gin.Context) {
 	if user.Id == 0 {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": "用户不存在",
+			"message": "ユーザーが存在しません",
 		})
 		return
 	}
@@ -616,7 +616,7 @@ func ManageUser(c *gin.Context) {
 	if myRole <= user.Role && myRole != model.RoleRootUser {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": "无权更新同权限等级或更高权限等级的用户信息",
+			"message": "同レベルまたは上位レベルのユーザーの情報を更新する権限がありません",
 		})
 		return
 	}
@@ -626,7 +626,7 @@ func ManageUser(c *gin.Context) {
 		if user.Role == model.RoleRootUser {
 			c.JSON(http.StatusOK, gin.H{
 				"success": false,
-				"message": "无法禁用超级管理员用户",
+				"message": "スーパー管理者を無効にすることはできません",
 			})
 			return
 		}
@@ -636,7 +636,7 @@ func ManageUser(c *gin.Context) {
 		if user.Role == model.RoleRootUser {
 			c.JSON(http.StatusOK, gin.H{
 				"success": false,
-				"message": "无法删除超级管理员用户",
+				"message": "スーパー管理者を削除することはできません",
 			})
 			return
 		}
@@ -651,14 +651,14 @@ func ManageUser(c *gin.Context) {
 		if myRole != model.RoleRootUser {
 			c.JSON(http.StatusOK, gin.H{
 				"success": false,
-				"message": "普通管理员用户无法提升其他用户为管理员",
+				"message": "通常の管理者ユーザーは、他のユーザーを管理者に昇格させることはできません",
 			})
 			return
 		}
 		if user.Role >= model.RoleAdminUser {
 			c.JSON(http.StatusOK, gin.H{
 				"success": false,
-				"message": "该用户已经是管理员",
+				"message": "このユーザーは既に管理者です",
 			})
 			return
 		}
@@ -667,14 +667,14 @@ func ManageUser(c *gin.Context) {
 		if user.Role == model.RoleRootUser {
 			c.JSON(http.StatusOK, gin.H{
 				"success": false,
-				"message": "无法降级超级管理员用户",
+				"message": "スーパー管理者を降格させることはできません",
 			})
 			return
 		}
 		if user.Role == model.RoleCommonUser {
 			c.JSON(http.StatusOK, gin.H{
 				"success": false,
-				"message": "该用户已经是普通用户",
+				"message": "このユーザーは既に一般ユーザーです",
 			})
 			return
 		}
@@ -706,7 +706,7 @@ func EmailBind(c *gin.Context) {
 	if !common.VerifyCodeWithKey(email, code, common.EmailVerificationPurpose) {
 		c.JSON(http.StatusOK, gin.H{
 			"success": false,
-			"message": "验证码错误或已过期",
+			"message": "確認コードが間違っているか、期限切れです",
 		})
 		return
 	}
@@ -798,7 +798,7 @@ func AdminTopUp(c *gin.Context) {
 		return
 	}
 	if req.Remark == "" {
-		req.Remark = fmt.Sprintf("通过 API 充值 %s", common.LogQuota(int64(req.Quota)))
+		req.Remark = fmt.Sprintf("通过 API チャージ %s", common.LogQuota(int64(req.Quota)))
 	}
 	model.RecordTopupLog(req.UserId, req.Remark, req.Quota)
 	c.JSON(http.StatusOK, gin.H{

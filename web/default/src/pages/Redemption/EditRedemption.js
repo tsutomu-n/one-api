@@ -58,9 +58,9 @@ const EditRedemption = () => {
     const { success, message, data } = res.data;
     if (success) {
       if (isEdit) {
-        showSuccess('兑换码更新成功！');
+        showSuccess('交換コードの更新に成功しました！');
       } else {
-        showSuccess('兑换码创建成功！');
+        showSuccess('交換コードの作成に成功しました！');
         setInputs(originInputs);
       }
     } else {
@@ -78,13 +78,13 @@ const EditRedemption = () => {
   return (
     <>
       <Segment loading={loading}>
-        <Header as='h3'>{isEdit ? '更新兑换码信息' : '创建新的兑换码'}</Header>
+        <Header as='h3'>{isEdit ? '交換コード情報を更新' : '新しい交換コードを作成'}</Header>
         <Form autoComplete='new-password'>
           <Form.Field>
             <Form.Input
-              label='名称'
+              label='名前'
               name='name'
-              placeholder={'请输入名称'}
+              placeholder={'名前を入力してください'}
               onChange={handleInputChange}
               value={name}
               autoComplete='new-password'
@@ -93,9 +93,9 @@ const EditRedemption = () => {
           </Form.Field>
           <Form.Field>
             <Form.Input
-              label={`额度${renderQuotaWithPrompt(quota)}`}
+              label={`割り当て${renderQuotaWithPrompt(quota)}`}
               name='quota'
-              placeholder={'请输入单个兑换码中包含的额度'}
+              placeholder={'1つの交換コードに含まれる割り当てを入力してください'}
               onChange={handleInputChange}
               value={quota}
               autoComplete='new-password'
@@ -106,9 +106,9 @@ const EditRedemption = () => {
             !isEdit && <>
               <Form.Field>
                 <Form.Input
-                  label='生成数量'
+                  label='生成数'
                   name='count'
-                  placeholder={'请输入生成数量'}
+                  placeholder={'生成数を入力してください'}
                   onChange={handleInputChange}
                   value={count}
                   autoComplete='new-password'
@@ -117,8 +117,8 @@ const EditRedemption = () => {
               </Form.Field>
             </>
           }
-          <Button positive onClick={submit}>提交</Button>
-          <Button onClick={handleCancel}>取消</Button>
+          <Button positive onClick={submit}>送信</Button>
+          <Button onClick={handleCancel}>キャンセル</Button>
         </Form>
       </Segment>
     </>

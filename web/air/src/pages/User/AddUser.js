@@ -23,7 +23,7 @@ const AddUser = (props) => {
     const res = await API.post(`/api/user/`, inputs);
     const { success, message } = res.data;
     if (success) {
-      showSuccess('用户账户创建成功！');
+      showSuccess('ユーザーアカウントの作成に成功しました！');
       setInputs(originInputs);
       props.refresh();
       props.handleClose();
@@ -41,15 +41,15 @@ const AddUser = (props) => {
     <>
       <SideSheet
         placement={'left'}
-        title={<Title level={3}>{'添加用户'}</Title>}
+        title={<Title level={3}>{'添加ユーザー'}</Title>}
         headerStyle={{ borderBottom: '1px solid var(--semi-color-border)' }}
         bodyStyle={{ borderBottom: '1px solid var(--semi-color-border)' }}
         visible={props.visible}
         footer={
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <Space>
-              <Button theme="solid" size={'large'} onClick={submit}>提交</Button>
-              <Button theme="solid" size={'large'} type={'tertiary'} onClick={handleCancel}>取消</Button>
+              <Button theme="solid" size={'large'} onClick={submit}>送信</Button>
+              <Button theme="solid" size={'large'} type={'tertiary'} onClick={handleCancel}>キャンセル</Button>
             </Space>
           </div>
         }
@@ -60,10 +60,10 @@ const AddUser = (props) => {
         <Spin spinning={loading}>
           <Input
             style={{ marginTop: 20 }}
-            label="用户名"
+            label="ユーザー名"
             name="username"
-            addonBefore={'用户名'}
-            placeholder={'请输入用户名'}
+            addonBefore={'ユーザー名'}
+            placeholder={'ユーザー名を入力してください'}
             onChange={value => handleInputChange('username', value)}
             value={username}
             autoComplete="off"
@@ -71,10 +71,10 @@ const AddUser = (props) => {
           <Input
             style={{ marginTop: 20 }}
             addonBefore={'显示名'}
-            label="显示名称"
+            label="表示名"
             name="display_name"
             autoComplete="off"
-            placeholder={'请输入显示名称'}
+            placeholder={'表示名を入力してください'}
             onChange={value => handleInputChange('display_name', value)}
             value={display_name}
           />
@@ -83,8 +83,8 @@ const AddUser = (props) => {
             label="密 码"
             name="password"
             type={'password'}
-            addonBefore={'密码'}
-            placeholder={'请输入密码'}
+            addonBefore={'パスワード'}
+            placeholder={'パスワードを入力してください'}
             onChange={value => handleInputChange('password', value)}
             value={password}
             autoComplete="off"

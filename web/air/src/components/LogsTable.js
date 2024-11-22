@@ -14,22 +14,22 @@ function renderTimestamp(timestamp) {
   </>);
 }
 
-const MODE_OPTIONS = [{ key: 'all', text: '全部用户', value: 'all' }, { key: 'self', text: '当前用户', value: 'self' }];
+const MODE_OPTIONS = [{ key: 'all', text: 'すべてのユーザー', value: 'all' }, { key: 'self', text: '現在のユーザー', value: 'self' }];
 
 const colors = ['amber', 'blue', 'cyan', 'green', 'grey', 'indigo', 'light-blue', 'lime', 'orange', 'pink', 'purple', 'red', 'teal', 'violet', 'yellow'];
 
 function renderType(type) {
   switch (type) {
     case 1:
-      return <Tag color="cyan" size="large"> 充值 </Tag>;
+      return <Tag color="cyan" size="large"> チャージ </Tag>;
     case 2:
-      return <Tag color="lime" size="large"> 消费 </Tag>;
+      return <Tag color="lime" size="large"> 消費 </Tag>;
     case 3:
       return <Tag color="orange" size="large"> 管理 </Tag>;
     case 4:
-      return <Tag color="purple" size="large"> 系统 </Tag>;
+      return <Tag color="purple" size="large"> システム </Tag>;
     default:
-      return <Tag color="black" size="large"> 未知 </Tag>;
+      return <Tag color="black" size="large"> 不明 </Tag>;
   }
 }
 
@@ -54,9 +54,9 @@ function renderUseTime(type) {
 
 const LogsTable = () => {
   const columns = [{
-    title: '时间', dataIndex: 'timestamp2string'
+    title: '時間', dataIndex: 'timestamp2string'
   }, {
-    title: '渠道',
+    title: 'チャネル',
     dataIndex: 'channel',
     className: isAdmin() ? 'tableShow' : 'tableHiddle',
     render: (text, record, index) => {
@@ -65,7 +65,7 @@ const LogsTable = () => {
       </div> : <></> : <></>);
     }
   }, {
-    title: '用户',
+    title: 'ユーザー',
     dataIndex: 'username',
     className: isAdmin() ? 'tableShow' : 'tableHiddle',
     render: (text, record, index) => {
@@ -78,7 +78,7 @@ const LogsTable = () => {
       </div> : <></>);
     }
   }, {
-    title: '令牌', dataIndex: 'token_name', render: (text, record, index) => {
+    title: 'APIキー', dataIndex: 'token_name', render: (text, record, index) => {
       return (record.type === 0 || record.type === 2 ? <div>
         <Tag color="grey" size="large" onClick={() => {
           copyText(text);
@@ -86,13 +86,13 @@ const LogsTable = () => {
       </div> : <></>);
     }
   }, {
-    title: '类型', dataIndex: 'type', render: (text, record, index) => {
+    title: 'タイプ', dataIndex: 'type', render: (text, record, index) => {
       return (<div>
         {renderType(text)}
       </div>);
     }
   }, {
-    title: '模型', dataIndex: 'model_name', render: (text, record, index) => {
+    title: 'モデル', dataIndex: 'model_name', render: (text, record, index) => {
       return (record.type === 0 || record.type === 2 ? <div>
         <Tag color={stringToColor(text)} size="large" onClick={() => {
           copyText(text);
@@ -111,13 +111,13 @@ const LogsTable = () => {
   //   }
   // },
   {
-    title: '提示', dataIndex: 'prompt_tokens', render: (text, record, index) => {
+    title: 'プロンプト', dataIndex: 'prompt_tokens', render: (text, record, index) => {
       return (record.type === 0 || record.type === 2 ? <div>
         {<span> {text} </span>}
       </div> : <></>);
     }
   }, {
-    title: '补全', dataIndex: 'completion_tokens', render: (text, record, index) => {
+    title: '補完', dataIndex: 'completion_tokens', render: (text, record, index) => {
       return (parseInt(text) > 0 && (record.type === 0 || record.type === 2) ? <div>
         {<span> {text} </span>}
       </div> : <></>);
@@ -129,7 +129,7 @@ const LogsTable = () => {
       </div> : <></>);
     }
   }, {
-    title: '详情', dataIndex: 'content', render: (text, record, index) => {
+    title: '詳細', dataIndex: 'content', render: (text, record, index) => {
       return <Paragraph ellipsis={{ rows: 2, showTooltip: { type: 'popover', opts: { style: { width: 240 } } } }}
         style={{ maxWidth: 240 }}>
         {text}
@@ -211,11 +211,11 @@ const LogsTable = () => {
     const { success, message, data } = res.data;
     if (success) {
       Modal.info({
-        title: '用户信息', content: <div style={{ padding: 12 }}>
-          <p>用户名: {data.username}</p>
-          <p>余额: {renderQuota(data.quota)}</p>
-          <p>已用额度：{renderQuota(data.used_quota)}</p>
-          <p>请求次数：{renderNumber(data.request_count)}</p>
+        title: 'ユーザー信息', content: <div style={{ padding: 12 }}>
+          <p>ユーザー名: {data.username}</p>
+          <p>残高: {renderQuota(data.quota)}</p>
+          <p>使用済み割り当て：{renderQuota(data.used_quota)}</p>
+          <p>リクエスト回数：{renderNumber(data.request_count)}</p>
         </div>, centered: true
       });
     } else {
@@ -291,10 +291,10 @@ const LogsTable = () => {
 
   const copyText = async (text) => {
     if (await copy(text)) {
-      showSuccess('已复制：' + text);
+      showSuccess('已コピー：' + text);
     } else {
       // setSearchKeyword(text);
-      Modal.error({ title: '无法复制到剪贴板，请手动复制', content: text });
+      Modal.error({ title: 'クリップボードにコピーできません，手動でコピーしてください', content: text });
     }
   };
 
@@ -332,44 +332,44 @@ const LogsTable = () => {
     <Layout>
       <Header>
         <Spin spinning={loadingStat}>
-          <h3>使用明细（总消耗额度：
+          <h3>使用明细（总消費割り当て：
             <span onClick={handleEyeClick} style={{
               cursor: 'pointer', color: 'gray'
-            }}>{showStat ? renderQuota(stat.quota) : '点击查看'}</span>
+            }}>{showStat ? renderQuota(stat.quota) : 'クリックして表示'}</span>
             ）
           </h3>
         </Spin>
       </Header>
       <Form layout="horizontal" style={{ marginTop: 10 }}>
         <>
-          <Form.Input field="token_name" label="令牌名称" style={{ width: 176 }} value={token_name}
-            placeholder={'可选值'} name="token_name"
+          <Form.Input field="token_name" label="APIキー名" style={{ width: 176 }} value={token_name}
+            placeholder={'オプション値'} name="token_name"
             onChange={value => handleInputChange(value, 'token_name')} />
-          <Form.Input field="model_name" label="模型名称" style={{ width: 176 }} value={model_name}
-            placeholder="可选值"
+          <Form.Input field="model_name" label="モデル名" style={{ width: 176 }} value={model_name}
+            placeholder="オプション値"
             name="model_name"
             onChange={value => handleInputChange(value, 'model_name')} />
-          <Form.DatePicker field="start_timestamp" label="起始时间" style={{ width: 272 }}
+          <Form.DatePicker field="start_timestamp" label="開始時間" style={{ width: 272 }}
             initValue={start_timestamp}
             value={start_timestamp} type="dateTime"
             name="start_timestamp"
             onChange={value => handleInputChange(value, 'start_timestamp')} />
-          <Form.DatePicker field="end_timestamp" fluid label="结束时间" style={{ width: 272 }}
+          <Form.DatePicker field="end_timestamp" fluid label="終了時間" style={{ width: 272 }}
             initValue={end_timestamp}
             value={end_timestamp} type="dateTime"
             name="end_timestamp"
             onChange={value => handleInputChange(value, 'end_timestamp')} />
           {isAdminUser && <>
-            <Form.Input field="channel" label="渠道 ID" style={{ width: 176 }} value={channel}
-              placeholder="可选值" name="channel"
+            <Form.Input field="channel" label="チャネル ID" style={{ width: 176 }} value={channel}
+              placeholder="オプション値" name="channel"
               onChange={value => handleInputChange(value, 'channel')} />
-            <Form.Input field="username" label="用户名称" style={{ width: 176 }} value={username}
-              placeholder={'可选值'} name="username"
+            <Form.Input field="username" label="ユーザー名" style={{ width: 176 }} value={username}
+              placeholder={'オプション値'} name="username"
               onChange={value => handleInputChange(value, 'username')} />
           </>}
           <Form.Section>
-            <Button label="查询" type="primary" htmlType="submit" className="btn-margin-right"
-              onClick={refresh} loading={loading}>查询</Button>
+            <Button label="検索" type="primary" htmlType="submit" className="btn-margin-right"
+              onClick={refresh} loading={loading}>検索</Button>
           </Form.Section>
         </>
       </Form>
@@ -389,7 +389,7 @@ const LogsTable = () => {
         refresh(parseInt(value)).then();
       }}>
         <Select.Option value="0">全部</Select.Option>
-        <Select.Option value="1">充值</Select.Option>
+        <Select.Option value="1">チャージ</Select.Option>
         <Select.Option value="2">消费</Select.Option>
         <Select.Option value="3">管理</Select.Option>
         <Select.Option value="4">系统</Select.Option>

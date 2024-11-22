@@ -94,7 +94,7 @@ const LoginForm = ({ ...others }) => {
                   <Box sx={{ mr: { xs: 1, sm: 2, width: 20 }, display: 'flex', alignItems: 'center' }}>
                     <img src={Github} alt="github" width={25} height={25} style={{ marginRight: matchDownSM ? 8 : 16 }} />
                   </Box>
-                  使用 GitHub 登录
+                  使用 GitHub ログイン
                 </Button>
               </AnimateButton>
             </Grid>
@@ -117,7 +117,7 @@ const LoginForm = ({ ...others }) => {
                   <Box sx={{ mr: { xs: 1, sm: 2, width: 20 }, display: 'flex', alignItems: 'center' }}>
                     <img src={Wechat} alt="Wechat" width={25} height={25} style={{ marginRight: matchDownSM ? 8 : 16 }} />
                   </Box>
-                  使用微信登录
+                  使用微信ログイン
                 </Button>
               </AnimateButton>
               <WechatModal open={openWechat} handleClose={handleWechatClose} wechatLogin={wechatLogin} qrCode={siteInfo.wechat_qrcode} />
@@ -141,7 +141,7 @@ const LoginForm = ({ ...others }) => {
                   <Box sx={{ mr: { xs: 1, sm: 2, width: 20 }, display: 'flex', alignItems: 'center' }}>
                     <img src={Lark} alt="Lark" width={25} height={25} style={{ marginRight: matchDownSM ? 8 : 16 }} />
                   </Box>
-                  使用飞书登录
+                  使用飞书ログイン
                 </Button>
               </AnimateButton>
             </Grid>
@@ -164,7 +164,7 @@ const LoginForm = ({ ...others }) => {
                   <Box sx={{ mr: { xs: 1, sm: 2, width: 20 }, display: 'flex', alignItems: 'center' }}>
                     <img src={OIDC} alt="Lark" width={25} height={25} style={{ marginRight: matchDownSM ? 8 : 16 }} />
                   </Box>
-                  使用 OIDC 登录
+                  使用 OIDC ログイン
                 </Button>
               </AnimateButton>
             </Grid>
@@ -228,7 +228,7 @@ const LoginForm = ({ ...others }) => {
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit} {...others}>
             <FormControl fullWidth error={Boolean(touched.username && errors.username)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-username-login">用户名 / 邮箱</InputLabel>
+              <InputLabel htmlFor="outlined-adornment-username-login">ユーザー名 / 邮箱</InputLabel>
               <OutlinedInput
                 id="outlined-adornment-username-login"
                 type="text"
@@ -236,7 +236,7 @@ const LoginForm = ({ ...others }) => {
                 name="username"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                label="用户名"
+                label="ユーザー名"
                 inputProps={{ autoComplete: 'username' }}
               />
               {touched.username && errors.username && (
@@ -247,7 +247,7 @@ const LoginForm = ({ ...others }) => {
             </FormControl>
 
             <FormControl fullWidth error={Boolean(touched.password && errors.password)} sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-password-login">密码</InputLabel>
+              <InputLabel htmlFor="outlined-adornment-password-login">パスワード</InputLabel>
               <OutlinedInput
                 id="outlined-adornment-password-login"
                 type={showPassword ? 'text' : 'password'}
@@ -290,7 +290,7 @@ const LoginForm = ({ ...others }) => {
                 color="primary"
                 sx={{ textDecoration: 'none', cursor: 'pointer' }}
               >
-                忘记密码?
+                忘记パスワード?
               </Typography>
             </Stack>
             {errors.submit && (
@@ -302,7 +302,7 @@ const LoginForm = ({ ...others }) => {
             <Box sx={{ mt: 2 }}>
               <AnimateButton>
                 <Button disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" color="primary">
-                  登录
+                  ログイン
                 </Button>
               </AnimateButton>
             </Box>

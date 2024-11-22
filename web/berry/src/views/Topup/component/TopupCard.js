@@ -17,7 +17,7 @@ const TopupCard = () => {
 
   const topUp = async () => {
     if (redemptionCode === '') {
-      showInfo('请输入充值码！');
+      showInfo('チャージコードを入力してください！');
       return;
     }
     setIsSubmitting(true);
@@ -27,7 +27,7 @@ const TopupCard = () => {
       });
       const { success, message, data } = res.data;
       if (success) {
-        showSuccess('充值成功！');
+        showSuccess('チャージに成功しました！');
         setUserQuota((quota) => {
           return quota + data;
         });
@@ -44,7 +44,7 @@ const TopupCard = () => {
 
   const openTopUpLink = () => {
     if (!topUpLink) {
-      showError('超级管理员未设置充值链接！');
+      showError('スーパー管理者がチャージリンクを設定していません！');
       return;
     }
     window.open(topUpLink, '_blank');
@@ -75,7 +75,7 @@ const TopupCard = () => {
     <UserCard>
       <Stack direction="row" alignItems="center" justifyContent="center" spacing={2} paddingTop={'20px'}>
         <IconWallet color={theme.palette.primary.main} />
-        <Typography variant="h4">当前额度:</Typography>
+        <Typography variant="h4">当前割り当て:</Typography>
         <Typography variant="h4">{renderQuota(userQuota)}</Typography>
       </Stack>
       <SubCard
@@ -84,21 +84,21 @@ const TopupCard = () => {
         }}
       >
         <FormControl fullWidth variant="outlined">
-          <InputLabel htmlFor="key">兑换码</InputLabel>
+          <InputLabel htmlFor="key">交換コード</InputLabel>
           <OutlinedInput
             id="key"
-            label="兑换码"
+            label="交換コード"
             type="text"
             value={redemptionCode}
             onChange={(e) => {
               setRedemptionCode(e.target.value);
             }}
             name="key"
-            placeholder="请输入兑换码"
+            placeholder="请入力交換コード"
             endAdornment={
               <InputAdornment position="end">
                 <Button variant="contained" onClick={topUp} disabled={isSubmitting}>
-                  {isSubmitting ? '兑换中...' : '兑换'}
+                  {isSubmitting ? '交換中...' : '交換'}
                 </Button>
               </InputAdornment>
             }
@@ -108,10 +108,10 @@ const TopupCard = () => {
 
         <Stack justifyContent="center" alignItems={'center'} spacing={3} paddingTop={'20px'}>
           <Typography variant={'h4'} color={theme.palette.grey[700]}>
-            还没有兑换码？ 点击获取兑换码：
+            还没有交換コード？ 点击交換コードを取得：
           </Typography>
           <Button variant="contained" onClick={openTopUpLink}>
-            获取兑换码
+            交換コードを取得
           </Button>
         </Stack>
       </SubCard>

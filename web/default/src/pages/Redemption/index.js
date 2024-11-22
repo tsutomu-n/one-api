@@ -5,7 +5,7 @@ import RedemptionsTable from '../../components/RedemptionsTable';
 const Redemption = () => (
   <>
     <Segment>
-      <Header as='h3'>管理兑换码</Header>
+      <Header as='h3'>交換コードを管理</Header>
       <RedemptionsTable/>
     </Segment>
   </>

@@ -36,7 +36,7 @@ const Register = () => {
                       <Grid item>
                         <Stack alignItems="center" justifyContent="center" spacing={1}>
                           <Typography color={theme.palette.primary.main} gutterBottom variant={matchDownSM ? 'h3' : 'h2'}>
-                            注册
+                            登録
                           </Typography>
                         </Stack>
                       </Grid>
@@ -51,7 +51,7 @@ const Register = () => {
                   <Grid item xs={12}>
                     <Grid item container direction="column" alignItems="center" xs={12}>
                       <Typography component={Link} to="/login" variant="subtitle1" sx={{ textDecoration: 'none' }}>
-                        已经有帐号了？点击登录
+                        已经有帐号了？クリックしてログイン
                       </Typography>
                     </Grid>
                   </Grid>

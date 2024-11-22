@@ -31,15 +31,15 @@ function renderTimestamp(timestamp) {
 function renderStatus(status) {
   switch (status) {
     case 1:
-      return <Label basic color='green'>已启用</Label>;
+      return <Label basic color='green'>有効済み</Label>;
     case 2:
-      return <Label basic color='red'> 已禁用 </Label>;
+      return <Label basic color='red'> 無効済み </Label>;
     case 3:
-      return <Label basic color='yellow'> 已过期 </Label>;
+      return <Label basic color='yellow'> 期限切れ </Label>;
     case 4:
-      return <Label basic color='grey'> 已耗尽 </Label>;
+      return <Label basic color='grey'> 使い果たしました </Label>;
     default:
-      return <Label basic color='black'> 未知状态 </Label>;
+      return <Label basic color='black'> 不明な状態 </Label>;
   }
 }
 
@@ -123,9 +123,9 @@ const TokensTable = () => {
         url = `sk-${key}`;
     }
     if (await copy(url)) {
-      showSuccess('已复制到剪贴板！');
+      showSuccess('クリップボードにコピーしました！');
     } else {
-      showWarning('无法复制到剪贴板，请手动复制，已将令牌填入搜索框。');
+      showWarning('クリップボードにコピーできません。手動でコピーしてください。トークンは検索ボックスに入力済みです。');
       setSearchKeyword(url);
     }
   };
@@ -196,7 +196,7 @@ const TokensTable = () => {
     }
     const { success, message } = res.data;
     if (success) {
-      showSuccess('操作成功完成！');
+      showSuccess('操作が正常に完了しました！');
       let token = res.data.data;
       let newTokens = [...tokens];
       let realIdx = (activePage - 1) * ITEMS_PER_PAGE + idx;
@@ -267,7 +267,7 @@ const TokensTable = () => {
           icon='search'
           fluid
           iconPosition='left'
-          placeholder='搜索令牌的名称 ...'
+          placeholder='トークン名を検索...'
           value={searchKeyword}
           loading={searching}
           onChange={handleKeywordChange}
@@ -283,7 +283,7 @@ const TokensTable = () => {
                 sortToken('name');
               }}
             >
-              名称
+              名前
             </Table.HeaderCell>
             <Table.HeaderCell
               style={{ cursor: 'pointer' }}
@@ -291,7 +291,7 @@ const TokensTable = () => {
                 sortToken('status');
               }}
             >
-              状态
+              状態
             </Table.HeaderCell>
             <Table.HeaderCell
               style={{ cursor: 'pointer' }}
@@ -299,7 +299,7 @@ const TokensTable = () => {
                 sortToken('used_quota');
               }}
             >
-              已用额度
+              使用済み割り当て
             </Table.HeaderCell>
             <Table.HeaderCell
               style={{ cursor: 'pointer' }}
@@ -307,7 +307,7 @@ const TokensTable = () => {
                 sortToken('remain_quota');
               }}
             >
-              剩余额度
+              残り割り当て
             </Table.HeaderCell>
             <Table.HeaderCell
               style={{ cursor: 'pointer' }}
@@ -315,7 +315,7 @@ const TokensTable = () => {
                 sortToken('created_time');
               }}
             >
-              创建时间
+              作成時間
             </Table.HeaderCell>
             <Table.HeaderCell
               style={{ cursor: 'pointer' }}
@@ -323,7 +323,7 @@ const TokensTable = () => {
                 sortToken('expired_time');
               }}
             >
-              过期时间
+              有効期限
             </Table.HeaderCell>
             <Table.HeaderCell>操作</Table.HeaderCell>
           </Table.Row>
@@ -339,12 +339,12 @@ const TokensTable = () => {
               if (token.deleted) return <></>;
               return (
                 <Table.Row key={token.id}>
-                  <Table.Cell>{token.name ? token.name : '无'}</Table.Cell>
+                  <Table.Cell>{token.name ? token.name : 'なし'}</Table.Cell>
                   <Table.Cell>{renderStatus(token.status)}</Table.Cell>
                   <Table.Cell>{renderQuota(token.used_quota)}</Table.Cell>
-                  <Table.Cell>{token.unlimited_quota ? '无限制' : renderQuota(token.remain_quota, 2)}</Table.Cell>
+                  <Table.Cell>{token.unlimited_quota ? '無制限' : renderQuota(token.remain_quota, 2)}</Table.Cell>
                   <Table.Cell>{renderTimestamp(token.created_time)}</Table.Cell>
-                  <Table.Cell>{token.expired_time === -1 ? '永不过期' : renderTimestamp(token.expired_time)}</Table.Cell>
+                  <Table.Cell>{token.expired_time === -1 ? '無期限' : renderTimestamp(token.expired_time)}</Table.Cell>
                   <Table.Cell>
                     <div>
                     <Button.Group color='green' size={'small'}>
@@ -355,7 +355,7 @@ const TokensTable = () => {
                             await onCopy('', token.key);
                           }}
                         >
-                          复制
+                          コピー
                         </Button>
                         <Dropdown
                           className='button icon'
@@ -377,7 +377,7 @@ const TokensTable = () => {
                             onClick={() => {     
                               onOpenLink('', token.key);       
                             }}>
-                            聊天
+                            チャット
                           </Button>
                           <Dropdown   
                             className="button icon"       
@@ -395,7 +395,7 @@ const TokensTable = () => {
                       <Popup
                         trigger={
                           <Button size='small' negative>
-                            删除
+                            削除
                           </Button>
                         }
                         on='click'
@@ -408,7 +408,7 @@ const TokensTable = () => {
                             manageToken(token.id, 'delete', idx);
                           }}
                         >
-                          删除令牌 {token.name}
+                          トークンを削除 {token.name}
                         </Button>
                       </Popup>
                       <Button
@@ -421,14 +421,14 @@ const TokensTable = () => {
                           );
                         }}
                       >
-                        {token.status === 1 ? '禁用' : '启用'}
+                        {token.status === 1 ? '無効化' : '有効化'}
                       </Button>
                       <Button
                         size={'small'}
                         as={Link}
                         to={'/token/edit/' + token.id}
                       >
-                        编辑
+                        編集
                       </Button>
                     </div>
                   </Table.Cell>
@@ -441,16 +441,16 @@ const TokensTable = () => {
           <Table.Row>
             <Table.HeaderCell colSpan='7'>
               <Button size='small' as={Link} to='/token/add' loading={loading}>
-                添加新的令牌
+                新しいトークンを追加
               </Button>
-              <Button size='small' onClick={refresh} loading={loading}>刷新</Button>
+              <Button size='small' onClick={refresh} loading={loading}>更新</Button>
               <Dropdown
                 placeholder='排序方式'
                 selection
                 options={[
-                  { key: '', text: '默认排序', value: '' },
-                  { key: 'remain_quota', text: '按剩余额度排序', value: 'remain_quota' },
-                  { key: 'used_quota', text: '按已用额度排序', value: 'used_quota' },
+                  { key: '', text: 'デフォルト排序', value: '' },
+                  { key: 'remain_quota', text: '按残り割り当て排序', value: 'remain_quota' },
+                  { key: 'used_quota', text: '按使用済み割り当て排序', value: 'used_quota' },
                 ]}
                 value={orderBy}
                 onChange={handleOrderByChange}

@@ -84,7 +84,7 @@ export default function Log() {
     setSearchKeyword({ ...searchKeyword, [event.target.name]: event.target.value });
   };
 
-  // 处理刷新
+  // 处理更新
   const handleRefresh = () => {
     setInitPage(true);
   };
@@ -103,7 +103,7 @@ export default function Log() {
   return (
     <>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2.5}>
-        <Typography variant="h4">日志</Typography>
+        <Typography variant="h4">ログ</Typography>
       </Stack>
       <Card>
         <Box component="form" onSubmit={searchLogs} noValidate sx={{marginTop: 2}}>
@@ -121,7 +121,7 @@ export default function Log() {
           <Container>
             <ButtonGroup variant="outlined" aria-label="outlined small primary button group" sx={{marginBottom: 2}}>
               <Button onClick={handleRefresh} startIcon={<IconRefresh width={'18px'} />}>
-                刷新/清除搜索条件
+                更新/清除搜索条件
               </Button>
 
               <Button onClick={searchLogs} startIcon={<IconSearch width={'18px'} />}>

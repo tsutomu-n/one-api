@@ -8,7 +8,7 @@ const LarkOAuth = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [userState, userDispatch] = useContext(UserContext);
-  const [prompt, setPrompt] = useState('处理中...');
+  const [prompt, setPrompt] = useState('処理中...');
   const [processing, setProcessing] = useState(true);
 
   let navigate = useNavigate();
@@ -18,23 +18,23 @@ const LarkOAuth = () => {
     const { success, message, data } = res.data;
     if (success) {
       if (message === 'bind') {
-        showSuccess('绑定成功！');
+        showSuccess('紐付けに成功しました！');
         navigate('/setting');
       } else {
         userDispatch({ type: 'login', payload: data });
         localStorage.setItem('user', JSON.stringify(data));
-        showSuccess('登录成功！');
+        showSuccess('ログインに成功しました！');
         navigate('/');
       }
     } else {
       showError(message);
       if (count === 0) {
-        setPrompt(`操作失败，重定向至登录界面中...`);
+        setPrompt(`操作に失敗しました。ログイン画面にリダイレクトしています...`);
         navigate('/setting'); // in case this is failed to bind lark
         return;
       }
       count++;
-      setPrompt(`出现错误，第 ${count} 次重试中...`);
+      setPrompt(`エラーが発生しました。${count}回目の再試行中...`);
       await new Promise((resolve) => setTimeout(resolve, count * 2000));
       await sendCode(code, state, count);
     }

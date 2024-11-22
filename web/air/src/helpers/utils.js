@@ -78,26 +78,26 @@ export function showError(error) {
     if (error.name === 'AxiosError') {
       switch (error.response.status) {
         case 401:
-          // toast.error('错误：未登录或登录已过期，请重新登录！', showErrorOptions);
+          // toast.error('エラー：ログインしていないか、ログインの有効期限が切れています。もう一度ログインしてください！', showErrorOptions);
           window.location.href = '/login?expired=true';
           break;
         case 429:
-          Toast.error('错误：请求次数过多，请稍后再试！');
+          Toast.error('エラー：リクエストが多すぎます。後ほど再試行してください！');
           break;
         case 500:
-          Toast.error('错误：服务器内部错误，请联系管理员！');
+          Toast.error('エラー：サーバー内部エラーです。管理者にお問い合わせください！');
           break;
         case 405:
-          Toast.info('本站仅作演示之用，无服务端！');
+          Toast.info('このサイトはデモ用であり、サーバーはありません！');
           break;
         default:
-          Toast.error('错误：' + error.message);
+          Toast.error('エラー：' + error.message);
       }
       return;
     }
-    Toast.error('错误：' + error.message);
+    Toast.error('エラー：' + error.message);
   } else {
-    Toast.error('错误：' + error);
+    Toast.error('エラー：' + error);
   }
 }
 

@@ -5,12 +5,12 @@ const UsersTableHead = () => {
     <TableHead>
       <TableRow>
         <TableCell>ID</TableCell>
-        <TableCell>用户名</TableCell>
-        <TableCell>分组</TableCell>
-        <TableCell>统计信息</TableCell>
-        <TableCell>用户角色</TableCell>
-        <TableCell>绑定</TableCell>
-        <TableCell>状态</TableCell>
+        <TableCell>ユーザー名</TableCell>
+        <TableCell>グループ</TableCell>
+        <TableCell>統計情報</TableCell>
+        <TableCell>ユーザーロール</TableCell>
+        <TableCell>紐付ける</TableCell>
+        <TableCell>状態</TableCell>
         <TableCell>操作</TableCell>
       </TableRow>
     </TableHead>

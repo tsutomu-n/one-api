@@ -78,7 +78,7 @@ const EditUser = (props) => {
     }
     const { success, message } = res.data;
     if (success) {
-      showSuccess('用户信息更新成功！');
+      showSuccess('ユーザー情報の更新に成功しました！');
       props.refresh();
       props.handleClose();
     } else {
@@ -91,15 +91,15 @@ const EditUser = (props) => {
     <>
       <SideSheet
         placement={'right'}
-        title={<Title level={3}>{'编辑用户'}</Title>}
+        title={<Title level={3}>{'編集ユーザー'}</Title>}
         headerStyle={{ borderBottom: '1px solid var(--semi-color-border)' }}
         bodyStyle={{ borderBottom: '1px solid var(--semi-color-border)' }}
         visible={props.visible}
         footer={
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <Space>
-              <Button theme="solid" size={'large'} onClick={submit}>提交</Button>
-              <Button theme="solid" size={'large'} type={'tertiary'} onClick={handleCancel}>取消</Button>
+              <Button theme="solid" size={'large'} onClick={submit}>送信</Button>
+              <Button theme="solid" size={'large'} type={'tertiary'} onClick={handleCancel}>キャンセル</Button>
             </Space>
           </div>
         }
@@ -109,35 +109,35 @@ const EditUser = (props) => {
       >
         <Spin spinning={loading}>
           <div style={{ marginTop: 20 }}>
-            <Typography.Text>用户名</Typography.Text>
+            <Typography.Text>ユーザー名</Typography.Text>
           </div>
           <Input
-            label="用户名"
+            label="ユーザー名"
             name="username"
-            placeholder={'请输入新的用户名'}
+            placeholder={'新しいユーザー名を入力してください'}
             onChange={value => handleInputChange('username', value)}
             value={username}
             autoComplete="new-password"
           />
           <div style={{ marginTop: 20 }}>
-            <Typography.Text>密码</Typography.Text>
+            <Typography.Text>パスワード</Typography.Text>
           </div>
           <Input
-            label="密码"
+            label="パスワード"
             name="password"
             type={'password'}
-            placeholder={'请输入新的密码，最短 8 位'}
+            placeholder={'新しいパスワードを入力してください，最短 8 位'}
             onChange={value => handleInputChange('password', value)}
             value={password}
             autoComplete="new-password"
           />
           <div style={{ marginTop: 20 }}>
-            <Typography.Text>显示名称</Typography.Text>
+            <Typography.Text>表示名</Typography.Text>
           </div>
           <Input
-            label="显示名称"
+            label="表示名"
             name="display_name"
-            placeholder={'请输入新的显示名称'}
+            placeholder={'新しい表示名を入力してください'}
             onChange={value => handleInputChange('display_name', value)}
             value={display_name}
             autoComplete="new-password"
@@ -145,27 +145,27 @@ const EditUser = (props) => {
           {
             userId && <>
               <div style={{ marginTop: 20 }}>
-                <Typography.Text>分组</Typography.Text>
+                <Typography.Text>グループ</Typography.Text>
               </div>
               <Select
-                placeholder={'请选择分组'}
+                placeholder={'グループを選択してください'}
                 name="group"
                 fluid
                 search
                 selection
                 allowAdditions
-                additionLabel={'请在系统设置页面编辑分组倍率以添加新的分组：'}
+                additionLabel={'システム設定ページでグループレートを編集して、新しいグループを追加してください：'}
                 onChange={value => handleInputChange('group', value)}
                 value={inputs.group}
                 autoComplete="new-password"
                 optionList={groupOptions}
               />
               <div style={{ marginTop: 20 }}>
-                <Typography.Text>{`剩余额度${renderQuotaWithPrompt(quota)}`}</Typography.Text>
+                <Typography.Text>{`残り割り当て${renderQuotaWithPrompt(quota)}`}</Typography.Text>
               </div>
               <Input
                 name="quota"
-                placeholder={'请输入新的剩余额度'}
+                placeholder={'新しい残り割り当てを入力してください'}
                 onChange={value => handleInputChange('quota', value)}
                 value={quota}
                 type={'number'}
@@ -175,40 +175,40 @@ const EditUser = (props) => {
           }
           <Divider style={{ marginTop: 20 }}>以下信息不可修改</Divider>
           <div style={{ marginTop: 20 }}>
-            <Typography.Text>已绑定的 GitHub 账户</Typography.Text>
+            <Typography.Text>紐付け済みのGitHubアカウント</Typography.Text>
           </div>
           <Input
             name="github_id"
             value={github_id}
             autoComplete="new-password"
-            placeholder="此项只读，需要用户通过个人设置页面的相关绑定按钮进行绑定，不可直接修改"
+            placeholder="この項目は読み取り専用です。ユーザーは個人設定ページの関連する紐付けボタンを使用して紐付ける必要があります。直接変更することはできません"
             readonly
           />
           <div style={{ marginTop: 20 }}>
-            <Typography.Text>已绑定的微信账户</Typography.Text>
+            <Typography.Text>紐付け済みのWeChatアカウント</Typography.Text>
           </div>
           <Input
             name="wechat_id"
             value={wechat_id}
             autoComplete="new-password"
-            placeholder="此项只读，需要用户通过个人设置页面的相关绑定按钮进行绑定，不可直接修改"
+            placeholder="この項目は読み取り専用です。ユーザーは個人設定ページの関連する紐付けボタンを使用して紐付ける必要があります。直接変更することはできません"
             readonly
           />
           <Input
             name="telegram_id"
             value={telegram_id}
             autoComplete="new-password"
-            placeholder="此项只读，需要用户通过个人设置页面的相关绑定按钮进行绑定，不可直接修改"
+            placeholder="この項目は読み取り専用です。ユーザーは個人設定ページの関連する紐付けボタンを使用して紐付ける必要があります。直接変更することはできません"
             readonly
           />
           <div style={{ marginTop: 20 }}>
-            <Typography.Text>已绑定的邮箱账户</Typography.Text>
+            <Typography.Text>紐付け済みのメールアカウント</Typography.Text>
           </div>
           <Input
             name="email"
             value={email}
             autoComplete="new-password"
-            placeholder="此项只读，需要用户通过个人设置页面的相关绑定按钮进行绑定，不可直接修改"
+            placeholder="この項目は読み取り専用です。ユーザーは個人設定ページの関連する紐付けボタンを使用して紐付ける必要があります。直接変更することはできません"
             readonly
           />
         </Spin>

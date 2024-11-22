@@ -45,7 +45,7 @@ const StatisticalBarChart = ({ isLoading, chartDatas }) => {
                   }}
                 >
                   <Typography variant="h3" color={'#697586'}>
-                    暂无数据
+                    暂なし数据
                   </Typography>
                 </Box>
               )}

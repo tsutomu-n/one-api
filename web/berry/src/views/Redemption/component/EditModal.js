@@ -22,7 +22,7 @@ import { API } from 'utils/api';
 
 const validationSchema = Yup.object().shape({
   is_edit: Yup.boolean(),
-  name: Yup.string().required('名称 不能为空'),
+  name: Yup.string().required('名前 不能为空'),
   quota: Yup.number().min(0, '必须大于等于0'),
   count: Yup.number().when('is_edit', {
     is: false,
@@ -54,9 +54,9 @@ const EditModal = ({ open, redemptiondId, onCancel, onOk }) => {
     const { success, message, data } = res.data;
     if (success) {
       if (values.is_edit) {
-        showSuccess('兑换码更新成功！');
+        showSuccess('交換コードの更新に成功しました！');
       } else {
-        showSuccess('兑换码创建成功！');
+        showSuccess('交換コードの作成に成功しました！');
         if (data.length > 1) {
           let text = '';
           for (let i = 0; i < data.length; i++) {
@@ -96,7 +96,7 @@ const EditModal = ({ open, redemptiondId, onCancel, onOk }) => {
   return (
     <Dialog open={open} onClose={onCancel} fullWidth maxWidth={'md'}>
       <DialogTitle sx={{ margin: '0px', fontWeight: 700, lineHeight: '1.55556', padding: '24px', fontSize: '1.125rem' }}>
-        {redemptiondId ? '编辑兑换码' : '新建兑换码'}
+        {redemptiondId ? '編集交換コード' : '新建交換コード'}
       </DialogTitle>
       <Divider />
       <DialogContent>
@@ -104,10 +104,10 @@ const EditModal = ({ open, redemptiondId, onCancel, onOk }) => {
           {({ errors, handleBlur, handleChange, handleSubmit, touched, values, isSubmitting }) => (
             <form noValidate onSubmit={handleSubmit}>
               <FormControl fullWidth error={Boolean(touched.name && errors.name)} sx={{ ...theme.typography.otherInput }}>
-                <InputLabel htmlFor="channel-name-label">名称</InputLabel>
+                <InputLabel htmlFor="channel-name-label">名前</InputLabel>
                 <OutlinedInput
                   id="channel-name-label"
-                  label="名称"
+                  label="名前"
                   type="text"
                   value={values.name}
                   name="name"
@@ -124,10 +124,10 @@ const EditModal = ({ open, redemptiondId, onCancel, onOk }) => {
               </FormControl>
 
               <FormControl fullWidth error={Boolean(touched.quota && errors.quota)} sx={{ ...theme.typography.otherInput }}>
-                <InputLabel htmlFor="channel-quota-label">额度</InputLabel>
+                <InputLabel htmlFor="channel-quota-label">割り当て</InputLabel>
                 <OutlinedInput
                   id="channel-quota-label"
-                  label="额度"
+                  label="割り当て"
                   type="number"
                   value={values.quota}
                   name="quota"
@@ -167,9 +167,9 @@ const EditModal = ({ open, redemptiondId, onCancel, onOk }) => {
                 </FormControl>
               )}
               <DialogActions>
-                <Button onClick={onCancel}>取消</Button>
+                <Button onClick={onCancel}>キャンセル</Button>
                 <Button disableElevation disabled={isSubmitting} type="submit" variant="contained" color="primary">
-                  提交
+                  送信
                 </Button>
               </DialogActions>
             </form>

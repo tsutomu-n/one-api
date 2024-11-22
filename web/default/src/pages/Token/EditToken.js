@@ -95,7 +95,7 @@ const EditToken = () => {
     if (localInputs.expired_time !== -1) {
       let time = Date.parse(localInputs.expired_time);
       if (isNaN(time)) {
-        showError('过期时间格式错误！');
+        showError('有効期限の形式が正しくありません！');
         return;
       }
       localInputs.expired_time = Math.ceil(time / 1000);
@@ -110,9 +110,9 @@ const EditToken = () => {
     const { success, message } = res.data;
     if (success) {
       if (isEdit) {
-        showSuccess('令牌更新成功！');
+        showSuccess('APIキーの更新に成功しました！');
       } else {
-        showSuccess('令牌创建成功，请在列表页面点击复制获取令牌！');
+        showSuccess('APIキーの作成に成功しました。リストページでコピーをクリックしてAPIキーを取得してください！');
         setInputs(originInputs);
       }
     } else {
@@ -123,13 +123,13 @@ const EditToken = () => {
   return (
     <>
       <Segment loading={loading}>
-        <Header as='h3'>{isEdit ? '更新令牌信息' : '创建新的令牌'}</Header>
+        <Header as='h3'>{isEdit ? 'APIキー情報を更新' : '新しいAPIキーを作成'}</Header>
         <Form autoComplete='new-password'>
           <Form.Field>
             <Form.Input
-              label='名称'
+              label='名前'
               name='name'
-              placeholder={'请输入名称'}
+              placeholder={'名前を入力してください'}
               onChange={handleInputChange}
               value={name}
               autoComplete='new-password'
@@ -138,8 +138,8 @@ const EditToken = () => {
           </Form.Field>
           <Form.Field>
             <Form.Dropdown
-              label='模型范围'
-              placeholder={'请选择允许使用的模型，留空则不进行限制'}
+              label='モデル范围'
+              placeholder={'请选择允许使用的モデル，留空则不进行限制'}
               name='models'
               fluid
               multiple
@@ -158,7 +158,7 @@ const EditToken = () => {
             <Form.Input
               label='IP 限制'
               name='subnet'
-              placeholder={'请输入允许访问的网段，例如：192.168.0.0/24，请使用英文逗号分隔多个网段'}
+              placeholder={'请入力允许访问的网段，例：：192.168.0.0/24，请使用英文逗号分隔多个网段'}
               onChange={handleInputChange}
               value={inputs.subnet}
               autoComplete='new-password'
@@ -166,9 +166,9 @@ const EditToken = () => {
           </Form.Field>
           <Form.Field>
             <Form.Input
-              label='过期时间'
+              label='有効期限'
               name='expired_time'
-              placeholder={'请输入过期时间，格式为 yyyy-MM-dd HH:mm:ss，-1 表示无限制'}
+              placeholder={'有効期限を入力してください。形式はyyyy-MM-dd HH:mm:ssです。-1は無制限を意味します'}
               onChange={handleInputChange}
               value={expired_time}
               autoComplete='new-password'
@@ -178,26 +178,26 @@ const EditToken = () => {
           <div style={{ lineHeight: '40px' }}>
             <Button type={'button'} onClick={() => {
               setExpiredTime(0, 0, 0, 0);
-            }}>永不过期</Button>
+            }}>無期限</Button>
             <Button type={'button'} onClick={() => {
               setExpiredTime(1, 0, 0, 0);
-            }}>一个月后过期</Button>
+            }}>1か月後に期限切れ</Button>
             <Button type={'button'} onClick={() => {
               setExpiredTime(0, 1, 0, 0);
-            }}>一天后过期</Button>
+            }}>1日後に期限切れ</Button>
             <Button type={'button'} onClick={() => {
               setExpiredTime(0, 0, 1, 0);
-            }}>一小时后过期</Button>
+            }}>1時間後に期限切れ</Button>
             <Button type={'button'} onClick={() => {
               setExpiredTime(0, 0, 0, 1);
-            }}>一分钟后过期</Button>
+            }}>1分後に期限切れ</Button>
           </div>
-          <Message>注意，令牌的额度仅用于限制令牌本身的最大额度使用量，实际的使用受到账户的剩余额度限制。</Message>
+          <Message>トークンの割り当ては、トークン自体の最大割り当て使用量を制限するためにのみ使用されます。実際の使用量は、アカウントの残りの割り当てによって制限されます。</Message>
           <Form.Field>
             <Form.Input
-              label={`额度${renderQuotaWithPrompt(remain_quota)}`}
+              label={`割り当て${renderQuotaWithPrompt(remain_quota)}`}
               name='remain_quota'
-              placeholder={'请输入额度'}
+              placeholder={'割り当てを入力してください'}
               onChange={handleInputChange}
               value={remain_quota}
               autoComplete='new-password'
@@ -207,9 +207,9 @@ const EditToken = () => {
           </Form.Field>
           <Button type={'button'} onClick={() => {
             setUnlimitedQuota();
-          }}>{unlimited_quota ? '取消无限额度' : '设为无限额度'}</Button>
-          <Button floated='right' positive onClick={submit}>提交</Button>
-          <Button floated='right' onClick={handleCancel}>取消</Button>
+          }}>{unlimited_quota ? '無制限割り当てをキャンセル' : '無制限割り当てに設定'}</Button>
+          <Button floated='right' positive onClick={submit}>送信</Button>
+          <Button floated='right' onClick={handleCancel}>キャンセル</Button>
         </Form>
       </Segment>
     </>

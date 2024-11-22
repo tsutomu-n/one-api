@@ -244,25 +244,25 @@ const SystemSetting = () => {
     <Grid columns={1}>
       <Grid.Column>
         <Form loading={loading}>
-          <Header as='h3'>通用设置</Header>
+          <Header as='h3'>一般設定</Header>
           <Form.Group widths='equal'>
             <Form.Input
-              label='服务器地址'
-              placeholder='例如：https://yourdomain.com'
+              label='サーバーアドレス'
+              placeholder='例：：https://yourdomain.com'
               value={inputs.ServerAddress}
               name='ServerAddress'
               onChange={handleInputChange}
             />
           </Form.Group>
           <Form.Button onClick={submitServerAddress}>
-            更新服务器地址
+            サーバーアドレスを更新
           </Form.Button>
           <Divider />
-          <Header as='h3'>配置登录注册</Header>
+          <Header as='h3'>ログイン/登録の設定</Header>
           <Form.Group inline>
             <Form.Checkbox
               checked={inputs.PasswordLoginEnabled === 'true'}
-              label='允许通过密码进行登录'
+              label='パスワードによるログインを許可する'
               name='PasswordLoginEnabled'
               onChange={handleInputChange}
             />
@@ -276,10 +276,10 @@ const SystemSetting = () => {
               >
                 <Modal.Header>警告</Modal.Header>
                 <Modal.Content>
-                  <p>取消密码登录将导致所有未绑定其他登录方式的用户（包括管理员）无法通过密码登录，确认取消？</p>
+                  <p>パスワードログインをキャンセルすると、他のログイン方法を紐付けていないすべてのユーザー（管理者を含む）がパスワードでログインできなくなります。キャンセルしますか？</p>
                 </Modal.Content>
                 <Modal.Actions>
-                  <Button onClick={() => setShowPasswordWarningModal(false)}>取消</Button>
+                  <Button onClick={() => setShowPasswordWarningModal(false)}>キャンセル</Button>
                   <Button
                     color='yellow'
                     onClick={async () => {
@@ -294,25 +294,25 @@ const SystemSetting = () => {
             }
             <Form.Checkbox
               checked={inputs.PasswordRegisterEnabled === 'true'}
-              label='允许通过密码进行注册'
+              label='パスワードによる登録を許可する'
               name='PasswordRegisterEnabled'
               onChange={handleInputChange}
             />
             <Form.Checkbox
               checked={inputs.EmailVerificationEnabled === 'true'}
-              label='通过密码注册时需要进行邮箱验证'
+              label='パスワードで登録する場合はメール認証が必要です'
               name='EmailVerificationEnabled'
               onChange={handleInputChange}
             />
             <Form.Checkbox
               checked={inputs.GitHubOAuthEnabled === 'true'}
-              label='允许通过 GitHub 账户登录 & 注册'
+              label='GitHubアカウントによるログインと登録を許可する'
               name='GitHubOAuthEnabled'
               onChange={handleInputChange}
             />
             <Form.Checkbox
               checked={inputs.WeChatAuthEnabled === 'true'}
-              label='允许通过微信登录 & 注册'
+              label='WeChatによるログインと登録を許可する'
               name='WeChatAuthEnabled'
               onChange={handleInputChange}
             />
@@ -320,13 +320,13 @@ const SystemSetting = () => {
           <Form.Group inline>
             <Form.Checkbox
               checked={inputs.RegisterEnabled === 'true'}
-              label='允许新用户注册（此项为否时，新用户将无法以任何方式进行注册）'
+              label='新規ユーザーの登録を許可する（この項目が無効になっている場合、新規ユーザーはいかなる方法でも登録できません））'
               name='RegisterEnabled'
               onChange={handleInputChange}
             />
             <Form.Checkbox
               checked={inputs.TurnstileCheckEnabled === 'true'}
-              label='启用 Turnstile 用户校验'
+              label='Turnstileユーザー検証を有効にする'
               name='TurnstileCheckEnabled'
               onChange={handleInputChange}
             />
@@ -334,11 +334,11 @@ const SystemSetting = () => {
           <Divider />
           <Header as='h3'>
             配置邮箱域名白名单
-            <Header.Subheader>用以防止恶意用户利用临时邮箱批量注册</Header.Subheader>
+            <Header.Subheader>用以防止恶意ユーザー利用临时邮箱批量登録</Header.Subheader>
           </Header>
           <Form.Group widths={3}>
             <Form.Checkbox
-              label='启用邮箱域名白名单'
+              label='有効化邮箱域名白名单'
               name='EmailDomainRestrictionEnabled'
               onChange={handleInputChange}
               checked={inputs.EmailDomainRestrictionEnabled === 'true'}
@@ -371,79 +371,79 @@ const SystemSetting = () => {
                 }
               }}
               autoComplete='new-password'
-              placeholder='输入新的允许的邮箱域名'
+              placeholder='入力新的允许的邮箱域名'
               value={restrictedDomainInput}
               onChange={(e, { value }) => {
                 setRestrictedDomainInput(value);
               }}
             />
           </Form.Group>
-          <Form.Button onClick={submitEmailDomainWhitelist}>保存邮箱域名白名单设置</Form.Button>
+          <Form.Button onClick={submitEmailDomainWhitelist}>保存邮箱域名白名单設定</Form.Button>
           <Divider />
           <Header as='h3'>
-            配置 SMTP
-            <Header.Subheader>用以支持系统的邮件发送</Header.Subheader>
+            SMTPの設定
+            <Header.Subheader>システムのメール送信をサポートするため</Header.Subheader>
           </Header>
           <Form.Group widths={3}>
             <Form.Input
-              label='SMTP 服务器地址'
+              label='SMTPサーバーアドレス'
               name='SMTPServer'
               onChange={handleInputChange}
               autoComplete='new-password'
               value={inputs.SMTPServer}
-              placeholder='例如：smtp.qq.com'
+              placeholder='例：smtp.qq.com'
             />
             <Form.Input
-              label='SMTP 端口'
+              label='SMTPポート'
               name='SMTPPort'
               onChange={handleInputChange}
               autoComplete='new-password'
               value={inputs.SMTPPort}
-              placeholder='默认: 587'
+              placeholder='デフォルト：587'
             />
             <Form.Input
-              label='SMTP 账户'
+              label='SMTPアカウント'
               name='SMTPAccount'
               onChange={handleInputChange}
               autoComplete='new-password'
               value={inputs.SMTPAccount}
-              placeholder='通常是邮箱地址'
+              placeholder='通常はメールアドレスです'
             />
           </Form.Group>
           <Form.Group widths={3}>
             <Form.Input
-              label='SMTP 发送者邮箱'
+              label='SMTP 送信者メールアドレス'
               name='SMTPFrom'
               onChange={handleInputChange}
               autoComplete='new-password'
               value={inputs.SMTPFrom}
-              placeholder='通常和邮箱地址保持一致'
+              placeholder='通常はメールアドレスと一致します'
             />
             <Form.Input
-              label='SMTP 访问凭证'
+              label='SMTPアクセス認証情報'
               name='SMTPToken'
               onChange={handleInputChange}
               type='password'
               autoComplete='new-password'
               checked={inputs.RegisterEnabled === 'true'}
-              placeholder='敏感信息不会发送到前端显示'
+              placeholder='機密情報はフロントエンドに送信されません'
             />
           </Form.Group>
-          <Form.Button onClick={submitSMTP}>保存 SMTP 设置</Form.Button>
+          <Form.Button onClick={submitSMTP}>SMTP設定を保存</Form.Button>
           <Divider />
           <Header as='h3'>
-            配置 GitHub OAuth App
+            GitHub OAuthアプリの設定
             <Header.Subheader>
-              用以支持通过 GitHub 进行登录注册，
+              GitHubによるログインと登録をサポートするため，
               <a href='https://github.com/settings/developers' target='_blank'>
-                点击此处
+                ここをクリック
               </a>
-              管理你的 GitHub OAuth App
+              GitHub OAuthアプリを管理する
             </Header.Subheader>
           </Header>
           <Message>
-            Homepage URL 填 <code>{inputs.ServerAddress}</code>
-            ，Authorization callback URL 填{' '}
+            ホームページURLを入力 <code>{inputs.ServerAddress}</code>
+            ，認証コールバックURLを入力{' '}
             <code>{`${inputs.ServerAddress}/oauth/github`}</code>
           </Message>
           <Form.Group widths={3}>
@@ -453,7 +453,7 @@ const SystemSetting = () => {
               onChange={handleInputChange}
               autoComplete='new-password'
               value={inputs.GitHubClientId}
-              placeholder='输入你注册的 GitHub OAuth APP 的 ID'
+              placeholder='登録済みのGitHub OAuthアプリのIDを入力してください'
             />
             <Form.Input
               label='GitHub Client Secret'
@@ -462,55 +462,55 @@ const SystemSetting = () => {
               type='password'
               autoComplete='new-password'
               value={inputs.GitHubClientSecret}
-              placeholder='敏感信息不会发送到前端显示'
+              placeholder='機密情報はフロントエンドに送信されません'
             />
           </Form.Group>
           <Form.Button onClick={submitGitHubOAuth}>
-            保存 GitHub OAuth 设置
+            GitHub OAuth設定を保存
           </Form.Button>
           <Divider />
           <Header as='h3'>
-            配置 WeChat Server
+            WeChatサーバーの設定
             <Header.Subheader>
-              用以支持通过微信进行登录注册，
+              WeChatによるログインと登録をサポートするため，
               <a
                 href='https://github.com/songquanpeng/wechat-server'
                 target='_blank'
               >
-                点击此处
+                ここをクリック
               </a>
-              了解 WeChat Server
+              WeChatサーバーについて
             </Header.Subheader>
           </Header>
           <Form.Group widths={3}>
             <Form.Input
-              label='WeChat Server 服务器地址'
+              label='WeChat Server サーバーアドレス'
               name='WeChatServerAddress'
-              placeholder='例如：https://yourdomain.com'
+              placeholder='例：：https://yourdomain.com'
               onChange={handleInputChange}
               autoComplete='new-password'
               value={inputs.WeChatServerAddress}
             />
             <Form.Input
-              label='WeChat Server 访问凭证'
+              label='WeChatサーバーアクセス認証情報'
               name='WeChatServerToken'
               type='password'
               onChange={handleInputChange}
               autoComplete='new-password'
               value={inputs.WeChatServerToken}
-              placeholder='敏感信息不会发送到前端显示'
+              placeholder='機密情報はフロントエンドに送信されません'
             />
             <Form.Input
-              label='微信公众号二维码图片链接'
+              label='WeChat公式アカウントQRコード画像リンク'
               name='WeChatAccountQRCodeImageURL'
               onChange={handleInputChange}
               autoComplete='new-password'
               value={inputs.WeChatAccountQRCodeImageURL}
-              placeholder='输入一个图片链接'
+              placeholder='画像リンクを入力'
             />
           </Form.Group>
           <Form.Button onClick={submitWeChat}>
-            保存 WeChat Server 设置
+            WeChatサーバー設定を保存
           </Form.Button>
           <Divider />
           <Header as='h3'>
@@ -521,7 +521,7 @@ const SystemSetting = () => {
                 href='https://github.com/songquanpeng/message-pusher'
                 target='_blank'
               >
-                点击此处
+                ここをクリック
               </a>
               了解 Message Pusher
             </Header.Subheader>
@@ -530,7 +530,7 @@ const SystemSetting = () => {
             <Form.Input
               label='Message Pusher 推送地址'
               name='MessagePusherAddress'
-              placeholder='例如：https://msgpusher.com/push/your_username'
+              placeholder='例：：https://msgpusher.com/push/your_username'
               onChange={handleInputChange}
               autoComplete='new-password'
               value={inputs.MessagePusherAddress}
@@ -542,21 +542,21 @@ const SystemSetting = () => {
               onChange={handleInputChange}
               autoComplete='new-password'
               value={inputs.MessagePusherToken}
-              placeholder='敏感信息不会发送到前端显示'
+              placeholder='機密情報はフロントエンドに送信されません'
             />
           </Form.Group>
           <Form.Button onClick={submitMessagePusher}>
-            保存 Message Pusher 设置
+            保存 Message Pusher 設定
           </Form.Button>
           <Divider />
           <Header as='h3'>
-            配置 Turnstile
+            Turnstileの設定
             <Header.Subheader>
-              用以支持用户校验，
+              ユーザー検証をサポートするため，
               <a href='https://dash.cloudflare.com/' target='_blank'>
-                点击此处
+                ここをクリック
               </a>
-              管理你的 Turnstile Sites，推荐选择 Invisible Widget Type
+              Turnstileサイトを管理します。Invisible Widget Typeを選択することをお勧めします
             </Header.Subheader>
           </Header>
           <Form.Group widths={3}>
@@ -566,7 +566,7 @@ const SystemSetting = () => {
               onChange={handleInputChange}
               autoComplete='new-password'
               value={inputs.TurnstileSiteKey}
-              placeholder='输入你注册的 Turnstile Site Key'
+              placeholder='登録済みのTurnstileサイトキーを入力してください'
             />
             <Form.Input
               label='Turnstile Secret Key'
@@ -575,11 +575,11 @@ const SystemSetting = () => {
               type='password'
               autoComplete='new-password'
               value={inputs.TurnstileSecretKey}
-              placeholder='敏感信息不会发送到前端显示'
+              placeholder='機密情報はフロントエンドに送信されません'
             />
           </Form.Group>
           <Form.Button onClick={submitTurnstile}>
-            保存 Turnstile 设置
+            Turnstile設定を保存
           </Form.Button>
         </Form>
       </Grid.Column>

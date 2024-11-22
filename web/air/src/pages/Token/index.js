@@ -5,7 +5,7 @@ const Token = () => (
   <>
     <Layout>
       <Layout.Header>
-          <h3>我的令牌</h3>
+          <h3>マイAPIキー</h3>
       </Layout.Header>
       <Layout.Content>
           <TokensTable/>

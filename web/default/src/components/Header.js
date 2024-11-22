@@ -9,50 +9,50 @@ import '../index.css';
 // Header Buttons
 let headerButtons = [
   {
-    name: '首页',
+    name: 'ホーム',
     to: '/',
     icon: 'home'
   },
   {
-    name: '渠道',
+    name: 'チャネル',
     to: '/channel',
     icon: 'sitemap',
     admin: true
   },
   {
-    name: '令牌',
+    name: 'APIキー',
     to: '/token',
     icon: 'key'
   },
   {
-    name: '兑换',
+    name: '交換',
     to: '/redemption',
     icon: 'dollar sign',
     admin: true
   },
   {
-    name: '充值',
+    name: 'チャージ',
     to: '/topup',
     icon: 'cart'
   },
   {
-    name: '用户',
+    name: 'ユーザー',
     to: '/user',
     icon: 'user',
     admin: true
   },
   {
-    name: '日志',
+    name: 'ログ',
     to: '/log',
     icon: 'book'
   },
   {
-    name: '设置',
+    name: '設定',
     to: '/setting',
     icon: 'setting'
   },
   {
-    name: '关于',
+    name: 'バージョン情報',
     to: '/about',
     icon: 'info circle'
   }
@@ -60,7 +60,7 @@ let headerButtons = [
 
 if (localStorage.getItem('chat_link')) {
   headerButtons.splice(1, 0, {
-    name: '聊天',
+    name: 'チャット',
     to: '/chat',
     icon: 'comments'
   });
@@ -77,7 +77,7 @@ const Header = () => {
   async function logout() {
     setShowSidebar(false);
     await API.get('/api/user/logout');
-    showSuccess('注销成功!');
+    showSuccess('ログアウトに成功しました！');
     userDispatch({ type: 'logout' });
     localStorage.removeItem('user');
     navigate('/login');
@@ -152,7 +152,7 @@ const Header = () => {
               {renderButtons(true)}
               <Menu.Item>
                 {userState.user ? (
-                  <Button onClick={logout}>注销</Button>
+                  <Button onClick={logout}>ログアウト</Button>
                 ) : (
                   <>
                     <Button
@@ -161,7 +161,7 @@ const Header = () => {
                         navigate('/login');
                       }}
                     >
-                      登录
+                      ログイン
                     </Button>
                     <Button
                       onClick={() => {
@@ -169,7 +169,7 @@ const Header = () => {
                         navigate('/register');
                       }}
                     >
-                      注册
+                      登録
                     </Button>
                   </>
                 )}
@@ -202,12 +202,12 @@ const Header = () => {
                 className='link item'
               >
                 <Dropdown.Menu>
-                  <Dropdown.Item onClick={logout}>注销</Dropdown.Item>
+                  <Dropdown.Item onClick={logout}>ログアウト</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             ) : (
               <Menu.Item
-                name='登录'
+                name='ログイン'
                 as={Link}
                 to='/login'
                 className='btn btn-link'

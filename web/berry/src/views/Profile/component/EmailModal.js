@@ -22,8 +22,8 @@ import useRegister from "hooks/useRegister";
 import { API } from "utils/api";
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().email("请输入正确的邮箱地址").required("邮箱不能为空"),
-  email_verification_code: Yup.string().required("验证码不能为空"),
+  email: Yup.string().email("请入力正确的メールアドレス").required("邮箱不能为空"),
+  email_verification_code: Yup.string().required("確認コード不能为空"),
 });
 
 const EmailModal = ({ open, handleClose, turnstileToken }) => {
@@ -41,7 +41,7 @@ const EmailModal = ({ open, handleClose, turnstileToken }) => {
     );
     const { success, message } = res.data;
     if (success) {
-      showSuccess("邮箱账户绑定成功！");
+      showSuccess("メールアカウントの紐付けに成功しました！");
       setSubmitting(false);
       setStatus({ success: true });
       handleClose();
@@ -68,11 +68,11 @@ const EmailModal = ({ open, handleClose, turnstileToken }) => {
   const handleSendCode = async (email) => {
     setDisableButton(true);
     if (email === "") {
-      showError("请输入邮箱");
+      showError("请入力邮箱");
       return;
     }
     if (turnstileToken === "") {
-      showError("请稍后几秒重试，Turnstile 正在检查用户环境！");
+      showError("数秒後にもう一度お試しください。Turnstileがユーザー環境を確認しています！");
       return;
     }
     setLoading(true);
@@ -89,7 +89,7 @@ const EmailModal = ({ open, handleClose, turnstileToken }) => {
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>绑定邮箱</DialogTitle>
+      <DialogTitle>紐付ける邮箱</DialogTitle>
       <DialogContent>
         <Grid container direction="column" alignItems="center">
           <Formik
@@ -133,7 +133,7 @@ const EmailModal = ({ open, handleClose, turnstileToken }) => {
                         >
                           {disableButton
                             ? `重新发送(${countdown})`
-                            : "获取验证码"}
+                            : "確認コードを取得"}
                         </Button>
                       </InputAdornment>
                     }
@@ -154,7 +154,7 @@ const EmailModal = ({ open, handleClose, turnstileToken }) => {
                   sx={{ ...theme.typography.customInput }}
                 >
                   <InputLabel htmlFor="email_verification_code">
-                    验证码
+                    確認コード
                   </InputLabel>
                   <OutlinedInput
                     id="email_verification_code"
@@ -173,7 +173,7 @@ const EmailModal = ({ open, handleClose, turnstileToken }) => {
                     )}
                 </FormControl>
                 <DialogActions>
-                  <Button onClick={handleClose}>取消</Button>
+                  <Button onClick={handleClose}>キャンセル</Button>
                   <Button
                     disableElevation
                     disabled={loading}
@@ -181,7 +181,7 @@ const EmailModal = ({ open, handleClose, turnstileToken }) => {
                     variant="contained"
                     color="primary"
                   >
-                    提交
+                    送信
                   </Button>
                 </DialogActions>
               </form>

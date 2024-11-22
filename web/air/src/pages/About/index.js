@@ -20,7 +20,7 @@ const About = () => {
       localStorage.setItem('about', aboutContent);
     } else {
       showError(message);
-      setAbout('加载关于内容失败...');
+      setAbout('バージョン情報コンテンツの読み込みに失敗しました...');
     }
     setAboutLoaded(true);
   };
@@ -34,9 +34,9 @@ const About = () => {
       {
         aboutLoaded && about === '' ? <>
           <Segment>
-            <Header as='h3'>关于</Header>
-            <p>可在设置页面设置关于内容，支持 HTML & Markdown</p>
-            项目仓库地址：
+            <Header as='h3'>バージョン情報</Header>
+            <p>設定ページでバージョン情報コンテンツを設定できます。HTMLとMarkdownをサポートしています</p>
+            プロジェクトリポジトリアドレス：
             <a href='https://github.com/songquanpeng/one-api'>
               https://github.com/songquanpeng/one-api
             </a>

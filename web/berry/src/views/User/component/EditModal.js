@@ -28,21 +28,21 @@ import { API } from 'utils/api';
 
 const validationSchema = Yup.object().shape({
   is_edit: Yup.boolean(),
-  username: Yup.string().required('用户名 不能为空'),
+  username: Yup.string().required('ユーザー名 不能为空'),
   display_name: Yup.string(),
   password: Yup.string().when('is_edit', {
     is: false,
-    then: Yup.string().required('密码 不能为空'),
+    then: Yup.string().required('パスワード 不能为空'),
     otherwise: Yup.string()
   }),
   group: Yup.string().when('is_edit', {
     is: false,
-    then: Yup.string().required('用户组 不能为空'),
+    then: Yup.string().required('ユーザー组 不能为空'),
     otherwise: Yup.string()
   }),
   quota: Yup.number().when('is_edit', {
     is: false,
-    then: Yup.number().min(0, '额度 不能小于 0'),
+    then: Yup.number().min(0, '割り当て 不能小于 0'),
     otherwise: Yup.number()
   })
 });
@@ -74,9 +74,9 @@ const EditModal = ({ open, userId, onCancel, onOk }) => {
     const { success, message } = res.data;
     if (success) {
       if (values.is_edit) {
-        showSuccess('用户更新成功！');
+        showSuccess('ユーザー更新成功！');
       } else {
-        showSuccess('用户创建成功！');
+        showSuccess('ユーザー创建成功！');
       }
       setSubmitting(false);
       setStatus({ success: true });
@@ -127,7 +127,7 @@ const EditModal = ({ open, userId, onCancel, onOk }) => {
   return (
     <Dialog open={open} onClose={onCancel} fullWidth maxWidth={'md'}>
       <DialogTitle sx={{ margin: '0px', fontWeight: 700, lineHeight: '1.55556', padding: '24px', fontSize: '1.125rem' }}>
-        {userId ? '编辑用户' : '新建用户'}
+        {userId ? '編集ユーザー' : '新建ユーザー'}
       </DialogTitle>
       <Divider />
       <DialogContent>
@@ -135,10 +135,10 @@ const EditModal = ({ open, userId, onCancel, onOk }) => {
           {({ errors, handleBlur, handleChange, handleSubmit, touched, values, isSubmitting }) => (
             <form noValidate onSubmit={handleSubmit}>
               <FormControl fullWidth error={Boolean(touched.username && errors.username)} sx={{ ...theme.typography.otherInput }}>
-                <InputLabel htmlFor="channel-username-label">用户名</InputLabel>
+                <InputLabel htmlFor="channel-username-label">ユーザー名</InputLabel>
                 <OutlinedInput
                   id="channel-username-label"
-                  label="用户名"
+                  label="ユーザー名"
                   type="text"
                   value={values.username}
                   name="username"
@@ -155,10 +155,10 @@ const EditModal = ({ open, userId, onCancel, onOk }) => {
               </FormControl>
 
               <FormControl fullWidth error={Boolean(touched.display_name && errors.display_name)} sx={{ ...theme.typography.otherInput }}>
-                <InputLabel htmlFor="channel-display_name-label">显示名称</InputLabel>
+                <InputLabel htmlFor="channel-display_name-label">表示名</InputLabel>
                 <OutlinedInput
                   id="channel-display_name-label"
-                  label="显示名称"
+                  label="表示名"
                   type="text"
                   value={values.display_name}
                   name="display_name"
@@ -175,10 +175,10 @@ const EditModal = ({ open, userId, onCancel, onOk }) => {
               </FormControl>
 
               <FormControl fullWidth error={Boolean(touched.password && errors.password)} sx={{ ...theme.typography.otherInput }}>
-                <InputLabel htmlFor="channel-password-label">密码</InputLabel>
+                <InputLabel htmlFor="channel-password-label">パスワード</InputLabel>
                 <OutlinedInput
                   id="channel-password-label"
-                  label="密码"
+                  label="パスワード"
                   type={showPassword ? 'text' : 'password'}
                   value={values.password}
                   name="password"
@@ -210,10 +210,10 @@ const EditModal = ({ open, userId, onCancel, onOk }) => {
               {values.is_edit && (
                 <>
                   <FormControl fullWidth error={Boolean(touched.quota && errors.quota)} sx={{ ...theme.typography.otherInput }}>
-                    <InputLabel htmlFor="channel-quota-label">额度</InputLabel>
+                    <InputLabel htmlFor="channel-quota-label">割り当て</InputLabel>
                     <OutlinedInput
                       id="channel-quota-label"
-                      label="额度"
+                      label="割り当て"
                       type="number"
                       value={values.quota}
                       name="quota"
@@ -232,10 +232,10 @@ const EditModal = ({ open, userId, onCancel, onOk }) => {
                   </FormControl>
 
                   <FormControl fullWidth error={Boolean(touched.group && errors.group)} sx={{ ...theme.typography.otherInput }}>
-                    <InputLabel htmlFor="channel-group-label">分组</InputLabel>
+                    <InputLabel htmlFor="channel-group-label">グループ</InputLabel>
                     <Select
                       id="channel-group-label"
-                      label="分组"
+                      label="グループ"
                       value={values.group}
                       name="group"
                       onBlur={handleBlur}
@@ -265,9 +265,9 @@ const EditModal = ({ open, userId, onCancel, onOk }) => {
                 </>
               )}
               <DialogActions>
-                <Button onClick={onCancel}>取消</Button>
+                <Button onClick={onCancel}>キャンセル</Button>
                 <Button disableElevation disabled={isSubmitting} type="submit" variant="contained" color="primary">
-                  提交
+                  送信
                 </Button>
               </DialogActions>
             </form>

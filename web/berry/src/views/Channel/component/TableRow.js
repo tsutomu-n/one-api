@@ -93,7 +93,7 @@ export default function ChannelTableRow({
         test_time: Date.now() / 1000,
         response_time: time * 1000,
       });
-      showInfo(`渠道 ${item.name} 测试成功，耗时 ${time.toFixed(2)} 秒。`);
+      showInfo(`チャネル ${item.name} テスト成功，耗时 ${time.toFixed(2)}秒。`);
     }
   };
 
@@ -103,7 +103,7 @@ export default function ChannelTableRow({
     if (success) {
       setItemBalance(balance);
 
-      showInfo(`余额更新成功！`);
+      showInfo(`残高更新成功！`);
     } else {
       showError(message);
     }
@@ -144,11 +144,11 @@ export default function ChannelTableRow({
             title={(() => {
               switch (statusSwitch) {
                 case 1:
-                  return "已启用";
+                  return "有効済み";
                 case 2:
-                  return "本渠道被手动禁用";
+                  return "本チャネル被手动無効化";
                 case 3:
-                  return "本渠道被程序自动禁用";
+                  return "本チャネル被程序自动無効化";
                 default:
                   return "未知";
               }
@@ -173,7 +173,7 @@ export default function ChannelTableRow({
         <TableCell>{renderNumber(item.used_quota)}</TableCell>
         <TableCell>
           <Tooltip
-            title={"点击更新余额"}
+            title={"点击残高を更新"}
             placement="top"
             onClick={updateChannelBalance}
           >
@@ -221,23 +221,23 @@ export default function ChannelTableRow({
           }}
         >
           <IconEdit style={{ marginRight: "16px" }} />
-          编辑
+          編集
         </MenuItem>
         <MenuItem onClick={handleDeleteOpen} sx={{ color: "error.main" }}>
           <IconTrash style={{ marginRight: "16px" }} />
-          删除
+          削除
         </MenuItem>
       </Popover>
 
       <Dialog open={openDelete} onClose={handleDeleteClose}>
-        <DialogTitle>删除渠道</DialogTitle>
+        <DialogTitle>削除チャネル</DialogTitle>
         <DialogContent>
-          <DialogContentText>是否删除渠道 {item.name}？</DialogContentText>
+          <DialogContentText>是否削除チャネル {item.name}？</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleDeleteClose}>关闭</Button>
+          <Button onClick={handleDeleteClose}>閉じる</Button>
           <Button onClick={handleDelete} sx={{ color: "error.main" }} autoFocus>
-            删除
+            削除
           </Button>
         </DialogActions>
       </Dialog>
@@ -258,7 +258,7 @@ function renderBalance(type, balance) {
       return <span>${balance.toFixed(2)}</span>;
     case 4: // CloseAI
       return <span>¥{balance.toFixed(2)}</span>;
-    case 8: // 自定义
+    case 8: // カスタム
       return <span>${balance.toFixed(2)}</span>;
     case 5: // OpenAI-SB
       return <span>¥{(balance / 10000).toFixed(2)}</span>;
@@ -271,6 +271,6 @@ function renderBalance(type, balance) {
     case 44: // SiliconFlow
       return <span>¥{balance.toFixed(2)}</span>;
     default:
-      return <span>不支持</span>;
+      return <span>サポートされていません</span>;
   }
 }

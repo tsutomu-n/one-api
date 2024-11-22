@@ -113,7 +113,7 @@ const OtherSetting = () => {
     const res = await API.get('https://api.github.com/repos/songquanpeng/one-api/releases/latest');
     const { tag_name, body } = res.data;
     if (tag_name === process.env.REACT_APP_VERSION) {
-      showSuccess(`已是最新版本：${tag_name}`);
+      showSuccess(`最新バージョンです：${tag_name}`);
     } else {
       setUpdateData({
         tag_name: tag_name,
@@ -126,11 +126,11 @@ const OtherSetting = () => {
   return (
     <>
       <Stack spacing={2}>
-        <SubCard title="通用设置">
+        <SubCard title="一般設定">
           <Grid container spacing={{ xs: 3, sm: 2, md: 4 }}>
             <Grid xs={12}>
               <Button variant="contained" onClick={checkUpdate}>
-                检查更新
+                更新を確認
               </Button>
             </Grid>
             <Grid xs={12}>
@@ -139,79 +139,79 @@ const OtherSetting = () => {
                   multiline
                   maxRows={15}
                   id="Notice"
-                  label="公告"
+                  label="お知らせ"
                   value={inputs.Notice}
                   name="Notice"
                   onChange={handleInputChange}
                   minRows={10}
-                  placeholder="在此输入新的公告内容，支持 Markdown & HTML 代码"
+                  placeholder="新しいお知らせコンテンツをここに入力します。MarkdownとHTMLコードをサポートしています"
                 />
               </FormControl>
             </Grid>
             <Grid xs={12}>
               <Button variant="contained" onClick={submitNotice}>
-                保存公告
+                お知らせを保存
               </Button>
             </Grid>
           </Grid>
         </SubCard>
-        <SubCard title="个性化设置">
+        <SubCard title="パーソナライズ設定">
           <Grid container spacing={{ xs: 3, sm: 2, md: 4 }}>
             <Grid xs={12}>
               <FormControl fullWidth>
-                <InputLabel htmlFor="SystemName">系统名称</InputLabel>
+                <InputLabel htmlFor="SystemName">システム名</InputLabel>
                 <OutlinedInput
                   id="SystemName"
                   name="SystemName"
                   value={inputs.SystemName || ''}
                   onChange={handleInputChange}
-                  label="系统名称"
-                  placeholder="在此输入系统名称"
+                  label="システム名"
+                  placeholder="システム名をここに入力します"
                   disabled={loading}
                 />
               </FormControl>
             </Grid>
             <Grid xs={12}>
               <Button variant="contained" onClick={submitSystemName}>
-                设置系统名称
+                システム名を設定
               </Button>
             </Grid>
             <Grid xs={12}>
               <FormControl fullWidth>
-                <InputLabel htmlFor="Theme">主题名称</InputLabel>
+                <InputLabel htmlFor="Theme">主题名前</InputLabel>
                 <OutlinedInput
                     id="Theme"
                     name="Theme"
                     value={inputs.Theme || ''}
                     onChange={handleInputChange}
-                    label="主题名称"
-                    placeholder="请输入主题名称"
+                    label="主题名前"
+                    placeholder="请入力主题名前"
                     disabled={loading}
                 />
               </FormControl>
             </Grid>
             <Grid xs={12}>
               <Button variant="contained" onClick={submitTheme}>
-                设置主题（重启生效）
+                設定主题（重启生效）
               </Button>
             </Grid>
             <Grid xs={12}>
               <FormControl fullWidth>
-                <InputLabel htmlFor="Logo">Logo 图片地址</InputLabel>
+                <InputLabel htmlFor="Logo">Logo 画像URL</InputLabel>
                 <OutlinedInput
                   id="Logo"
                   name="Logo"
                   value={inputs.Logo || ''}
                   onChange={handleInputChange}
-                  label="Logo 图片地址"
-                  placeholder="在此输入Logo 图片地址"
+                  label="Logo 画像URL"
+                  placeholder="在此入力Logo 画像URL"
                   disabled={loading}
                 />
               </FormControl>
             </Grid>
             <Grid xs={12}>
               <Button variant="contained" onClick={submitLogo}>
-                设置 Logo
+                設定 Logo
               </Button>
             </Grid>
             <Grid xs={12}>
@@ -220,18 +220,18 @@ const OtherSetting = () => {
                   multiline
                   maxRows={15}
                   id="HomePageContent"
-                  label="首页内容"
+                  label="ホームページコンテンツ"
                   value={inputs.HomePageContent}
                   name="HomePageContent"
                   onChange={handleInputChange}
                   minRows={10}
-                  placeholder="在此输入首页内容，支持 Markdown & HTML 代码，设置后首页的状态信息将不再显示。如果输入的是一个链接，则会使用该链接作为 iframe 的 src 属性，这允许你设置任意网页作为首页。"
+                  placeholder="ホームページコンテンツをここに入力します。MarkdownとHTMLコードをサポートしています。設定後、ホームページのステータス情報は表示されなくなります。リンクを入力すると、そのリンクがiframeのsrc属性として使用され、任意のウェブページをホームページとして設定できます。。"
                 />
               </FormControl>
             </Grid>
             <Grid xs={12}>
               <Button variant="contained" onClick={() => submitOption('HomePageContent')}>
-                保存首页内容
+                ホームページコンテンツを保存
               </Button>
             </Grid>
             <Grid xs={12}>
@@ -240,23 +240,23 @@ const OtherSetting = () => {
                   multiline
                   maxRows={15}
                   id="About"
-                  label="关于"
+                  label="バージョン情報"
                   value={inputs.About}
                   name="About"
                   onChange={handleInputChange}
                   minRows={10}
-                  placeholder="在此输入新的关于内容，支持 Markdown & HTML 代码。如果输入的是一个链接，则会使用该链接作为 iframe 的 src 属性，这允许你设置任意网页作为关于页面。"
+                  placeholder="新しいバージョン情報コンテンツをここに入力します。MarkdownとHTMLコードをサポートしています。リンクを入力すると、そのリンクがiframeのsrc属性として使用され、任意のウェブページをバージョン情報ページとして設定できます。。"
                 />
               </FormControl>
             </Grid>
             <Grid xs={12}>
               <Button variant="contained" onClick={submitAbout}>
-                保存关于
+                バージョン情報を保存
               </Button>
             </Grid>
             <Grid xs={12}>
               <Alert severity="warning">
-                移除 One API 的版权标识必须首先获得授权，项目维护需要花费大量精力，如果本项目对你有意义，请主动支持本项目。
+                One APIの著作権表示を削除するには、最初に許可を得る必要があります。プロジェクトの保守には多大な労力が必要です。このプロジェクトがあなたにとって意味のあるものである場合は、積極的にサポートしてください。。
               </Alert>
             </Grid>
             <Grid xs={12}>
@@ -265,18 +265,18 @@ const OtherSetting = () => {
                   multiline
                   maxRows={15}
                   id="Footer"
-                  label="页脚"
+                  label="フッター"
                   value={inputs.Footer}
                   name="Footer"
                   onChange={handleInputChange}
                   minRows={10}
-                  placeholder="在此输入新的页脚，留空则使用默认页脚，支持 HTML 代码"
+                  placeholder="新しいフッターをここに入力します。空欄のままにすると、デフォルトのフッターが使用されます。HTMLコードをサポートしています。"
                 />
               </FormControl>
             </Grid>
             <Grid xs={12}>
               <Button variant="contained" onClick={submitFooter}>
-                设置页脚
+                フッターを設定
               </Button>
             </Grid>
           </Grid>
@@ -284,7 +284,7 @@ const OtherSetting = () => {
       </Stack>
       <Dialog open={showUpdateModal} onClose={() => setShowUpdateModal(false)} fullWidth maxWidth={'md'}>
         <DialogTitle sx={{ margin: '0px', fontWeight: 700, lineHeight: '1.55556', padding: '24px', fontSize: '1.125rem' }}>
-          新版本：{updateData.tag_name}
+          新しいバージョン：{updateData.tag_name}
         </DialogTitle>
         <Divider />
         <DialogContent>
@@ -292,7 +292,7 @@ const OtherSetting = () => {
           <div dangerouslySetInnerHTML={{ __html: updateData.content }}></div>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setShowUpdateModal(false)}>关闭</Button>
+          <Button onClick={() => setShowUpdateModal(false)}>閉じる</Button>
           <Button
             onClick={async () => {
               setShowUpdateModal(false);

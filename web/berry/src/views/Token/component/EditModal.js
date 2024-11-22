@@ -38,7 +38,7 @@ const filter = createFilterOptions();
 
 const validationSchema = Yup.object().shape({
   is_edit: Yup.boolean(),
-  name: Yup.string().required('名称 不能为空'),
+  name: Yup.string().required('名前 不能为空'),
   remain_quota: Yup.number().min(0, '必须大于等于0'),
   expired_time: Yup.number(),
   unlimited_quota: Yup.boolean()
@@ -73,9 +73,9 @@ const EditModal = ({ open, tokenId, onCancel, onOk }) => {
     const { success, message } = res.data;
     if (success) {
       if (values.is_edit) {
-        showSuccess('令牌更新成功！');
+        showSuccess('APIキーの更新に成功しました！');
       } else {
-        showSuccess('令牌创建成功，请在列表页面点击复制获取令牌！');
+        showSuccess('APIキーの作成に成功しました。リストページでコピーをクリックしてAPIキーを取得してください！');
       }
       setSubmitting(false);
       setStatus({ success: true });
@@ -131,19 +131,19 @@ const EditModal = ({ open, tokenId, onCancel, onOk }) => {
           fontSize: '1.125rem'
         }}
       >
-        {tokenId ? '编辑令牌' : '新建令牌'}
+        {tokenId ? '編集APIキー' : '新建APIキー'}
       </DialogTitle>
       <Divider />
       <DialogContent>
-        <Alert severity="info">注意，令牌的额度仅用于限制令牌本身的最大额度使用量，实际的使用受到账户的剩余额度限制。</Alert>
+        <Alert severity="info">トークンの割り当ては、トークン自体の最大割り当て使用量を制限するためにのみ使用されます。実際の使用量は、アカウントの残りの割り当てによって制限されます。</Alert>
         <Formik initialValues={inputs} enableReinitialize validationSchema={validationSchema} onSubmit={submit}>
           {({ errors, handleBlur, handleChange, handleSubmit, touched, values, setFieldError, setFieldValue, isSubmitting }) => (
             <form noValidate onSubmit={handleSubmit}>
               <FormControl fullWidth error={Boolean(touched.name && errors.name)} sx={{ ...theme.typography.otherInput }}>
-                <InputLabel htmlFor="channel-name-label">名称</InputLabel>
+                <InputLabel htmlFor="channel-name-label">名前</InputLabel>
                 <OutlinedInput
                   id="channel-name-label"
-                  label="名称"
+                  label="名前"
                   type="text"
                   value={values.name}
                   name="name"
@@ -177,7 +177,7 @@ const EditModal = ({ open, tokenId, onCancel, onOk }) => {
                   onBlur={handleBlur}
                   // filterSelectedOptions
                   disableCloseOnSelect
-                  renderInput={(params) => <TextField {...params} name="models" error={Boolean(errors.models)} label="模型范围" />}
+                  renderInput={(params) => <TextField {...params} name="models" error={Boolean(errors.models)} label="モデル范围" />}
                   filterOptions={(options, params) => {
                     const filtered = filter(options, params);
                     const { inputValue } = params;
@@ -199,7 +199,7 @@ const EditModal = ({ open, tokenId, onCancel, onOk }) => {
                     {errors.models}
                   </FormHelperText>
                 ) : (
-                  <FormHelperText id="helper-tex-channel-models-label">请选择允许使用的模型，留空则不进行限制</FormHelperText>
+                  <FormHelperText id="helper-tex-channel-models-label">请选择允许使用的モデル，留空则不进行限制</FormHelperText>
                 )}
               </FormControl>
               <FormControl fullWidth error={Boolean(touched.subnet && errors.subnet)} sx={{ ...theme.typography.otherInput }}>
@@ -221,7 +221,7 @@ const EditModal = ({ open, tokenId, onCancel, onOk }) => {
                   </FormHelperText>
                 ) : (
                   <FormHelperText id="helper-tex-channel-subnet-label">
-                    请输入允许访问的网段，例如：192.168.0.0/24，请使用英文逗号分隔多个网段
+                    请入力允许访问的网段，例：：192.168.0.0/24，请使用英文逗号分隔多个网段
                   </FormHelperText>
                 )}
               </FormControl>
@@ -229,14 +229,14 @@ const EditModal = ({ open, tokenId, onCancel, onOk }) => {
                 <FormControl fullWidth error={Boolean(touched.expired_time && errors.expired_time)} sx={{ ...theme.typography.otherInput }}>
                   <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={'zh-cn'}>
                     <DateTimePicker
-                      label="过期时间"
+                      label="有効期限"
                       ampm={false}
                       value={dayjs.unix(values.expired_time)}
                       onError={(newError) => {
                         if (newError === null) {
                           setFieldError('expired_time', null);
                         } else {
-                          setFieldError('expired_time', '无效的日期');
+                          setFieldError('expired_time', 'なし效的日期');
                         }
                       }}
                       onChange={(newValue) => {
@@ -266,12 +266,12 @@ const EditModal = ({ open, tokenId, onCancel, onOk }) => {
                   }
                 }}
               />{' '}
-              永不过期
+              無期限
               <FormControl fullWidth error={Boolean(touched.remain_quota && errors.remain_quota)} sx={{ ...theme.typography.otherInput }}>
-                <InputLabel htmlFor="channel-remain_quota-label">额度</InputLabel>
+                <InputLabel htmlFor="channel-remain_quota-label">割り当て</InputLabel>
                 <OutlinedInput
                   id="channel-remain_quota-label"
-                  label="额度"
+                  label="割り当て"
                   type="number"
                   value={values.remain_quota}
                   name="remain_quota"
@@ -294,11 +294,11 @@ const EditModal = ({ open, tokenId, onCancel, onOk }) => {
                   setFieldValue('unlimited_quota', !values.unlimited_quota);
                 }}
               />{' '}
-              无限额度
+              なし限割り当て
               <DialogActions>
-                <Button onClick={onCancel}>取消</Button>
+                <Button onClick={onCancel}>キャンセル</Button>
                 <Button disableElevation disabled={isSubmitting} type="submit" variant="contained" color="primary">
-                  提交
+                  送信
                 </Button>
               </DialogActions>
             </form>

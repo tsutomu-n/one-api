@@ -121,9 +121,9 @@ func postConsumeQuota(ctx context.Context, usage *relaymodel.Usage, meta *meta.M
 	}
 	var extraLog string
 	if systemPromptReset {
-		extraLog = " （注意系统提示词已被重置）"
+		extraLog = " （注意系统プロンプト词已被重置）"
 	}
-	logContent := fmt.Sprintf("模型倍率 %.2f，分组倍率 %.2f，补全倍率 %.2f%s", modelRatio, groupRatio, completionRatio, extraLog)
+	logContent := fmt.Sprintf("モデルレート %.2f、グループレート %.2f、補完レート %.2f%s", modelRatio, groupRatio, completionRatio, extraLog)
 	model.RecordConsumeLog(ctx, meta.UserId, meta.ChannelId, promptTokens, completionTokens, textRequest.Model, meta.TokenName, quota, logContent)
 	model.UpdateUserUsedQuotaAndRequestCount(meta.UserId, quota)
 	model.UpdateChannelUsedQuota(meta.ChannelId, quota)

@@ -19,11 +19,11 @@ function renderStatus(status) {
     case 1:
       return <Tag color="green" size="large">未使用</Tag>;
     case 2:
-      return <Tag color="red" size="large"> 已禁用 </Tag>;
+      return <Tag color="red" size="large"> 無効済み </Tag>;
     case 3:
-      return <Tag color="grey" size="large"> 已使用 </Tag>;
+      return <Tag color="grey" size="large"> 使用済み </Tag>;
     default:
-      return <Tag color="black" size="large"> 未知状态 </Tag>;
+      return <Tag color="black" size="large"> 不明な状態 </Tag>;
   }
 }
 
@@ -34,11 +34,11 @@ const RedemptionsTable = () => {
       dataIndex: 'id'
     },
     {
-      title: '名称',
+      title: '名前',
       dataIndex: 'name'
     },
     {
-      title: '状态',
+      title: '状態',
       dataIndex: 'status',
       key: 'status',
       render: (text, record, index) => {
@@ -50,7 +50,7 @@ const RedemptionsTable = () => {
       }
     },
     {
-      title: '额度',
+      title: '割り当て',
       dataIndex: 'quota',
       render: (text, record, index) => {
         return (
@@ -61,7 +61,7 @@ const RedemptionsTable = () => {
       }
     },
     {
-      title: '创建时间',
+      title: '作成時間',
       dataIndex: 'created_time',
       render: (text, record, index) => {
         return (
@@ -72,12 +72,12 @@ const RedemptionsTable = () => {
       }
     },
     // {
-    //   title: '兑换人ID',
+    //   title: '交換人ID',
     //   dataIndex: 'used_user_id',
     //   render: (text, record, index) => {
     //     return (
     //       <div>
-    //         {text === 0 ? '无' : text}
+    //         {text === 0 ? 'なし' : text}
     //       </div>
     //     );
     //   }
@@ -100,9 +100,9 @@ const RedemptionsTable = () => {
                   onClick={async (text) => {
                     await copyText(record.key);
                   }}
-          >复制</Button>
+          >コピー</Button>
           <Popconfirm
-            title="确定是否要删除此兑换码？"
+            title="确定是否要削除此交換コード？"
             content="此修改将不可逆"
             okType={'danger'}
             position={'left'}
@@ -114,7 +114,7 @@ const RedemptionsTable = () => {
               );
             }}
           >
-            <Button theme="light" type="danger" style={{ marginRight: 1 }}>删除</Button>
+            <Button theme="light" type="danger" style={{ marginRight: 1 }}>削除</Button>
           </Popconfirm>
           {
             record.status === 1 ?
@@ -126,7 +126,7 @@ const RedemptionsTable = () => {
                     record
                   );
                 }
-              }>禁用</Button> :
+              }>無効化</Button> :
               <Button theme="light" type="secondary" style={{ marginRight: 1 }} onClick={
                 async () => {
                   manageRedemption(
@@ -135,14 +135,14 @@ const RedemptionsTable = () => {
                     record
                   );
                 }
-              } disabled={record.status === 3}>启用</Button>
+              } disabled={record.status === 3}>有効化</Button>
           }
           <Button theme="light" type="tertiary" style={{ marginRight: 1 }} onClick={
             () => {
               setEditingRedemption(record);
               setShowEdit(true);
             }
-          } disabled={record.status !== 1}>编辑</Button>
+          } disabled={record.status !== 1}>編集</Button>
         </div>
       )
     }
@@ -216,10 +216,10 @@ const RedemptionsTable = () => {
 
   const copyText = async (text) => {
     if (await copy(text)) {
-      showSuccess('已复制到剪贴板！');
+      showSuccess('クリップボードにコピーしました！');
     } else {
       // setSearchKeyword(text);
-      Modal.error({ title: '无法复制到剪贴板，请手动复制', content: text });
+      Modal.error({ title: 'クリップボードにコピーできません，手動でコピーしてください', content: text });
     }
   };
 
@@ -263,7 +263,7 @@ const RedemptionsTable = () => {
     }
     const { success, message } = res.data;
     if (success) {
-      showSuccess('操作成功完成！');
+      showSuccess('操作が正常に完了しました！');
       let redemption = res.data.data;
       let newRedemptions = [...redemptions];
       // let realIdx = (activePage - 1) * ITEMS_PER_PAGE + idx;
@@ -357,7 +357,7 @@ const RedemptionsTable = () => {
           field="keyword"
           icon="search"
           iconPosition="left"
-          placeholder="关键字(id或者名称)"
+          placeholder="关键字(id或者名前)"
           value={searchKeyword}
           loading={searching}
           onChange={handleKeywordChange}
@@ -385,11 +385,11 @@ const RedemptionsTable = () => {
           });
           setShowEdit(true);
         }
-      }>添加兑换码</Button>
-      <Button label="复制所选兑换码" type="warning" onClick={
+      }>添加交換コード</Button>
+      <Button label="コピー所选交換コード" type="warning" onClick={
         async () => {
           if (selectedKeys.length === 0) {
-            showError('请至少选择一个兑换码！');
+            showError('请至少选择一个交換コード！');
             return;
           }
           let keys = '';
@@ -398,7 +398,7 @@ const RedemptionsTable = () => {
           }
           await copyText(keys);
         }
-      }>复制所选兑换码到剪贴板</Button>
+      }>コピー所选交換コード到剪贴板</Button>
     </>
   );
 };

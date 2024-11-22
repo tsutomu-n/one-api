@@ -102,7 +102,7 @@ export default function TokensTableRow({ item, manageToken, handleOpenModal, set
 
   const actionItems = createMenu([
     {
-      text: '编辑',
+      text: '編集',
       icon: <IconEdit style={{ marginRight: '16px' }} />,
       onClick: () => {
         handleCloseMenu();
@@ -112,7 +112,7 @@ export default function TokensTableRow({ item, manageToken, handleOpenModal, set
       color: undefined
     },
     {
-      text: '删除',
+      text: '削除',
       icon: <IconTrash style={{ marginRight: '16px' }} />,
       onClick: handleDeleteOpen,
       color: 'error.main'
@@ -175,13 +175,13 @@ export default function TokensTableRow({ item, manageToken, handleOpenModal, set
             title={(() => {
               switch (statusSwitch) {
                 case 1:
-                  return '已启用';
+                  return '有効済み';
                 case 2:
-                  return '已禁用';
+                  return '無効済み';
                 case 3:
-                  return '已过期';
+                  return '期限切れ';
                 case 4:
-                  return '已耗尽';
+                  return '使い果たしました';
                 default:
                   return '未知';
               }
@@ -199,11 +199,11 @@ export default function TokensTableRow({ item, manageToken, handleOpenModal, set
 
         <TableCell>{renderQuota(item.used_quota)}</TableCell>
 
-        <TableCell>{item.unlimited_quota ? '无限制' : renderQuota(item.remain_quota, 2)}</TableCell>
+        <TableCell>{item.unlimited_quota ? '無制限' : renderQuota(item.remain_quota, 2)}</TableCell>
 
         <TableCell>{timestamp2string(item.created_time)}</TableCell>
 
-        <TableCell>{item.expired_time === -1 ? '永不过期' : timestamp2string(item.expired_time)}</TableCell>
+        <TableCell>{item.expired_time === -1 ? '無期限' : timestamp2string(item.expired_time)}</TableCell>
 
         <TableCell>
           <Stack direction="row" spacing={1}>
@@ -214,7 +214,7 @@ export default function TokensTableRow({ item, manageToken, handleOpenModal, set
                   copy(`sk-${item.key}`);
                 }}
               >
-                复制
+                コピー
               </Button>
               <Button size="small" onClick={(e) => handleOpenMenu(e, 'copy')}>
                 <IconCaretDownFilled size={'16px'} />
@@ -222,7 +222,7 @@ export default function TokensTableRow({ item, manageToken, handleOpenModal, set
             </ButtonGroup>
             <ButtonGroup size="small" aria-label="split button">
               <Button color="primary" onClick={(e) => handleCopy(COPY_OPTIONS[0], 'link')}>
-                聊天
+                チャット
               </Button>
               <Button size="small" onClick={(e) => handleOpenMenu(e, 'link')}>
                 <IconCaretDownFilled size={'16px'} />
@@ -248,14 +248,14 @@ export default function TokensTableRow({ item, manageToken, handleOpenModal, set
       </Popover>
 
       <Dialog open={openDelete} onClose={handleDeleteClose}>
-        <DialogTitle>删除Token</DialogTitle>
+        <DialogTitle>削除Token</DialogTitle>
         <DialogContent>
-          <DialogContentText>是否删除Token {item.name}？</DialogContentText>
+          <DialogContentText>是否削除Token {item.name}？</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleDeleteClose}>关闭</Button>
+          <Button onClick={handleDeleteClose}>閉じる</Button>
           <Button onClick={handleDelete} sx={{ color: 'error.main' }} autoFocus>
-            删除
+            削除
           </Button>
         </DialogActions>
       </Dialog>

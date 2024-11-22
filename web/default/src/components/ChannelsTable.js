@@ -31,7 +31,7 @@ function renderType(type) {
     for (let i = 0; i < CHANNEL_OPTIONS.length; i++) {
       type2label[CHANNEL_OPTIONS[i].value] = CHANNEL_OPTIONS[i];
     }
-    type2label[0] = { value: 0, text: '未知类型', color: 'grey' };
+    type2label[0] = { value: 0, text: '不明なタイプ', color: 'grey' };
   }
   return <Label basic color={type2label[type]?.color}>{type2label[type] ? type2label[type].text : type}</Label>;
 }
@@ -42,7 +42,7 @@ function renderBalance(type, balance) {
       return <span>${balance.toFixed(2)}</span>;
     case 4: // CloseAI
       return <span>¥{balance.toFixed(2)}</span>;
-    case 8: // 自定义
+    case 8: // カスタム
       return <span>${balance.toFixed(2)}</span>;
     case 5: // OpenAI-SB
       return <span>¥{(balance / 10000).toFixed(2)}</span>;
@@ -55,7 +55,7 @@ function renderBalance(type, balance) {
     case 44: // SiliconFlow
       return <span>¥{balance.toFixed(2)}</span>;
     default:
-      return <span>不支持</span>;
+      return <span>サポートされていません</span>;
   }
 }
 
@@ -176,7 +176,7 @@ const ChannelsTable = () => {
     }
     const { success, message } = res.data;
     if (success) {
-      showSuccess('操作成功完成！');
+      showSuccess('操作が正常に完了しました！');
       let channel = res.data.data;
       let newChannels = [...channels];
       let realIdx = (activePage - 1) * ITEMS_PER_PAGE + idx;
@@ -194,14 +194,14 @@ const ChannelsTable = () => {
   const renderStatus = (status) => {
     switch (status) {
       case 1:
-        return <Label basic color='green'>已启用</Label>;
+        return <Label basic color='green'>有効済み</Label>;
       case 2:
         return (
           <Popup
             trigger={<Label basic color='red'>
-              已禁用
+              無効済み
             </Label>}
-            content='本渠道被手动禁用'
+            content='本チャネル被手动無効化'
             basic
           />
         );
@@ -209,16 +209,16 @@ const ChannelsTable = () => {
         return (
           <Popup
             trigger={<Label basic color='yellow'>
-              已禁用
+              無効済み
             </Label>}
-            content='本渠道被程序自动禁用'
+            content='本チャネル被程序自动無効化'
             basic
           />
         );
       default:
         return (
           <Label basic color='grey'>
-            未知状态
+            不明な状態
           </Label>
         );
     }
@@ -226,9 +226,9 @@ const ChannelsTable = () => {
 
   const renderResponseTime = (responseTime) => {
     let time = responseTime / 1000;
-    time = time.toFixed(2) + ' 秒';
+    time = time.toFixed(2) + '秒';
     if (responseTime === 0) {
-      return <Label basic color='grey'>未测试</Label>;
+      return <Label basic color='grey'>未テスト</Label>;
     } else if (responseTime <= 1000) {
       return <Label basic color='green'>{time}</Label>;
     } else if (responseTime <= 3000) {
@@ -275,7 +275,7 @@ const ChannelsTable = () => {
       newChannels[realIdx].response_time = time * 1000;
       newChannels[realIdx].test_time = Date.now() / 1000;
       setChannels(newChannels);
-      showInfo(`渠道 ${name} 测试成功，模型 ${model}，耗时 ${time.toFixed(2)} 秒。`);
+      showInfo(`チャネル ${name} テスト成功，モデル ${model}，耗时 ${time.toFixed(2)}秒。`);
     } else {
       showError(message);
     }
@@ -290,7 +290,7 @@ const ChannelsTable = () => {
     const res = await API.get(`/api/channel/test?scope=${scope}`);
     const { success, message } = res.data;
     if (success) {
-      showInfo('已成功开始测试渠道，请刷新页面查看结果。');
+      showInfo('已成功开始テストチャネル，请更新页面查看结果。');
     } else {
       showError(message);
     }
@@ -300,7 +300,7 @@ const ChannelsTable = () => {
     const res = await API.delete(`/api/channel/disabled`);
     const { success, message, data } = res.data;
     if (success) {
-      showSuccess(`已删除所有禁用渠道，共计 ${data} 个`);
+      showSuccess(`已削除所有無効化チャネル，共计 ${data} 个`);
       await refresh();
     } else {
       showError(message);
@@ -316,7 +316,7 @@ const ChannelsTable = () => {
       newChannels[realIdx].balance = balance;
       newChannels[realIdx].balance_updated_time = Date.now() / 1000;
       setChannels(newChannels);
-      showInfo(`渠道 ${name} 余额更新成功！`);
+      showInfo(`チャネル ${name} の残高更新に成功しました！`);
     } else {
       showError(message);
     }
@@ -327,7 +327,7 @@ const ChannelsTable = () => {
     const res = await API.get(`/api/channel/update_balance`);
     const { success, message } = res.data;
     if (success) {
-      showInfo('已更新完毕所有已启用渠道余额！');
+      showInfo('すべての有効なチャネルの残高が更新されました！');
     } else {
       showError(message);
     }
@@ -366,7 +366,7 @@ const ChannelsTable = () => {
           icon='search'
           fluid
           iconPosition='left'
-          placeholder='搜索渠道的 ID，名称和密钥 ...'
+          placeholder='チャネルのID、名前、キーを検索...'
           value={searchKeyword}
           loading={searching}
           onChange={handleKeywordChange}
@@ -378,11 +378,11 @@ const ChannelsTable = () => {
             setShowPrompt(false);
             setPromptShown(promptID);
           }}>
-            OpenAI 渠道已经不再支持通过 key 获取余额，因此余额显示为 0。对于支持的渠道类型，请点击余额进行刷新。
+            OpenAI チャネル已经不再支持通过 key 获取残高，因此残高显示为 0。对于支持的チャネルタイプ，请点击残高进行更新。
             <br/>
-            渠道测试仅支持 chat 模型，优先使用 gpt-3.5-turbo，如果该模型不可用则使用你所配置的模型列表中的第一个模型。
+            チャネルテスト仅支持 chat モデル，优先使用 gpt-3.5-turbo，如果该モデル不可用则使用你所配置的モデル列表中的第一个モデル。
             <br/>
-            点击下方详情按钮可以显示余额以及设置额外的测试模型。
+            点击下方詳細按钮可以显示残高以及設定额外的テストモデル。
           </Message>
         )
       }
@@ -403,7 +403,7 @@ const ChannelsTable = () => {
                 sortChannel('name');
               }}
             >
-              名称
+              名前
             </Table.HeaderCell>
             <Table.HeaderCell
               style={{ cursor: 'pointer' }}
@@ -411,7 +411,7 @@ const ChannelsTable = () => {
                 sortChannel('group');
               }}
             >
-              分组
+              グループ
             </Table.HeaderCell>
             <Table.HeaderCell
               style={{ cursor: 'pointer' }}
@@ -419,7 +419,7 @@ const ChannelsTable = () => {
                 sortChannel('type');
               }}
             >
-              类型
+              タイプ
             </Table.HeaderCell>
             <Table.HeaderCell
               style={{ cursor: 'pointer' }}
@@ -427,7 +427,7 @@ const ChannelsTable = () => {
                 sortChannel('status');
               }}
             >
-              状态
+              状態
             </Table.HeaderCell>
             <Table.HeaderCell
               style={{ cursor: 'pointer' }}
@@ -435,7 +435,7 @@ const ChannelsTable = () => {
                 sortChannel('response_time');
               }}
             >
-              响应时间
+              応答時間
             </Table.HeaderCell>
             <Table.HeaderCell
               style={{ cursor: 'pointer' }}
@@ -444,7 +444,7 @@ const ChannelsTable = () => {
               }}
               hidden={!showDetail}
             >
-              余额
+              残高
             </Table.HeaderCell>
             <Table.HeaderCell
               style={{ cursor: 'pointer' }}
@@ -454,7 +454,7 @@ const ChannelsTable = () => {
             >
               优先级
             </Table.HeaderCell>
-            <Table.HeaderCell hidden={!showDetail}>测试模型</Table.HeaderCell>
+            <Table.HeaderCell hidden={!showDetail}>テストモデル</Table.HeaderCell>
             <Table.HeaderCell>操作</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
@@ -470,13 +470,13 @@ const ChannelsTable = () => {
               return (
                 <Table.Row key={channel.id}>
                   <Table.Cell>{channel.id}</Table.Cell>
-                  <Table.Cell>{channel.name ? channel.name : '无'}</Table.Cell>
+                  <Table.Cell>{channel.name ? channel.name : 'なし'}</Table.Cell>
                   <Table.Cell>{renderGroup(channel.group)}</Table.Cell>
                   <Table.Cell>{renderType(channel.type)}</Table.Cell>
                   <Table.Cell>{renderStatus(channel.status)}</Table.Cell>
                   <Table.Cell>
                     <Popup
-                      content={channel.test_time ? renderTimestamp(channel.test_time) : '未测试'}
+                      content={channel.test_time ? renderTimestamp(channel.test_time) : '未テスト'}
                       key={channel.id}
                       trigger={renderResponseTime(channel.response_time)}
                       basic
@@ -505,13 +505,13 @@ const ChannelsTable = () => {
                       }}>
                         <input style={{ maxWidth: '60px' }} />
                       </Input>}
-                      content='渠道选择优先级，越高越优先'
+                      content='チャネル选择优先级，越高越优先'
                       basic
                     />
                   </Table.Cell>
                   <Table.Cell hidden={!showDetail}>
                     <Dropdown
-                      placeholder='请选择测试模型'
+                      placeholder='请选择テストモデル'
                       selection
                       options={channel.model_options}
                       defaultValue={channel.test_model}
@@ -529,7 +529,7 @@ const ChannelsTable = () => {
                           testChannel(channel.id, channel.name, idx, channel.test_model);
                         }}
                       >
-                        测试
+                        テスト
                       </Button>
                       {/*<Button*/}
                       {/*  size={'small'}*/}
@@ -539,12 +539,12 @@ const ChannelsTable = () => {
                       {/*    updateChannelBalance(channel.id, channel.name, idx);*/}
                       {/*  }}*/}
                       {/*>*/}
-                      {/*  更新余额*/}
+                      {/*  残高を更新*/}
                       {/*</Button>*/}
                       <Popup
                         trigger={
                           <Button size='small' negative>
-                            删除
+                            削除
                           </Button>
                         }
                         on='click'
@@ -557,7 +557,7 @@ const ChannelsTable = () => {
                             manageChannel(channel.id, 'delete', idx);
                           }}
                         >
-                          删除渠道 {channel.name}
+                          チャネル {channel.name} を削除
                         </Button>
                       </Popup>
                       <Button
@@ -570,14 +570,14 @@ const ChannelsTable = () => {
                           );
                         }}
                       >
-                        {channel.status === 1 ? '禁用' : '启用'}
+                        {channel.status === 1 ? '無効化' : '有効化'}
                       </Button>
                       <Button
                         size={'small'}
                         as={Link}
                         to={'/channel/edit/' + channel.id}
                       >
-                        编辑
+                        編集
                       </Button>
                     </div>
                   </Table.Cell>
@@ -590,20 +590,20 @@ const ChannelsTable = () => {
           <Table.Row>
             <Table.HeaderCell colSpan={showDetail ? "10" : "8"}>
               <Button size='small' as={Link} to='/channel/add' loading={loading}>
-                添加新的渠道
+                新しいチャネルを追加
               </Button>
               <Button size='small' loading={loading} onClick={()=>{testChannels("all")}}>
-                测试所有渠道
+                すべてのチャネルをテスト
               </Button>
               <Button size='small' loading={loading} onClick={()=>{testChannels("disabled")}}>
-                测试禁用渠道
+                テスト無効化チャネル
               </Button>
               {/*<Button size='small' onClick={updateAllChannelsBalance}*/}
-              {/*        loading={loading || updatingBalance}>更新已启用渠道余额</Button>*/}
+              {/*        loading={loading || updatingBalance}>有効なチャネルの残高を更新</Button>*/}
               <Popup
                 trigger={
                   <Button size='small' loading={loading}>
-                    删除禁用渠道
+                    削除無効化チャネル
                   </Button>
                 }
                 on='click'
@@ -611,7 +611,7 @@ const ChannelsTable = () => {
                 hoverable
               >
                 <Button size='small' loading={loading} negative onClick={deleteAllDisabledChannels}>
-                  确认删除
+                  削除の確認
                 </Button>
               </Popup>
               <Pagination
@@ -625,8 +625,8 @@ const ChannelsTable = () => {
                   (channels.length % ITEMS_PER_PAGE === 0 ? 1 : 0)
                 }
               />
-              <Button size='small' onClick={refresh} loading={loading}>刷新</Button>
-              <Button size='small' onClick={toggleShowDetail}>{showDetail ? "隐藏详情" : "详情"}</Button>
+              <Button size='small' onClick={refresh} loading={loading}>更新</Button>
+              <Button size='small' onClick={toggleShowDetail}>{showDetail ? "隐藏詳細" : "詳細"}</Button>
             </Table.HeaderCell>
           </Table.Row>
         </Table.Footer>

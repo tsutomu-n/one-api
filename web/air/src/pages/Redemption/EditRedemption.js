@@ -69,11 +69,11 @@ const EditRedemption = (props) => {
     const { success, message, data } = res.data;
     if (success) {
       if (isEdit) {
-        showSuccess('兑换码更新成功！');
+        showSuccess('交換コードの更新に成功しました！');
         props.refresh();
         props.handleClose();
       } else {
-        showSuccess('兑换码创建成功！');
+        showSuccess('交換コードの作成に成功しました！');
         setInputs(originInputs);
         props.refresh();
         props.handleClose();
@@ -88,11 +88,11 @@ const EditRedemption = (props) => {
       }
       // downloadTextAsFile(text, `${inputs.name}.txt`);
       Modal.confirm({
-        title: '兑换码创建成功',
+        title: '交換コード创建成功',
         content: (
           <div>
-            <p>兑换码创建成功，是否下载兑换码？</p>
-            <p>兑换码将以文本文件的形式下载，文件名为兑换码的名称。</p>
+            <p>交換コード创建成功，是否下载交換コード？</p>
+            <p>交換コード将以文本文件的形式下载，文件名为交換コード的名前。</p>
           </div>
         ),
         onOk: () => {
@@ -107,15 +107,15 @@ const EditRedemption = (props) => {
     <>
       <SideSheet
         placement={isEdit ? 'right' : 'left'}
-        title={<Title level={3}>{isEdit ? '更新兑换码信息' : '创建新的兑换码'}</Title>}
+        title={<Title level={3}>{isEdit ? '交換コード情報を更新' : '新しい交換コードを作成'}</Title>}
         headerStyle={{ borderBottom: '1px solid var(--semi-color-border)' }}
         bodyStyle={{ borderBottom: '1px solid var(--semi-color-border)' }}
         visible={props.visiable}
         footer={
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <Space>
-              <Button theme="solid" size={'large'} onClick={submit}>提交</Button>
-              <Button theme="solid" size={'large'} type={'tertiary'} onClick={handleCancel}>取消</Button>
+              <Button theme="solid" size={'large'} onClick={submit}>送信</Button>
+              <Button theme="solid" size={'large'} type={'tertiary'} onClick={handleCancel}>キャンセル</Button>
             </Space>
           </div>
         }
@@ -126,9 +126,9 @@ const EditRedemption = (props) => {
         <Spin spinning={loading}>
           <Input
             style={{ marginTop: 20 }}
-            label="名称"
+            label="名前"
             name="name"
-            placeholder={'请输入名称'}
+            placeholder={'名前を入力してください'}
             onChange={value => handleInputChange('name', value)}
             value={name}
             autoComplete="new-password"
@@ -136,12 +136,12 @@ const EditRedemption = (props) => {
           />
           <Divider />
           <div style={{ marginTop: 20 }}>
-            <Typography.Text>{`额度${renderQuotaWithPrompt(quota)}`}</Typography.Text>
+            <Typography.Text>{`割り当て${renderQuotaWithPrompt(quota)}`}</Typography.Text>
           </div>
           <AutoComplete
             style={{ marginTop: 8 }}
             name="quota"
-            placeholder={'请输入额度'}
+            placeholder={'割り当てを入力してください'}
             onChange={(value) => handleInputChange('quota', value)}
             value={quota}
             autoComplete="new-password"
@@ -159,12 +159,12 @@ const EditRedemption = (props) => {
           {
             !isEdit && <>
               <Divider />
-              <Typography.Text>生成数量</Typography.Text>
+              <Typography.Text>生成数</Typography.Text>
               <Input
                 style={{ marginTop: 8 }}
-                label="生成数量"
+                label="生成数"
                 name="count"
-                placeholder={'请输入生成数量'}
+                placeholder={'生成数を入力してください'}
                 onChange={value => handleInputChange('count', value)}
                 value={count}
                 autoComplete="new-password"

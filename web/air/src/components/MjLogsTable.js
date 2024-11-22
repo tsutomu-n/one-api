@@ -33,11 +33,11 @@ function renderType(type) {
     case 'REROLL':
       return <Tag color="indigo" size="large">重绘</Tag>;
     case 'INPAINT':
-      return <Tag color="violet" size="large">局部重绘-提交</Tag>;
+      return <Tag color="violet" size="large">局部重绘-送信</Tag>;
     case 'ZOOM':
       return <Tag color="teal" size="large">变焦</Tag>;
     case 'CUSTOM_ZOOM':
-      return <Tag color="teal" size="large">自定义变焦-提交</Tag>;
+      return <Tag color="teal" size="large">カスタム变焦-送信</Tag>;
     case 'MODAL':
       return <Tag color="green" size="large">窗口处理</Tag>;
     case 'SWAP_FACE':
@@ -51,13 +51,13 @@ function renderType(type) {
 function renderCode(code) {
   switch (code) {
     case 1:
-      return <Tag color="green" size="large">已提交</Tag>;
+      return <Tag color="green" size="large">已送信</Tag>;
     case 21:
       return <Tag color="lime" size="large">等待中</Tag>;
     case 22:
-      return <Tag color="orange" size="large">重复提交</Tag>;
+      return <Tag color="orange" size="large">重复送信</Tag>;
     case 0:
-      return <Tag color="yellow" size="large">未提交</Tag>;
+      return <Tag color="yellow" size="large">未送信</Tag>;
     default:
       return <Tag color="white" size="large">未知</Tag>;
   }
@@ -103,7 +103,7 @@ const LogsTable = () => {
   const [modalContent, setModalContent] = useState('');
   const columns = [
     {
-      title: '提交时间',
+      title: '送信時間',
       dataIndex: 'submit_time',
       render: (text, record, index) => {
         return (
@@ -114,7 +114,7 @@ const LogsTable = () => {
       }
     },
     {
-      title: '渠道',
+      title: 'チャネル',
       dataIndex: 'channel_id',
       className: isAdmin() ? 'tableShow' : 'tableHiddle',
       render: (text, record, index) => {
@@ -122,7 +122,7 @@ const LogsTable = () => {
 
           <div>
             <Tag color={colors[parseInt(text) % colors.length]} size="large" onClick={() => {
-              copyText(text); // 假设copyText是用于文本复制的函数
+              copyText(text); // 假设copyText是用于文本コピー的函数
             }}> {text} </Tag>
           </div>
 
@@ -130,7 +130,7 @@ const LogsTable = () => {
       }
     },
     {
-      title: '类型',
+      title: 'タイプ',
       dataIndex: 'action',
       render: (text, record, index) => {
         return (
@@ -152,7 +152,7 @@ const LogsTable = () => {
       }
     },
     {
-      title: '提交结果',
+      title: '送信结果',
       dataIndex: 'code',
       className: isAdmin() ? 'tableShow' : 'tableHiddle',
       render: (text, record, index) => {
@@ -164,7 +164,7 @@ const LogsTable = () => {
       }
     },
     {
-      title: '任务状态',
+      title: '任务状態',
       dataIndex: 'status',
       className: isAdmin() ? 'tableShow' : 'tableHiddle',
       render: (text, record, index) => {
@@ -182,7 +182,7 @@ const LogsTable = () => {
         return (
           <div>
             {
-              // 转换例如100%为数字100，如果text未定义，返回0
+              // 转换例：100%为数字100，如果text未定义，返回0
               <Progress stroke={record.status === 'FAILURE' ? 'var(--semi-color-warning)' : null}
                         percent={text ? parseInt(text.replace('%', '')) : 0} showInfo={true}
                         aria-label="drawing progress" />
@@ -196,12 +196,12 @@ const LogsTable = () => {
       dataIndex: 'image_url',
       render: (text, record, index) => {
         if (!text) {
-          return '无';
+          return 'なし';
         }
         return (
           <Button
             onClick={() => {
-              setModalImageUrl(text);  // 更新图片URL状态
+              setModalImageUrl(text);  // 更新图片URL状態
               setIsModalOpenurl(true);    // 打开模态框
             }}
           >
@@ -214,9 +214,9 @@ const LogsTable = () => {
       title: 'Prompt',
       dataIndex: 'prompt',
       render: (text, record, index) => {
-        // 如果text未定义，返回替代文本，例如空字符串''或其他
+        // 如果text未定义，返回替代文本，例：空字符串''或其他
         if (!text) {
-          return '无';
+          return 'なし';
         }
 
         return (
@@ -237,9 +237,9 @@ const LogsTable = () => {
       title: 'PromptEn',
       dataIndex: 'prompt_en',
       render: (text, record, index) => {
-        // 如果text未定义，返回替代文本，例如空字符串''或其他
+        // 如果text未定义，返回替代文本，例：空字符串''或其他
         if (!text) {
-          return '无';
+          return 'なし';
         }
 
         return (
@@ -260,9 +260,9 @@ const LogsTable = () => {
       title: '失败原因',
       dataIndex: 'fail_reason',
       render: (text, record, index) => {
-        // 如果text未定义，返回替代文本，例如空字符串''或其他
+        // 如果text未定义，返回替代文本，例：空字符串''或其他
         if (!text) {
-          return '无';
+          return 'なし';
         }
 
         return (
@@ -291,7 +291,7 @@ const LogsTable = () => {
   const [isModalOpenurl, setIsModalOpenurl] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
 
-  // 定义模态框图片URL的状态和更新函数
+  // 定义模态框图片URL的状態和更新函数
   const [modalImageUrl, setModalImageUrl] = useState('');
   let now = new Date();
   // 初始化start_timestamp为前一天
@@ -370,10 +370,10 @@ const LogsTable = () => {
 
   const copyText = async (text) => {
     if (await copy(text)) {
-      showSuccess('已复制：' + text);
+      showSuccess('已コピー：' + text);
     } else {
       // setSearchKeyword(text);
-      Modal.error({ title: '无法复制到剪贴板，请手动复制', content: text });
+      Modal.error({ title: 'クリップボードにコピーできません，手動でコピーしてください', content: text });
     }
   };
 
@@ -394,32 +394,32 @@ const LogsTable = () => {
       <Layout>
         {isAdminUser && showBanner ? <Banner
           type="info"
-          description="当前未开启Midjourney回调，部分项目可能无法获得绘图结果，可在运营设置中开启。"
+          description="当前未开启Midjourney回调，部分项目可能なし法获得绘图结果，可在運用設定中开启。"
         /> : <></>
         }
         <Form layout="horizontal" style={{ marginTop: 10 }}>
           <>
-            <Form.Input field="channel_id" label="渠道 ID" style={{ width: 176 }} value={channel_id}
-                        placeholder={'可选值'} name="channel_id"
+            <Form.Input field="channel_id" label="チャネル ID" style={{ width: 176 }} value={channel_id}
+                        placeholder={'オプション値'} name="channel_id"
                         onChange={value => handleInputChange(value, 'channel_id')} />
             <Form.Input field="mj_id" label="任务 ID" style={{ width: 176 }} value={mj_id}
-                        placeholder="可选值"
+                        placeholder="オプション値"
                         name="mj_id"
                         onChange={value => handleInputChange(value, 'mj_id')} />
-            <Form.DatePicker field="start_timestamp" label="起始时间" style={{ width: 272 }}
+            <Form.DatePicker field="start_timestamp" label="開始時間" style={{ width: 272 }}
                              initValue={start_timestamp}
                              value={start_timestamp} type="dateTime"
                              name="start_timestamp"
                              onChange={value => handleInputChange(value, 'start_timestamp')} />
-            <Form.DatePicker field="end_timestamp" fluid label="结束时间" style={{ width: 272 }}
+            <Form.DatePicker field="end_timestamp" fluid label="終了時間" style={{ width: 272 }}
                              initValue={end_timestamp}
                              value={end_timestamp} type="dateTime"
                              name="end_timestamp"
                              onChange={value => handleInputChange(value, 'end_timestamp')} />
 
             <Form.Section>
-              <Button label="查询" type="primary" htmlType="submit" className="btn-margin-right"
-                      onClick={refresh}>查询</Button>
+              <Button label="検索" type="primary" htmlType="submit" className="btn-margin-right"
+                      onClick={refresh}>検索</Button>
             </Form.Section>
           </>
         </Form>
@@ -435,8 +435,8 @@ const LogsTable = () => {
           onOk={() => setIsModalOpen(false)}
           onCancel={() => setIsModalOpen(false)}
           closable={null}
-          bodyStyle={{ height: '400px', overflow: 'auto' }} // 设置模态框内容区域样式
-          width={800} // 设置模态框宽度
+          bodyStyle={{ height: '400px', overflow: 'auto' }} // 設定模态框内容区域样式
+          width={800} // 設定模态框宽度
         >
           <p style={{ whiteSpace: 'pre-line' }}>{modalContent}</p>
         </Modal>

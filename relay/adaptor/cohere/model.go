@@ -2,23 +2,23 @@ package cohere
 
 type Request struct {
 	Message          string        `json:"message" required:"true"`
-	Model            string        `json:"model,omitempty"`  // 默认值为"command-r"
-	Stream           bool          `json:"stream,omitempty"` // 默认值为false
+	Model            string        `json:"model,omitempty"`  // デフォルト值为"command-r"
+	Stream           bool          `json:"stream,omitempty"` // デフォルト值为false
 	Preamble         string        `json:"preamble,omitempty"`
 	ChatHistory      []ChatMessage `json:"chat_history,omitempty"`
 	ConversationID   string        `json:"conversation_id,omitempty"`
-	PromptTruncation string        `json:"prompt_truncation,omitempty"` // 默认值为"AUTO"
+	PromptTruncation string        `json:"prompt_truncation,omitempty"` // デフォルト值为"AUTO"
 	Connectors       []Connector   `json:"connectors,omitempty"`
 	Documents        []Document    `json:"documents,omitempty"`
-	Temperature      *float64      `json:"temperature,omitempty"` // 默认值为0.3
+	Temperature      *float64      `json:"temperature,omitempty"` // デフォルト值为0.3
 	MaxTokens        int           `json:"max_tokens,omitempty"`
 	MaxInputTokens   int           `json:"max_input_tokens,omitempty"`
-	K                int           `json:"k,omitempty"` // 默认值为0
-	P                *float64      `json:"p,omitempty"` // 默认值为0.75
+	K                int           `json:"k,omitempty"` // デフォルト值为0
+	P                *float64      `json:"p,omitempty"` // デフォルト值为0.75
 	Seed             int           `json:"seed,omitempty"`
 	StopSequences    []string      `json:"stop_sequences,omitempty"`
-	FrequencyPenalty *float64      `json:"frequency_penalty,omitempty"` // 默认值为0.0
-	PresencePenalty  *float64      `json:"presence_penalty,omitempty"`  // 默认值为0.0
+	FrequencyPenalty *float64      `json:"frequency_penalty,omitempty"` // デフォルト值为0.0
+	PresencePenalty  *float64      `json:"presence_penalty,omitempty"`  // デフォルト值为0.0
 	Tools            []Tool        `json:"tools,omitempty"`
 	ToolResults      []ToolResult  `json:"tool_results,omitempty"`
 }

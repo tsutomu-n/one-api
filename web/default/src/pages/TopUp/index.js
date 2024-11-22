@@ -12,7 +12,7 @@ const TopUp = () => {
 
   const topUp = async () => {
     if (redemptionCode === '') {
-      showInfo('请输入充值码！')
+      showInfo('チャージコードを入力してください！')
       return;
     }
     setIsSubmitting(true);
@@ -22,7 +22,7 @@ const TopUp = () => {
       });
       const { success, message, data } = res.data;
       if (success) {
-        showSuccess('充值成功！');
+        showSuccess('チャージに成功しました！');
         setUserQuota((quota) => {
           return quota + data;
         });
@@ -39,7 +39,7 @@ const TopUp = () => {
 
   const openTopUpLink = () => {
     if (!topUpLink) {
-      showError('超级管理员未设置充值链接！');
+      showError('スーパー管理者がチャージリンクを設定していません！');
       return;
     }
     let url = new URL(topUpLink);
@@ -76,12 +76,12 @@ const TopUp = () => {
 
   return (
     <Segment>
-      <Header as='h3'>充值额度</Header>
+      <Header as='h3'>チャージ割り当て</Header>
       <Grid columns={2} stackable>
         <Grid.Column>
           <Form>
             <Form.Input
-              placeholder='兑换码'
+              placeholder='交換コード'
               name='redemptionCode'
               value={redemptionCode}
               onChange={(e) => {
@@ -89,10 +89,10 @@ const TopUp = () => {
               }}
             />
             <Button color='green' onClick={openTopUpLink}>
-              充值
+              チャージ
             </Button>
             <Button color='yellow' onClick={topUp} disabled={isSubmitting}>
-                {isSubmitting ? '兑换中...' : '兑换'}
+                {isSubmitting ? '交換中...' : '交換'}
             </Button>
           </Form>
         </Grid.Column>
@@ -100,7 +100,7 @@ const TopUp = () => {
           <Statistic.Group widths='one'>
             <Statistic>
               <Statistic.Value>{renderQuota(userQuota)}</Statistic.Value>
-              <Statistic.Label>剩余额度</Statistic.Label>
+              <Statistic.Label>残り割り当て</Statistic.Label>
             </Statistic>
           </Statistic.Group>
         </Grid.Column>

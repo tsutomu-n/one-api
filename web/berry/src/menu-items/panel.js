@@ -31,7 +31,7 @@ const panel = {
     },
     {
       id: 'channel',
-      title: '渠道',
+      title: 'チャネル',
       type: 'item',
       url: '/panel/channel',
       icon: icons.IconSitemap,
@@ -40,7 +40,7 @@ const panel = {
     },
     {
       id: 'token',
-      title: '令牌',
+      title: 'APIキー',
       type: 'item',
       url: '/panel/token',
       icon: icons.IconKey,
@@ -48,7 +48,7 @@ const panel = {
     },
     {
       id: 'log',
-      title: '日志',
+      title: 'ログ',
       type: 'item',
       url: '/panel/log',
       icon: icons.IconArticle,
@@ -56,7 +56,7 @@ const panel = {
     },
     {
       id: 'redemption',
-      title: '兑换',
+      title: '交換',
       type: 'item',
       url: '/panel/redemption',
       icon: icons.IconCoin,
@@ -65,7 +65,7 @@ const panel = {
     },
     {
       id: 'topup',
-      title: '充值',
+      title: 'チャージ',
       type: 'item',
       url: '/panel/topup',
       icon: icons.IconGardenCart,
@@ -73,7 +73,7 @@ const panel = {
     },
     {
       id: 'user',
-      title: '用户',
+      title: 'ユーザー',
       type: 'item',
       url: '/panel/user',
       icon: icons.IconUser,
@@ -91,7 +91,7 @@ const panel = {
     },
     {
       id: 'setting',
-      title: '设置',
+      title: '設定',
       type: 'item',
       url: '/panel/setting',
       icon: icons.IconAdjustments,

@@ -16,9 +16,9 @@ services:
       - REDIS_CONN_STRING=redis://redis
       - SESSION_SECRET=random_string  # 修改为随机字符串
       - TZ=Asia/Shanghai
-#      - NODE_TYPE=slave  # 多机部署时从节点取消注释该行
-#      - SYNC_FREQUENCY=60  # 需要定期从数据库加载数据时取消注释该行
-#      - FRONTEND_BASE_URL=https://openai.justsong.cn  # 多机部署时从节点取消注释该行
+#      - NODE_TYPE=slave  # 多机部署时从节点キャンセル注释该行
+#      - SYNC_FREQUENCY=60  # 需要定期从数据库加载数据时キャンセル注释该行
+#      - FRONTEND_BASE_URL=https://openai.justsong.cn  # 多机部署时从节点キャンセル注释该行
     depends_on:
       - redis
       - db
@@ -42,8 +42,8 @@ services:
     ports:
       - '3306:3306'
     environment:
-      TZ: Asia/Shanghai   # 设置时区
-      MYSQL_ROOT_PASSWORD: 'OneAPI@justsong' # 设置 root 用户的密码
-      MYSQL_USER: oneapi   # 创建专用用户
-      MYSQL_PASSWORD: '123456'    # 设置专用用户密码
+      TZ: Asia/Shanghai   # 設定时区
+      MYSQL_ROOT_PASSWORD: 'OneAPI@justsong' # 設定 root ユーザー的パスワード
+      MYSQL_USER: oneapi   # 创建专用ユーザー
+      MYSQL_PASSWORD: '123456'    # 設定专用ユーザーパスワード
       MYSQL_DATABASE: one-api   # 自动创建数据库

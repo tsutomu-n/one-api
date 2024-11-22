@@ -21,7 +21,7 @@ const OidcOAuth = () => {
   const matchDownSM = useMediaQuery(theme.breakpoints.down('md'));
 
   const [searchParams] = useSearchParams();
-  const [prompt, setPrompt] = useState('处理中...');
+  const [prompt, setPrompt] = useState('処理中...');
   const { oidcLogin } = useLogin();
 
   let navigate = useNavigate();
@@ -33,13 +33,13 @@ const OidcOAuth = () => {
         showError(message);
       }
       if (count === 0) {
-        setPrompt(`操作失败，重定向至登录界面中...`);
+        setPrompt(`操作に失敗しました。ログイン画面にリダイレクトしています...`);
         await new Promise((resolve) => setTimeout(resolve, 2000));
         navigate('/login');
         return;
       }
       count++;
-      setPrompt(`出现错误，第 ${count} 次重试中...`);
+      setPrompt(`エラーが発生しました。${count}回目の再試行中...`);
       await new Promise((resolve) => setTimeout(resolve, 2000));
       await sendCode(code, state, count);
     }
@@ -69,7 +69,7 @@ const OidcOAuth = () => {
                       <Grid item>
                         <Stack alignItems="center" justifyContent="center" spacing={1}>
                           <Typography color={theme.palette.primary.main} gutterBottom variant={matchDownSM ? 'h3' : 'h2'}>
-                            OIDC 登录
+                            OIDC ログイン
                           </Typography>
                         </Stack>
                       </Grid>

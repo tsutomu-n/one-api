@@ -36,53 +36,53 @@ const SiderBar = () => {
 
   const headerButtons = useMemo(() => [
     {
-      text: '首页',
+      text: 'ホーム',
       itemKey: 'home',
       to: '/',
       icon: <IconHome />
     },
     {
-      text: '渠道',
+      text: 'チャネル',
       itemKey: 'channel',
       to: '/channel',
       icon: <IconLayers />,
       className: isAdmin() ? 'semi-navigation-item-normal' : 'tableHiddle'
     },
     {
-      text: '聊天',
+      text: 'チャット',
       itemKey: 'chat',
       to: '/chat',
       icon: <IconComment />,
       className: localStorage.getItem('chat_link') ? 'semi-navigation-item-normal' : 'tableHiddle'
     },
     {
-      text: '令牌',
+      text: 'APIキー',
       itemKey: 'token',
       to: '/token',
       icon: <IconKey />
     },
     {
-      text: '兑换',
+      text: '交換',
       itemKey: 'redemption',
       to: '/redemption',
       icon: <IconGift />,
       className: isAdmin() ? 'semi-navigation-item-normal' : 'tableHiddle'
     },
     {
-      text: '充值',
+      text: 'チャージ',
       itemKey: 'topup',
       to: '/topup',
       icon: <IconCreditCard />
     },
     {
-      text: '用户',
+      text: 'ユーザー',
       itemKey: 'user',
       to: '/user',
       icon: <IconUser />,
       className: isAdmin() ? 'semi-navigation-item-normal' : 'tableHiddle'
     },
     {
-      text: '日志',
+      text: 'ログ',
       itemKey: 'log',
       to: '/log',
       icon: <IconHistogram />
@@ -102,13 +102,13 @@ const SiderBar = () => {
       className: localStorage.getItem('enable_drawing') === 'true' ? 'semi-navigation-item-normal' : 'tableHiddle'
     },
     {
-      text: '设置',
+      text: '設定',
       itemKey: 'setting',
       to: '/setting',
       icon: <IconSetting />
     }
     // {
-    //     text: '关于',
+    //     text: 'バージョン情報',
     //     itemKey: 'about',
     //     to: '/about',
     //     icon: <IconAt/>
@@ -142,7 +142,7 @@ const SiderBar = () => {
         localStorage.removeItem('chat_link2');
       }
     } else {
-      showError('无法正常连接至服务器！');
+      showError('サーバーに正常に接続できません！');
     }
   };
 

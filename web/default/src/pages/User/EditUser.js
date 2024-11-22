@@ -76,7 +76,7 @@ const EditUser = () => {
     }
     const { success, message } = res.data;
     if (success) {
-      showSuccess('用户信息更新成功！');
+      showSuccess('ユーザー情報の更新に成功しました！');
     } else {
       showError(message);
     }
@@ -85,13 +85,13 @@ const EditUser = () => {
   return (
     <>
       <Segment loading={loading}>
-        <Header as='h3'>更新用户信息</Header>
+        <Header as='h3'>ユーザー情報を更新</Header>
         <Form autoComplete='new-password'>
           <Form.Field>
             <Form.Input
-              label='用户名'
+              label='ユーザー名'
               name='username'
-              placeholder={'请输入新的用户名'}
+              placeholder={'新しいユーザー名を入力してください'}
               onChange={handleInputChange}
               value={username}
               autoComplete='new-password'
@@ -99,10 +99,10 @@ const EditUser = () => {
           </Form.Field>
           <Form.Field>
             <Form.Input
-              label='密码'
+              label='パスワード'
               name='password'
               type={'password'}
-              placeholder={'请输入新的密码，最短 8 位'}
+              placeholder={'新しいパスワードを入力してください，最短 8 位'}
               onChange={handleInputChange}
               value={password}
               autoComplete='new-password'
@@ -110,9 +110,9 @@ const EditUser = () => {
           </Form.Field>
           <Form.Field>
             <Form.Input
-              label='显示名称'
+              label='表示名'
               name='display_name'
-              placeholder={'请输入新的显示名称'}
+              placeholder={'新しい表示名を入力してください'}
               onChange={handleInputChange}
               value={display_name}
               autoComplete='new-password'
@@ -122,14 +122,14 @@ const EditUser = () => {
             userId && <>
               <Form.Field>
                 <Form.Dropdown
-                  label='分组'
-                  placeholder={'请选择分组'}
+                  label='グループ'
+                  placeholder={'グループを選択してください'}
                   name='group'
                   fluid
                   search
                   selection
                   allowAdditions
-                  additionLabel={'请在系统设置页面编辑分组倍率以添加新的分组：'}
+                  additionLabel={'システム設定ページでグループレートを編集して、新しいグループを追加してください：'}
                   onChange={handleInputChange}
                   value={inputs.group}
                   autoComplete='new-password'
@@ -138,9 +138,9 @@ const EditUser = () => {
               </Form.Field>
               <Form.Field>
                 <Form.Input
-                  label={`剩余额度${renderQuotaWithPrompt(quota)}`}
+                  label={`残り割り当て${renderQuotaWithPrompt(quota)}`}
                   name='quota'
-                  placeholder={'请输入新的剩余额度'}
+                  placeholder={'新しい残り割り当てを入力してください'}
                   onChange={handleInputChange}
                   value={quota}
                   type={'number'}
@@ -151,36 +151,36 @@ const EditUser = () => {
           }
           <Form.Field>
             <Form.Input
-              label='已绑定的 GitHub 账户'
+              label='紐付け済みのGitHubアカウント'
               name='github_id'
               value={github_id}
               autoComplete='new-password'
-              placeholder='此项只读，需要用户通过个人设置页面的相关绑定按钮进行绑定，不可直接修改'
+              placeholder='この項目は読み取り専用です。ユーザーは個人設定ページの関連する紐付けボタンを使用して紐付ける必要があります。直接変更することはできません'
               readOnly
             />
           </Form.Field>
           <Form.Field>
             <Form.Input
-              label='已绑定的微信账户'
+              label='紐付け済みのWeChatアカウント'
               name='wechat_id'
               value={wechat_id}
               autoComplete='new-password'
-              placeholder='此项只读，需要用户通过个人设置页面的相关绑定按钮进行绑定，不可直接修改'
+              placeholder='この項目は読み取り専用です。ユーザーは個人設定ページの関連する紐付けボタンを使用して紐付ける必要があります。直接変更することはできません'
               readOnly
             />
           </Form.Field>
           <Form.Field>
             <Form.Input
-              label='已绑定的邮箱账户'
+              label='紐付け済みのメールアカウント'
               name='email'
               value={email}
               autoComplete='new-password'
-              placeholder='此项只读，需要用户通过个人设置页面的相关绑定按钮进行绑定，不可直接修改'
+              placeholder='この項目は読み取り専用です。ユーザーは個人設定ページの関連する紐付けボタンを使用して紐付ける必要があります。直接変更することはできません'
               readOnly
             />
           </Form.Field>
-          <Button onClick={handleCancel}>取消</Button>
-          <Button positive onClick={submit}>提交</Button>
+          <Button onClick={handleCancel}>キャンセル</Button>
+          <Button positive onClick={submit}>送信</Button>
         </Form>
       </Segment>
     </>

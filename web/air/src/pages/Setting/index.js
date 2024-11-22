@@ -9,7 +9,7 @@ import {Layout, TabPane, Tabs} from "@douyinfe/semi-ui";
 const Setting = () => {
     let panes = [
         {
-            tab: '个人设置',
+            tab: '個人設定',
             content: <PersonalSetting/>,
             itemKey: '1'
         }
@@ -17,17 +17,17 @@ const Setting = () => {
 
     if (isRoot()) {
         panes.push({
-            tab: '运营设置',
+            tab: '運用設定',
             content: <OperationSetting/>,
             itemKey: '2'
         });
         panes.push({
-            tab: '系统设置',
+            tab: 'システム設定',
             content: <SystemSetting/>,
             itemKey: '3'
         });
         panes.push({
-            tab: '其他设置',
+            tab: 'その他の設定',
             content: <OtherSetting/>,
             itemKey: '4'
         });

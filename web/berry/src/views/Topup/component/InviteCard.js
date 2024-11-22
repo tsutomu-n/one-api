@@ -49,7 +49,7 @@ const InviteCard = () => {
             邀请奖励
           </Typography>
           <Typography variant="body" sx={{ color: theme.palette.primary.dark }}>
-            分享您的邀请链接，邀请好友注册，即可获得奖励！
+            分享您的邀请链接，邀请好友登録，即可获得奖励！
           </Typography>
 
           <OutlinedInput
@@ -62,7 +62,7 @@ const InviteCard = () => {
             endAdornment={
               <InputAdornment position="end">
                 <Button variant="contained" onClick={handleInviteUrl}>
-                  {inviteUl ? '复制' : '生成'}
+                  {inviteUl ? 'コピー' : '生成'}
                 </Button>
               </InputAdornment>
             }

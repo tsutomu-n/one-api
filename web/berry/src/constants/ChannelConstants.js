@@ -97,7 +97,7 @@ export const CHANNEL_OPTIONS = {
   },
   26: {
     key: 26,
-    text: '百川大模型',
+    text: '百川大モデル',
     value: 26,
     color: 'primary'
   },
@@ -193,7 +193,7 @@ export const CHANNEL_OPTIONS = {
   },
   8: {
     key: 8,
-    text: '自定义渠道',
+    text: 'カスタムチャネル',
     value: 8,
     color: 'error'
   },
@@ -211,61 +211,61 @@ export const CHANNEL_OPTIONS = {
   },
   20: {
     key: 20,
-    text: '代理：OpenRouter',
+    text: 'プロキシ：OpenRouter',
     value: 20,
     color: 'success'
   },
   2: {
     key: 2,
-    text: '代理：API2D',
+    text: 'プロキシ：API2D',
     value: 2,
     color: 'success'
   },
   5: {
     key: 5,
-    text: '代理：OpenAI-SB',
+    text: 'プロキシ：OpenAI-SB',
     value: 5,
     color: 'success'
   },
   7: {
     key: 7,
-    text: '代理：OhMyGPT',
+    text: 'プロキシ：OhMyGPT',
     value: 7,
     color: 'success'
   },
   10: {
     key: 10,
-    text: '代理：AI Proxy',
+    text: 'プロキシ：AI Proxy',
     value: 10,
     color: 'success'
   },
   4: {
     key: 4,
-    text: '代理：CloseAI',
+    text: 'プロキシ：CloseAI',
     value: 4,
     color: 'success'
   },
   6: {
     key: 6,
-    text: '代理：OpenAI Max',
+    text: 'プロキシ：OpenAI Max',
     value: 6,
     color: 'success'
   },
   9: {
     key: 9,
-    text: '代理：AI.LS',
+    text: 'プロキシ：AI.LS',
     value: 9,
     color: 'success'
   },
   12: {
     key: 12,
-    text: '代理：API2GPT',
+    text: 'プロキシ：API2GPT',
     value: 12,
     color: 'success'
   },
   13: {
     key: 13,
-    text: '代理：AIGC2D',
+    text: 'プロキシ：AIGC2D',
     value: 13,
     color: 'success'
   }
